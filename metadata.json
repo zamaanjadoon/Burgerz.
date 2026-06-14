@@ -1,0 +1,6 @@
+{
+  "name": "FAST Burgerz",
+  "description": "A premium, responsive online food ordering website for FAST Burgerz in Islamabad, featuring interactive menu filters, customizable shopping cart, instant WhatsApp order compilation, live promo codes, and an administrative control panel.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
