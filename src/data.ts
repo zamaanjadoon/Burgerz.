@@ -146,7 +146,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     price: 200,
     category: 'wraps',
     description: 'Authentic local chicken shawarma rolled in flatbread with traditional spicy red sauce, creamy tahini style mayo spread, and pickled cucumber strips.',
-    image: 'https://images.unsplash.com/photo-1604908554044-9b2e6c6b8b7f?w=600&auto=format&fit=crop&q=80',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVjYIeoqAt7-ueX_9K9L0OFEmfZJvXJoow0Y6oNBg8Uw&s=10',
     rating: 4.8,
     isPopular: true,
     tags: ['Traditional', 'Value Deal'],

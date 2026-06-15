@@ -138,7 +138,7 @@ var INITIAL_PRODUCTS = [
     price: 200,
     category: "wraps",
     description: "Authentic local chicken shawarma rolled in flatbread with traditional spicy red sauce, creamy tahini style mayo spread, and pickled cucumber strips.",
-    image: "https://tahinis.com/wp-content/uploads/2026/03/Chicken-Shawarma-.png",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVjYIeoqAt7-ueX_9K9L0OFEmfZJvXJoow0Y6oNBg8Uw&s=10",
     rating: 4.8,
     isPopular: true,
     tags: ["Traditional", "Value Deal"]

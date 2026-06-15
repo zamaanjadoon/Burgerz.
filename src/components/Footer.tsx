@@ -64,7 +64,7 @@ export default function Footer() {
                     }}
                     className="hover:text-editorial-orange transition-colors cursor-pointer text-left"
                   >
-                    {item}
+                   {item}
                   </button>
                 </li>
               ))}
