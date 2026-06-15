@@ -94,7 +94,7 @@ var INITIAL_PRODUCTS = [
     price: 120,
     category: "fries",
     description: "Classic salted hand-cut crisp golden French fries, fried to perfection and seasoned with our home-made seasoning. Ideal savory side.",
-    image: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=600&auto=format&fit=crop&q=80",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRi0KO8uz6QJvyzsjQl608QpSjzNRdbNSGr3g&s",
     rating: 4.3,
     tags: ["Classic", "Vibe"]
   },
@@ -104,7 +104,7 @@ var INITIAL_PRODUCTS = [
     price: 150,
     category: "fries",
     description: "Our golden fries loaded with a rich dressing of customized creamy home-made garlic powder mayo and a sprinkling of minced parsley.",
-    image: "https://foodparliament.com/product/garlic-mayo-fries-293026",
+    image: "https://static.tossdown.com/images/cd443e3c-2599-46fb-8818-7f2b21841cd0.webp",
     rating: 4.6,
     isPopular: true,
     tags: ["Creamy", "Garlic"]
