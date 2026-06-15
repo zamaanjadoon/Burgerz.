@@ -61,7 +61,7 @@ var INITIAL_PRODUCTS = [
     price: 650,
     category: "burgers",
     description: "The monumental beast! Double crispy zinger chicken patties, layered with thick melted cheese, jalapeno pepper rings, and spicy Wahshi chili mayo.",
-    image: "https://images.unsplash.com/photo-1626700051175-6518c4793f4f?w=600&auto=format&fit=crop&q=80",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyU9PaA5jJ7smRhCLWFQFy0o9amfqtGRMYoTWAm_MvVQ&s=10",
     rating: 4.9,
     isPopular: true,
     tags: ["Double Chicken", "Gigantic", "Spicy"]
@@ -127,7 +127,7 @@ var INITIAL_PRODUCTS = [
     price: 420,
     category: "wraps",
     description: "Crispy structural golden zinger chicken strips wrapped in a warm soft tortilla, tossed with dynamic pepper mayo, crisp green cabbage and fresh lettuce.",
-    image: "https://i.aaj.tv/english/wp-content/uploads/2016/10/gif12",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4B7kjoKbFBkyT0vYNLzlX_K5xLGUqPrHFndqgJosuMQ&s=10",
     rating: 4.7,
     isPopular: true,
     tags: ["Crispy Chicken", "Wrap"]
@@ -138,7 +138,7 @@ var INITIAL_PRODUCTS = [
     price: 200,
     category: "wraps",
     description: "Authentic local chicken shawarma rolled in flatbread with traditional spicy red sauce, creamy tahini style mayo spread, and pickled cucumber strips.",
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSavBPCEeciKafVlqj1RfbTZHRxCFwNTRWF4SZ41oLL-g&s=10",
+    image: "https://tahinis.com/wp-content/uploads/2026/03/Chicken-Shawarma-.png",
     rating: 4.8,
     isPopular: true,
     tags: ["Traditional", "Value Deal"]
