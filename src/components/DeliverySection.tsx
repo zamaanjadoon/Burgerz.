@@ -11,6 +11,7 @@ export default function DeliverySection() {
     'Bharakahu Bazar Grid',
     'Kyani Road Sectors',
     'Green Valleys',
+    '17 Meel',
     'Phulgran Road Circles',
     'Sustained Quarters Direct Bounds',
   ];
