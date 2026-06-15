@@ -284,7 +284,8 @@ export default function App() {
               />
 
               {/* 2. Today's Promo advertisement banners list */}
-              <PromoBanners
+<PromoBanners
+                promotions={promotions}
                 onPromoClick={handlePromoApply}
                 onBrowseMenu={handlePromoBrowseSelection}
               />

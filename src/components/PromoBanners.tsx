@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Ticket, Clock, ArrowRight, Check } from 'lucide-react';
-import { PROMOTION_BANNERS } from '../data';
 import { Promotion } from '../types';
 
 interface PromoBannersProps {
+  promotions: Promotion[];
   onPromoClick: (promoCode: string) => void;
   onBrowseMenu: (category?: string) => void;
 }
 
-export default function PromoBanners({ onPromoClick, onBrowseMenu }: PromoBannersProps) {
+export default function PromoBanners({ promotions, onPromoClick, onBrowseMenu }: PromoBannersProps) {
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
 
   const handleCopyCode = (code: string) => {
@@ -43,7 +43,7 @@ export default function PromoBanners({ onPromoClick, onBrowseMenu }: PromoBanner
 
         {/* Promo Cards Grid (Sharp Rectangular Lookbook Style) */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6" id="promo-grid">
-          {PROMOTION_BANNERS.map((promo, index) => (
+          {promotions.map((promo, index) => (
             <motion.div
               key={promo.id}
               initial={{ opacity: 0, y: 15 }}
