@@ -53,7 +53,7 @@ export default function Footer() {
           {/* Column 2: Quick navigation anchors */}
           <div className="space-y-4">
             <h4 className="text-[10px] font-extrabold text-white uppercase tracking-[0.2em]">NAVIGATION REGISTRY</h4>
-            <ul className="space-y-2 text-[10px] font-extrabold uppercase ">
+            <ul className="space-y-2 text-[10px] font-extrabold uppercase tracking-widest">
               {['Home', 'Fresh Menu', 'Special Deals', 'Delivery coverage', 'Verified Reviews', 'Contact Coordinates'].map((item, idx) => (
                 <li key={idx}>
                   <button
@@ -64,7 +64,7 @@ export default function Footer() {
                     }}
                     className="hover:text-editorial-orange transition-colors cursor-pointer text-left"
                   >
-                    // {item}
+                    {item}
                   </button>
                 </li>
               ))}
