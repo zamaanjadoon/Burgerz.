@@ -88,7 +88,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     price: 650,
     category: 'burgers',
     description: 'Premium grilled chicken breast fillet smothered in melted cheddar, customized premium herb spices, layered with sautéed bell peppers and garlic-aioli squeeze.',
-    image: 'https://stock.adobe.com/search?k=grill+chicken+burger',
+    image: 'https://www.shutterstock.com/image-photo/chicken-burger-isolated-on-transparent-260nw-2618558073.jpg',
     rating: 4.8,
     isNew: true,
     tags: ['Grilled', 'Exclusive', 'Premium'],
