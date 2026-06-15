@@ -200,7 +200,7 @@ export default function Reviews({ reviews, onAddReview }: ReviewsProps) {
                     <img
                       src={rev.avatar}
                       alt={rev.name}
-                      referrerPolicy="referrer"
+                      referrerPolicy="no-referrer"
                       className="w-full h-full object-cover filter grayscale"
                       onError={(e) => {
                         (e.target as HTMLElement).style.display = 'none';
