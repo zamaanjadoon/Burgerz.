@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
-import PromoBanners from './components/PromoBanners';
+
 import MenuSection from './components/MenuSection';
-import SpecialOffers from './components/SpecialOffers';
 import Reviews from './components/Reviews';
 import DeliverySection from './components/DeliverySection';
 import Contact from './components/Contact';
@@ -12,9 +11,9 @@ import OrderTracker from './components/OrderTracker';
 import AdminPanel from './components/AdminPanel';
 import Footer from './components/Footer';
 
-import { Product, CartItem, Order, Review, Promotion } from './types';
-import { BRAND_INFO, INITIAL_PRODUCTS, INITIAL_REVIEWS, PROMOTION_BANNERS } from './data';
-import { fetchProducts, fetchPromotions, fetchReviews, createOrder } from './api';
+import { Product, CartItem, Order, Review } from './types';
+import { BRAND_INFO, INITIAL_PRODUCTS, INITIAL_REVIEWS } from './data';
+import { createOrder } from './api';
 
 import { motion, AnimatePresence } from 'motion/react';
 import { Sparkles, CheckCircle2, ShoppingBag } from 'lucide-react';
@@ -46,10 +45,7 @@ export default function App() {
     return saved ? JSON.parse(saved) : INITIAL_REVIEWS;
   });
 
-  const [promotions, setPromotions] = useState<Promotion[]>(() => {
-    const saved = localStorage.getItem('fb_promotions');
-    return saved ? JSON.parse(saved) : PROMOTION_BANNERS;
-  });
+
 
   // Whether we successfully loaded live data from backend.
   const [liveReady, setLiveReady] = useState(false);
@@ -81,7 +77,7 @@ export default function App() {
     localStorage.setItem('fb_cart', JSON.stringify(cartItems));
   }, [cartItems]);
 
-  // Keep products/reviews/promotions locally as fallback only.
+  // Keep products/reviews locally as fallback only.
   // If backend is live, we overwrite these shortly after mount.
   useEffect(() => {
     if (!liveReady) localStorage.setItem('fb_products', JSON.stringify(products));
@@ -90,10 +86,6 @@ export default function App() {
   useEffect(() => {
     if (!liveReady) localStorage.setItem('fb_reviews', JSON.stringify(reviews));
   }, [reviews, liveReady]);
-
-  useEffect(() => {
-    if (!liveReady) localStorage.setItem('fb_promotions', JSON.stringify(promotions));
-  }, [promotions, liveReady]);
 
   // Orders: backend-only (per your choice). Keep local copy only as temporary UI buffer.
   useEffect(() => {
@@ -205,22 +197,9 @@ export default function App() {
     triggerToast('Thank you! Testimonial published instantly to feed ⭐');
   };
 
-  // --- Promo code auto typing filter ---
-  const handlePromoApply = (codeToApply: string) => {
-    triggerToast(`Coupon code '${codeToApply}' copied! Fill checkout form in basket to apply.`);
-    setIsCartOpen(true);
-  };
-
-  // --- Quick category prefiltering scroll ---
-  const handlePromoBrowseSelection = (category?: string) => {
-    if (category) {
-      setPreselectedCategory(category);
-    } else {
-      setPreselectedCategory('all');
-    }
-    const menuEl = document.getElementById('menu');
-    if (menuEl) menuEl.scrollIntoView({ behavior: 'smooth' });
-  };
+  // promotions removed
+  const handlePromoApply = (_codeToApply: string) => {};
+  const handlePromoBrowseSelection = (_category?: string) => {};
 
   // --- Direct global prefilled WhatsApp trigger ---
   const handleGlobalWhatsAppClick = () => {
@@ -263,8 +242,8 @@ export default function App() {
                 setProducts={setProducts}
                 orders={orders}
                 setOrders={setOrders}
-                promotions={promotions}
-                setPromotions={setPromotions}
+                promotions={[]}
+                setPromotions={() => {}}
                 onClose={() => setIsAdminMode(false)}
               />
             </motion.div>
@@ -279,18 +258,15 @@ export default function App() {
             >
               {/* 1. Large Hero presentation with sliders */}
               <Hero
-                onOrderOnlineClick={() => handlePromoBrowseSelection()}
+                onOrderOnlineClick={() => {
+                  // promotions removed
+                  const menuEl = document.getElementById('menu');
+                  if (menuEl) menuEl.scrollIntoView({ behavior: 'smooth' });
+                }}
                 onWhatsAppOrderClick={handleGlobalWhatsAppClick}
               />
 
-              {/* 2. Today's Promo advertisement banners list */}
-<PromoBanners
-                promotions={promotions}
-                onPromoClick={handlePromoApply}
-                onBrowseMenu={handlePromoBrowseSelection}
-              />
-
-              {/* 3. Central Interactive Menu and Custom Cards Section */}
+              {/* 2. Central Interactive Menu and Custom Cards Section */}
               <MenuSection
                 products={products}
                 favorites={favorites}
@@ -301,10 +277,7 @@ export default function App() {
                 preselectedCategory={preselectedCategory}
               />
 
-              {/* 4. Special Offers Grid section (Buy 2 burgers free fries etc) */}
-              <SpecialOffers />
-
-              {/* 5. Online Order status Visual tracker */}
+              {/* 4. Online Order status Visual tracker */}
               <OrderTracker orders={orders} />
 
               {/* 6. High-velocity Deliveries estimates info cards */}
