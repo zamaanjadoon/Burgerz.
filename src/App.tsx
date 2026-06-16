@@ -211,9 +211,9 @@ export default function App() {
   const cartTotalItemsCount = cartItems.reduce((acc, curr) => acc + curr.quantity, 0);
 
   return (
-    <div className="min-h-screen bg-neutral-950 font-sans selection:bg-orange-500 selection:text-black antialiased overflow-x-hidden pb-28 sm:pb-32">
+    <div className="min-h-screen bg-editorial-dark text-editorial-cream font-sans selection:bg-editorial-orange selection:text-black antialiased overflow-x-hidden pb-28 sm:pb-32">
       
-      {/* Sticky Global Navbar Header */}
+      {/* Fixed Global Navbar Header */}
       <Header
         cartCount={cartTotalItemsCount}
         openCart={() => setIsCartOpen(true)}
@@ -227,7 +227,7 @@ export default function App() {
       />
 
       {/* Primary Layout Switch between Admin backoffice or standard client homepage */}
-      <main className="relative">
+      <main className="relative pt-[88px]">
         <AnimatePresence mode="wait">
           {isAdminMode ? (
             <motion.div

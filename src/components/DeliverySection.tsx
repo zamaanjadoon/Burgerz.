@@ -17,7 +17,7 @@ export default function DeliverySection() {
   ];
 
   return (
-    <section id="delivery" className="bg-editorial-dark py-20 scroll-mt-20 border-b border-white/10 editorial-grid">
+    <section id="delivery" className="bg-editorial-dark py-20 scroll-mt-20 border-b border-editorial editorial-grid">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Header content block */}
@@ -28,7 +28,7 @@ export default function DeliverySection() {
           <h2 className="text-4xl font-light text-white font-serif italic mt-1 tracking-tight">
             Delivery Estimates & Coverage
           </h2>
-          <hr className="w-16 border-white/20 mx-auto mt-4" />
+          <hr className="w-16 border-editorial mx-auto mt-4" />
         </div>
 
         {/* Info modules grids */}
@@ -45,24 +45,24 @@ export default function DeliverySection() {
 
             {/* Sharp boxes instead of rounded pills */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-              <div className="p-4 rounded-none bg-[#0c0c0c] border border-white/5 flex flex-col items-center text-center">
-                <div className="p-2 bg-white/5 text-editorial-orange mb-3 border border-white/10">
+              <div className="p-4 rounded-none bg-editorial-darker border border-editorial flex flex-col items-center text-center">
+                <div className="p-2 bg-white/5 text-editorial-orange mb-3 border border-editorial">
                   <Bike size={18} className="animate-pulse" />
                 </div>
                 <h4 className="text-[10px] font-extrabold text-white uppercase tracking-wider">Fast Courier</h4>
                 <p className="text-[9px] font-mono text-white/45 mt-1">20–40 Mins dispatch</p>
               </div>
 
-              <div className="p-4 rounded-none bg-[#0c0c0c] border border-white/5 flex flex-col items-center text-center">
-                <div className="p-2 bg-white/5 text-editorial-orange mb-3 border border-white/10">
+              <div className="p-4 rounded-none bg-editorial-darker border border-editorial flex flex-col items-center text-center">
+                <div className="p-2 bg-white/5 text-editorial-orange mb-3 border border-editorial">
                   <DollarSign size={18} />
                 </div>
                 <h4 className="text-[10px] font-extrabold text-white uppercase tracking-wider">COD Dispatch</h4>
                 <p className="text-[9px] font-mono text-white/45 mt-1">Pay on threshold</p>
               </div>
 
-              <div className="p-4 rounded-none bg-[#0c0c0c] border border-white/5 flex flex-col items-center text-center">
-                <div className="p-2 bg-white/5 text-editorial-orange mb-3 border border-white/10">
+              <div className="p-4 rounded-none bg-editorial-darker border border-editorial flex flex-col items-center text-center">
+                <div className="p-2 bg-white/5 text-editorial-orange mb-3 border border-editorial">
                   <Smartphone size={18} />
                 </div>
                 <h4 className="text-[10px] font-extrabold text-white uppercase tracking-wider">Digi-Pay</h4>
@@ -71,7 +71,7 @@ export default function DeliverySection() {
             </div>
 
             {/* Quick checkout instruction alerts (Lookbook table borders) */}
-            <div className="p-5 rounded-none bg-neutral-950 border border-white/10 space-y-3.5">
+            <div className="p-5 rounded-none bg-editorial-darker border border-editorial space-y-3.5">
               <h4 className="text-[10px] font-extrabold text-editorial-orange uppercase tracking-[0.2em]">DELIVERY PRICING REGISTRY:</h4>
               <ul className="text-xs text-white/70 space-y-2 list-none font-semibold">
                 <li className="flex items-center">
@@ -91,8 +91,8 @@ export default function DeliverySection() {
           </div>
 
           {/* Coverage maps & boundaries list right side */}
-          <div className="p-6 rounded-none bg-neutral-950 border border-white/10 space-y-6">
-            <h3 className="text-xs font-black text-white uppercase tracking-widest pb-3 border-b border-white/10 flex items-center justify-between">
+          <div className="p-6 rounded-none bg-editorial-darker border border-editorial space-y-6">
+            <h3 className="text-xs font-black text-white uppercase tracking-widest pb-3 border-b border-editorial flex items-center justify-between">
               <span>Coverage Boundaries (Islamabad)</span>
               <span className="text-[9px] font-mono text-editorial-orange">● BHARAKAHU CENTRAL</span>
             </h3>
@@ -101,7 +101,7 @@ export default function DeliverySection() {
               {coverageAreas.map((area, index) => (
                 <div
                   key={index}
-                  className="flex items-center space-x-2 text-[10px] font-bold uppercase tracking-wider text-white/60 bg-white/5 p-3 rounded-none border border-white/5"
+                  className="flex items-center space-x-2 text-[10px] font-bold uppercase tracking-wider text-white/60 bg-editorial-dark p-3 rounded-none border border-editorial"
                 >
                   <span className="h-1.5 w-1.5 bg-editorial-orange" />
                   <span>{area}</span>
@@ -110,7 +110,7 @@ export default function DeliverySection() {
             </div>
 
             {/* Digital Transfers guide and logos */}
-            <div className="pt-4 border-t border-white/5 space-y-3.5">
+            <div className="pt-4 border-t border-editorial space-y-3.5">
               <h4 className="text-[10px] font-extrabold text-white uppercase tracking-[0.18em]">M-Wallet Mobile Transfers</h4>
               <p className="text-[11px] text-white/45 leading-relaxed font-semibold">
                 Transfer securely to M. D. M. Irfan’s official phone credentials during order checkout. Send Easypaisa or JazzCash in seconds and present transmission snapshot to courier upon arrival.

@@ -39,11 +39,11 @@ export default function Reviews({ reviews, onAddReview }: ReviewsProps) {
   };
 
   return (
-    <section id="reviews" className="bg-black py-20 scroll-mt-20 border-b border-white/10 editorial-grid">
+    <section id="reviews" className="bg-editorial-dark py-20 scroll-mt-20 border-b border-editorial editorial-grid">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Title Block Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 pb-4 border-b border-white/10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 pb-4 border-b border-editorial">
           <div className="text-left">
             <span className="text-[10px] font-extrabold tracking-[0.25em] text-editorial-orange uppercase block mb-1">
               GUEST LOG & VERIFICATIONS
@@ -69,7 +69,7 @@ export default function Reviews({ reviews, onAddReview }: ReviewsProps) {
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.98 }}
-              className="bg-neutral-950 rounded-none border border-white/10 p-6 mb-12 shadow-2xl"
+              className="bg-editorial-darker rounded-none border border-editorial p-6 mb-12 shadow-2xl"
               id="review-form-panel"
             >
               <h3 className="text-xs uppercase tracking-widest font-extrabold text-white flex items-center mb-5">
@@ -91,7 +91,7 @@ export default function Reviews({ reviews, onAddReview }: ReviewsProps) {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         placeholder="e.g. Abdullah Khan"
-                        className="w-full bg-black text-white rounded-none border border-white/10 px-3 py-2 text-xs font-semibold focus:outline-none focus:border-editorial-orange/50"
+                        className="w-full bg-editorial-dark text-editorial-cream rounded-none border border-editorial px-3 py-2 text-xs font-semibold focus:outline-none focus:border-editorial-orange/50"
                       />
                     </div>
                     <div>
@@ -99,7 +99,7 @@ export default function Reviews({ reviews, onAddReview }: ReviewsProps) {
                       <select
                         value={tag}
                         onChange={(e) => setTag(e.target.value)}
-                        className="w-full bg-black text-white rounded-none border border-white/10 px-3 py-2 text-xs font-semibold focus:outline-none focus:border-editorial-orange/50"
+                        className="w-full bg-editorial-dark text-editorial-cream rounded-none border border-editorial px-3 py-2 text-xs font-semibold focus:outline-none focus:border-editorial-orange/50"
                       >
                         <option value="Hostel Boy">Hostel Boy / Resident</option>
                         <option value="Islamabad Local">Islamabad Resident</option>
@@ -137,7 +137,7 @@ export default function Reviews({ reviews, onAddReview }: ReviewsProps) {
                       onChange={(e) => setComment(e.target.value)}
                       placeholder="Comment on beef smashed patty texture, slider bun softness near soneri bank, crunchiness of fries..."
                       rows={3}
-                      className="w-full bg-black text-white rounded-none border border-white/10 p-3 text-xs font-semibold focus:outline-none focus:border-editorial-orange/50 placeholder:text-white/20"
+                      className="w-full bg-editorial-dark text-editorial-cream rounded-none border border-editorial p-3 text-xs font-semibold focus:outline-none focus:border-editorial-orange/50 placeholder:text-white/20"
                     />
                   </div>
 
@@ -145,7 +145,7 @@ export default function Reviews({ reviews, onAddReview }: ReviewsProps) {
                     <button
                       type="button"
                       onClick={() => setShowReviewForm(false)}
-                      className="px-4 py-2 border border-white/10 rounded-none text-[10px] uppercase font-bold tracking-widest text-white/50 hover:bg-white/5 active:scale-95 transition-all"
+                      className="px-4 py-2 border border-editorial rounded-none text-[10px] uppercase font-bold tracking-widest text-white/50 hover:bg-white/5 active:scale-95 transition-all"
                     >
                       Close Form
                     </button>
@@ -170,7 +170,7 @@ export default function Reviews({ reviews, onAddReview }: ReviewsProps) {
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="relative p-6 rounded-none bg-neutral-950 border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between"
+              className="relative p-6 rounded-none bg-editorial-darker border border-editorial hover:border-editorial-strong transition-all flex flex-col justify-between"
               id={`review-card-${rev.id}`}
             >
               <Quote className="absolute top-4 right-4 text-white/5 pointer-events-none" size={32} />
@@ -194,8 +194,8 @@ export default function Reviews({ reviews, onAddReview }: ReviewsProps) {
               </div>
 
               {/* Author Info (Lookbook minimalist layout) */}
-              <div className="flex items-center space-x-3 mt-6 pt-4 border-t border-white/5">
-                <div className="w-8 h-8 rounded-none overflow-hidden bg-white/5 border border-white/10 flex items-center justify-center">
+              <div className="flex items-center space-x-3 mt-6 pt-4 border-t border-editorial">
+                <div className="w-8 h-8 rounded-none overflow-hidden bg-white/5 border border-editorial flex items-center justify-center">
                   {rev.avatar ? (
                     <img
                       src={rev.avatar}
@@ -213,7 +213,7 @@ export default function Reviews({ reviews, onAddReview }: ReviewsProps) {
                 <div>
                   <h4 className="text-xs font-bold text-white uppercase tracking-wide">{rev.name}</h4>
                   <div className="flex items-center space-x-1.5 mt-0.5">
-                    <span className="text-[8px] font-extrabold tracking-wider text-editorial-gold uppercase font-mono bg-white/5 border border-white/10 px-1.5 py-0.2">
+                    <span className="text-[8px] font-extrabold tracking-wider text-editorial-gold uppercase font-mono bg-white/5 border border-editorial px-1.5 py-0.2">
                       {rev.tag || 'Verified Client'}
                     </span>
                     <span className="text-[8px] text-white/30 font-bold font-mono">{rev.date}</span>

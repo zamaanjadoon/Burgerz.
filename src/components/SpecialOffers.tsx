@@ -5,7 +5,7 @@ import { SPECIAL_OFFERS } from '../data';
 
 export default function SpecialOffers() {
   return (
-    <section id="offers" className="bg-black py-20 border-b border-white/10 scroll-mt-20">
+    <section id="offers" className="bg-editorial-dark py-20 border-b border-editorial scroll-mt-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Section Title */}
@@ -31,7 +31,7 @@ export default function SpecialOffers() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.08 }}
-              className="flex gap-4 p-6 rounded-none bg-[#0c0c0c] border border-white/5 hover:border-white/10 transition-all duration-300"
+              className="flex gap-4 p-6 rounded-none bg-editorial-darker border border-editorial hover:border-editorial-strong transition-all duration-300"
               id={`offer-card-${offer.id}`}
             >
               {/* Feature Icon Column (Sharp box instead of round) */}
@@ -52,7 +52,7 @@ export default function SpecialOffers() {
                 <p className="text-xs text-white/45 leading-relaxed font-semibold">
                   {offer.description}
                 </p>
-                <div className="pt-2 border-t border-white/5 flex items-center space-x-1.5 text-[10px] font-bold text-editorial-gold font-mono">
+                <div className="pt-2 border-t border-editorial flex items-center space-x-1.5 text-[10px] font-bold text-editorial-gold font-mono">
                   <span className="border border-editorial-gold/20 px-1.5 py-0.2 text-[8px] select-none uppercase tracking-wider bg-editorial-gold/5">
                     TERMS
                   </span>
@@ -64,7 +64,7 @@ export default function SpecialOffers() {
         </div>
 
         {/* Instant Hostel Service Banner Ad - Lookbook Minimalist Advertisement */}
-        <div className="mt-16 p-8 bg-neutral-950 border border-white/10 flex flex-col md:flex-row items-center justify-between gap-6 rounded-none">
+        <div className="mt-16 p-8 bg-editorial-darker border border-editorial flex flex-col md:flex-row items-center justify-between gap-6 rounded-none">
           <div className="flex items-center space-x-4 text-center md:text-left">
             <div className="px-3 py-2 bg-editorial-orange text-black font-serif italic font-extrabold text-base rounded-none select-none">
               Note

@@ -185,11 +185,11 @@ export default function ShoppingCart({
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 24, stiffness: 200 }}
-            className="fixed top-0 right-0 z-[200] h-full w-full max-w-md bg-neutral-950 border-l border-white/10 shadow-2xl flex flex-col justify-between rounded-none"
+            className="fixed top-0 right-0 z-[200] h-full w-full max-w-md bg-editorial-darker border-l border-editorial shadow-2xl flex flex-col justify-between rounded-none"
             id="cart-drawer-panel"
           >
             {/* Header Column details (Editorial header style) */}
-            <div className="flex h-16 items-center justify-between px-6 border-b border-white/10 bg-[#0c0c0c]">
+            <div className="flex h-16 items-center justify-between px-6 border-b border-editorial bg-editorial-dark">
               <div className="flex items-center space-x-2">
                 <span className="text-sm font-extrabold text-white tracking-[0.2em] uppercase">BASKET REGISTRY</span>
                 <span className="bg-editorial-orange text-black px-2 py-0.5 rounded-none text-[9px] font-mono font-black select-none">
@@ -198,7 +198,7 @@ export default function ShoppingCart({
               </div>
               <button
                 onClick={onClose}
-                className="p-1.5 rounded-none hover:bg-white/5 border border-white/5 text-white/50 hover:text-white transition-all"
+                className="p-1.5 rounded-none hover:bg-white/5 border border-editorial text-white/50 hover:text-white transition-all"
                 id="cart-drawer-close"
               >
                 <X size={15} />
@@ -227,13 +227,13 @@ export default function ShoppingCart({
                     {cartItems.map((item) => (
                       <div
                         key={item.product.id}
-                        className="flex items-center justify-between gap-3 p-3 rounded-none bg-black border border-white/10"
+                        className="flex items-center justify-between gap-3 p-3 rounded-none bg-editorial-dark border border-editorial"
                         id={`cart-item-${item.product.id}`}
                       >
                         <img
                           src={item.product.image}
                           alt={item.product.name}
-                          className="w-10 h-10 object-cover flex-shrink-0 border border-white/10 rounded-none filter grayscale hover:grayscale-0"
+                          className="w-10 h-10 object-cover flex-shrink-0 border border-editorial rounded-none filter grayscale hover:grayscale-0"
                           onError={(e) => {
                             (e.target as HTMLElement).style.display = 'none';
                           }}
@@ -244,7 +244,7 @@ export default function ShoppingCart({
                         </div>
 
                         {/* Quantity controls */}
-                        <div className="flex items-center space-x-2 bg-neutral-950 px-1.5 py-0.5 border border-white/5">
+                        <div className="flex items-center space-x-2 bg-editorial-darker px-1.5 py-0.5 border border-editorial">
                           <button
                             onClick={() => updateCartQty(item.product.id, item.quantity - 1)}
                             className="text-white/40 hover:text-white active:scale-90"
@@ -267,7 +267,7 @@ export default function ShoppingCart({
                         {/* Removal button */}
                         <button
                           onClick={() => removeFromCart(item.product.id)}
-                          className="p-1 border border-white/5 hover:border-red-500/20 text-white/30 hover:text-red-400 aspect-square rounded-none transition-all"
+                          className="p-1 border border-editorial hover:border-red-500/20 text-white/30 hover:text-red-400 aspect-square rounded-none transition-all"
                           id={`cart-item-remove-${item.product.id}`}
                           title="Remove item"
                         >
@@ -278,7 +278,7 @@ export default function ShoppingCart({
                   </div>
 
                   {/* Promo Coupons Section */}
-                  <div className="p-4 bg-[#0a0a0a] border border-white/5 space-y-3 rounded-none">
+                  <div className="p-4 bg-editorial-dark border border-editorial space-y-3 rounded-none">
                     <label className="block text-[10px] font-extrabold text-white/55 uppercase tracking-[0.2em] flex items-center">
                       <Ticket size={11} className="text-editorial-orange mr-1.5" /> Promo Voucher Code
                     </label>
@@ -291,7 +291,7 @@ export default function ShoppingCart({
                           setCouponError('');
                         }}
                         placeholder="HOSTELDEAL, WELCOME50"
-                        className="flex-1 bg-black text-white rounded-none border border-white/10 px-3 py-1.5 text-xs font-mono uppercase focus:outline-none focus:border-editorial-orange/50 placeholder:text-white/20"
+                        className="flex-1 bg-editorial-darker text-white rounded-none border border-editorial px-3 py-1.5 text-xs font-mono uppercase focus:outline-none focus:border-editorial-orange/50 placeholder:text-white/20"
                       />
                       <button
                         type="button"
@@ -319,7 +319,7 @@ export default function ShoppingCart({
 
                   {/* Shipping Info Form */}
                   <form onSubmit={handleCheckoutSubmit} className="space-y-4" id="checkout-shipping-form">
-                    <h3 className="text-[10px] font-extrabold text-white uppercase tracking-[0.2em] border-b border-white/5 pb-2">
+                    <h3 className="text-[10px] font-extrabold text-white uppercase tracking-[0.2em] border-b border-editorial pb-2">
                       COURIER DELIVER TO COORDINATES
                     </h3>
 
@@ -331,7 +331,7 @@ export default function ShoppingCart({
                           value={customerName}
                           onChange={(e) => setCustomerName(e.target.value)}
                           placeholder="Your Name / Hostel Room"
-                          className="w-full bg-black text-white rounded-none border border-white/10 px-3 py-2 text-xs font-semibold focus:outline-none focus:border-editorial-orange/50"
+                          className="w-full bg-editorial-darker text-white rounded-none border border-editorial px-3 py-2 text-xs font-semibold focus:outline-none focus:border-editorial-orange/50"
                         />
                       </div>
                       <div>
@@ -341,7 +341,7 @@ export default function ShoppingCart({
                           value={customerPhone}
                           onChange={(e) => setCustomerPhone(e.target.value)}
                           placeholder="Contact phone coordinate (e.g. 03xx-xxxxxxx)"
-                          className="w-full bg-black text-white rounded-none border border-white/10 px-3 py-2 text-xs font-mono focus:outline-none focus:border-editorial-orange/50"
+                          className="w-full bg-editorial-darker text-white rounded-none border border-editorial px-3 py-2 text-xs font-mono focus:outline-none focus:border-editorial-orange/50"
                         />
                       </div>
                       <div>
@@ -351,7 +351,7 @@ export default function ShoppingCart({
                           onChange={(e) => setDeliveryAddress(e.target.value)}
                           placeholder="Specific Location coordinates (Hostel Room, Soneri Bank Block, Bharakahu, Islamabad)"
                           rows={2}
-                          className="w-full bg-black text-white rounded-none border border-white/10 p-3 text-xs font-semibold focus:outline-none focus:border-editorial-orange/50 placeholder:text-white/20"
+                          className="w-full bg-editorial-darker text-white rounded-none border border-editorial p-3 text-xs font-semibold focus:outline-none focus:border-editorial-orange/50 placeholder:text-white/20"
                         />
                       </div>
 
@@ -361,15 +361,15 @@ export default function ShoppingCart({
                           Payment mode parameters / index
                         </label>
                         <div className="grid grid-cols-3 gap-1.5">
-                          {(['Cash on Delivery', 'Easypaisa', 'JazzCash'] as const).map((method) => (
+                          {['Cash on Delivery', 'Easypaisa', 'JazzCash'].map((method) => (
                             <button
                               key={method}
                               type="button"
-                              onClick={() => setPaymentMethod(method)}
+                              onClick={() => setPaymentMethod(method as any)}
                               className={`py-2 rounded-none text-[8px] font-bold text-center tracking-widest uppercase border transition-all ${
                                 paymentMethod === method
                                   ? 'bg-editorial-orange text-black border-editorial-orange font-extrabold'
-                                  : 'bg-black text-white/50 border-white/10 hover:text-white'
+                                  : 'bg-editorial-darker text-white/50 border-editorial hover:text-white'
                               }`}
                             >
                               {method === 'Cash on Delivery' ? 'Cash/COD' : method}
@@ -384,13 +384,13 @@ export default function ShoppingCart({
                           value={orderNotes}
                           onChange={(e) => setOrderNotes(e.target.value)}
                           placeholder="Special instructions: (e.g., extra spicy, no onion)"
-                          className="w-full bg-black text-white rounded-none border border-white/10 px-3 py-2 text-xs font-semibold focus:outline-none focus:border-editorial-orange/50"
+                          className="w-full bg-editorial-darker text-white rounded-none border border-editorial px-3 py-2 text-xs font-semibold focus:outline-none focus:border-editorial-orange/50"
                         />
                       </div>
                     </div>
 
                     {/* Slashed-price high contrast lookbook total list */}
-                    <div className="bg-[#0c0c0c] p-4 rounded-none border border-white/10 space-y-2 text-[11px] font-mono uppercase tracking-wider text-white/60">
+                    <div className="bg-editorial-dark p-4 rounded-none border border-editorial space-y-2 text-[11px] font-mono uppercase tracking-wider text-white/60">
                       <div className="flex justify-between">
                         <span>Items Subtotal:</span>
                         <span className="text-white">Rs. {subtotal}</span>
@@ -405,7 +405,7 @@ export default function ShoppingCart({
                         <span>Courier Tariff:</span>
                         <span>{deliveryCharges === 0 ? <strong className="text-green-400 font-bold">FREE</strong> : `Rs. ${deliveryCharges}`}</span>
                       </div>
-                      <hr className="border-white/5 my-1" />
+                      <hr className="border-editorial my-1" />
                       <div className="flex justify-between text-white font-extrabold text-xs">
                         <span>Grand Total:</span>
                         <span className="text-editorial-gold font-black underline decoration-editorial-orange">Rs. {total}</span>
@@ -423,7 +423,7 @@ export default function ShoppingCart({
                       disabled={subtotal < BRAND_INFO.minDeliveryOrder || isPlacing}
                       className={`w-full py-3.5 rounded-none text-[10px] font-extrabold uppercase tracking-[0.22em] flex items-center justify-center transition-all ${
                         subtotal < BRAND_INFO.minDeliveryOrder
-                          ? 'bg-neutral-900 border border-white/5 text-white/20 cursor-not-allowed'
+                          ? 'bg-editorial-darker border border-editorial text-white/20 cursor-not-allowed'
                           : 'bg-white border border-transparent text-black hover:bg-editorial-orange hover:text-black cursor-pointer'
                       }`}
                       id="submit-order-checkout"
@@ -436,7 +436,7 @@ export default function ShoppingCart({
             </div>
 
             {/* Footer trust badge */}
-            <div className="p-4 bg-black border-t border-white/5 text-center flex items-center justify-center space-x-1.5 text-[8px] font-mono uppercase tracking-widest text-white/30 select-none">
+            <div className="p-4 bg-editorial-darker border-t border-editorial text-center flex items-center justify-center space-x-1.5 text-[8px] font-mono uppercase tracking-widest text-white/30 select-none">
               <ShieldCheck size={10} className="text-editorial-orange" />
               <span>Direct encrypted coordinates with FAST Burgerz Dispatch</span>
             </div>

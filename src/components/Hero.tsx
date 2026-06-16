@@ -113,7 +113,7 @@ export default function Hero({ onOrderOnlineClick, onWhatsAppOrderClick }: HeroP
               {/* Call Dispatcher Hotkey */}
               <button
                 onClick={handleCallNow}
-                className="px-6 py-4 bg-zinc-900 border border-white/10 text-editorial-gold font-bold text-xs uppercase tracking-[0.2em] hover:text-white transition-all rounded-none cursor-pointer"
+                className="px-6 py-4 bg-editorial-darker border border-editorial text-editorial-gold font-bold text-xs uppercase tracking-[0.2em] hover:text-white transition-all rounded-none cursor-pointer"
                 id="hero-btn-call"
               >
                 Call: 03409631937
@@ -127,7 +127,7 @@ export default function Hero({ onOrderOnlineClick, onWhatsAppOrderClick }: HeroP
               initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6 }}
-              className="relative w-full max-w-[360px] aspect-[4/5] bg-neutral-900 p-3 border border-white/10 rounded-none shadow-2xl"
+              className="relative w-full max-w-[360px] aspect-[4/5] bg-editorial-darker p-3 border border-editorial rounded-none shadow-2xl"
               id="hero-image-wrapper"
             >
               {/* Image Container with Editorial Frame */}

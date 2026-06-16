@@ -66,14 +66,14 @@ export default function OrderTracker({ orders }: OrderTrackerProps) {
         </div>
 
         {/* Track Submission form (Sharp Editorial inputs) */}
-        <div className="max-w-xl mx-auto bg-neutral-950 p-6 rounded-none border border-white/10 shadow-xl space-y-4">
+        <div className="max-w-xl mx-auto bg-editorial-darker p-6 rounded-none border border-editorial shadow-xl space-y-4">
           <form onSubmit={handleTrackSubmit} className="flex gap-1.5">
             <input
               type="text"
               value={trackCode}
               onChange={(e) => setTrackCode(e.target.value)}
               placeholder="Enter Tracker Code (e.g. FB-123456 or ORD-xxxx)"
-              className="flex-1 bg-black text-white px-4 py-3 rounded-none border border-white/10 focus:outline-none focus:border-editorial-orange/50 text-xs font-mono uppercase tracking-wide placeholder:text-white/20"
+              className="flex-1 bg-editorial-dark text-editorial-cream px-4 py-3 rounded-none border border-editorial focus:outline-none focus:border-editorial-orange/50 text-xs font-mono uppercase tracking-wide placeholder:text-white/20"
               required
             />
             <button
@@ -92,7 +92,7 @@ export default function OrderTracker({ orders }: OrderTrackerProps) {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
-                className="pt-4 border-t border-white/5"
+                className="pt-4 border-t border-editorial"
                 id="tracker-result-panel"
               >
                 {!searchedOrder ? (
@@ -103,7 +103,7 @@ export default function OrderTracker({ orders }: OrderTrackerProps) {
                   <div className="space-y-6" id="tracker-success-details">
                     
                     {/* Tiny header fields (Lookbook metadata rows) */}
-                    <div className="flex flex-wrap items-center justify-between gap-2 bg-[#0c0c0c] p-3 rounded-none border border-white/5 text-[9px] font-mono tracking-widest uppercase">
+                    <div className="flex flex-wrap items-center justify-between gap-2 bg-editorial-dark p-3 rounded-none border border-editorial text-[9px] font-mono tracking-widest uppercase">
                       <div>
                         <span className="text-white/45">INDEX NO //</span>
                         <h4 className="text-[11px] font-extrabold text-white mt-0.5">{searchedOrder.trackCode}</h4>
@@ -131,7 +131,7 @@ export default function OrderTracker({ orders }: OrderTrackerProps) {
                       <div className="space-y-4">
                         <div className="relative flex justify-between items-center text-center">
                           {/* Progress connection bar */}
-                          <div className="absolute inset-x-3 top-1/2 -translate-y-1/2 h-0.5 bg-white/5 z-0">
+                          <div className="absolute inset-x-3 top-1/2 -translate-y-1/2 h-0.5 bg-editorial-dark z-0">
                             <div
                               className="h-full bg-editorial-orange transition-all duration-500"
                               style={{ width: `${Math.max(0, (currentStep - 1) * 25)}%` }}
@@ -155,7 +155,7 @@ export default function OrderTracker({ orders }: OrderTrackerProps) {
                                 <div className={`w-8 h-8 rounded-none border flex items-center justify-center text-[10px] font-bold transition-all duration-350 select-none ${
                                   isDone
                                     ? 'bg-editorial-orange border-editorial-orange text-black font-extrabold scale-105'
-                                    : 'bg-black border-white/10 text-white/30'
+                                    : 'bg-editorial-dark border border-editorial text-white/30'
                                 }`}>
                                   {isDone && node.val < currentStep ? '✓' : node.icon}
                                 </div>
@@ -170,7 +170,7 @@ export default function OrderTracker({ orders }: OrderTrackerProps) {
                         </div>
 
                         {/* Order info details breakdown */}
-                        <div className="bg-[#0c0c0c] p-4 rounded-none border border-white/5 text-[10px] font-mono uppercase tracking-wider space-y-1.5 text-white/55">
+                        <div className="bg-editorial-dark p-4 rounded-none border border-editorial text-[10px] font-mono uppercase tracking-wider space-y-1.5 text-white/55">
                           <p>📍 <strong className="text-white">DESTINATION //</strong> {searchedOrder.deliveryAddress}</p>
                           <p>🍱 <strong className="text-white">COMMODITY //</strong> {searchedOrder.items.map(i => `${i.name} (x${i.quantity})`).join(', ')}</p>
                           <p>💳 <strong className="text-white">AMOUNT PAYABLE //</strong> <strong className="text-editorial-orange font-bold">Rs. {searchedOrder.total}</strong></p>

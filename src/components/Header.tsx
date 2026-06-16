@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ShoppingBag, Heart, Menu, X, Phone, Shield } from 'lucide-react';
 import { BRAND_INFO } from '../data';
@@ -27,6 +27,19 @@ export default function Header({
   setActiveSection,
 }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navItems = [
     { id: 'hero', label: 'Home' },
@@ -51,24 +64,32 @@ export default function Header({
   };
 
   return (
-    <header className="sticky top-0 z-[100] w-full bg-black/80 backdrop-blur-md border-b border-white/10">
+    <header className={`fixed top-0 left-0 right-0 z-[100] w-full transition-all duration-500 ease-in-out ${
+      scrolled 
+        ? 'bg-editorial-darker/95 backdrop-blur-lg border-b border-editorial-orange/20 shadow-lg shadow-black/90 py-1' 
+        : 'bg-editorial-darker/80 backdrop-blur-md border-b border-white/10 py-3'
+    }`}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
+        <div className={`flex items-center justify-between transition-all duration-500 ease-in-out ${scrolled ? 'h-11' : 'h-16'}`}>
           
           {/* Brand Logo Section: Editorial Monospaced + Serif pairing */}
           <div 
             onClick={() => handleNavClick('hero')} 
             className="flex cursor-pointer items-center space-x-3 group"
           >
-            <div className="h-9 w-9 bg-editorial-orange flex items-center justify-center rounded-none font-serif italic text-black font-black text-base transition-transform group-hover:rotate-6">
+            <div className={`bg-editorial-orange flex items-center justify-center rounded-none font-serif italic text-black font-black transition-all duration-500 group-hover:rotate-6 ${
+              scrolled ? 'h-7 w-7 text-xs' : 'h-9 w-9 text-base'
+            }`}>
               F
             </div>
             <div>
               <div className="flex items-center tracking-tighter">
-                <span className="text-xl font-black text-editorial-orange">FAST</span>
-                <span className="text-xl font-light text-white tracking-[0.1em] ml-1">BURGERZ</span>
+                <span className={`font-black text-editorial-orange transition-all duration-500 ${scrolled ? 'text-lg' : 'text-xl'}`}>FAST</span>
+                <span className={`font-light text-white tracking-[0.1em] ml-1 transition-all duration-500 ${scrolled ? 'text-lg' : 'text-xl'}`}>BURGERZ</span>
               </div>
-              <p className="text-[9px] font-mono tracking-[0.2em] text-white/40 uppercase">Bharakahu, Islamabad</p>
+              <p className={`font-mono tracking-[0.2em] text-white/40 uppercase transition-all duration-500 overflow-hidden ${
+                scrolled ? 'text-[0px] h-0 opacity-0' : 'text-[9px] h-3 opacity-100'
+              }`}>Bharakahu, Islamabad</p>
             </div>
           </div>
 
@@ -95,7 +116,9 @@ export default function Header({
             {/* Phone Quick Link (Editorial Call Button) */}
             <a 
               href={`tel:${BRAND_INFO.contactNumbers[0]}`}
-              className="hidden lg:flex items-center space-x-2 text-[10px] font-bold uppercase tracking-[0.15em] text-editorial-gold border border-editorial-strong px-4 py-2 hover:bg-white/5 transition-all rounded-none"
+              className={`hidden lg:flex items-center space-x-2 text-[10px] font-bold uppercase tracking-[0.15em] text-editorial-gold border border-editorial-strong transition-all duration-500 hover:bg-white/5 rounded-none ${
+                scrolled ? 'px-3 py-1.5' : 'px-4 py-2'
+              }`}
             >
               <Phone size={12} className="text-editorial-orange animate-pulse" />
               <span>Call: 03409631937</span>
@@ -110,7 +133,7 @@ export default function Header({
               className={`relative p-2 rounded-none transition-all duration-300 border ${
                 showFavoritesOnly
                   ? 'bg-rose-500/10 text-rose-400 border-rose-500/30'
-                  : 'bg-black/40 text-white/60 border-white/10 hover:text-white hover:border-white/25'
+                  : 'bg-editorial-darker/50 text-white/60 border-white/10 hover:text-white hover:border-white/25'
               }`}
               title="Show Favorites"
               id="favorites-button"
@@ -126,7 +149,7 @@ export default function Header({
             {/* Shopping Cart Button */}
             <button
               onClick={openCart}
-              className="relative p-2 rounded-none bg-black/40 text-white/60 border border-white/10 hover:text-white hover:border-white/25 transition-all duration-300"
+              className="relative p-2 rounded-none bg-editorial-darker/50 text-white/60 border border-white/10 hover:text-white hover:border-white/25 transition-all duration-300"
               title="View Basket"
               id="cart-button"
             >
@@ -147,7 +170,7 @@ export default function Header({
               className={`p-2 rounded-none transition-all duration-300 border ${
                 isAdminMode
                   ? 'bg-editorial-gold text-black border-editorial-gold font-bold'
-                  : 'bg-black/40 text-white/60 border-white/10 hover:text-editorial-gold hover:border-editorial-gold/40'
+                  : 'bg-editorial-darker/50 text-white/60 border-white/10 hover:text-editorial-gold hover:border-editorial-gold/40'
               }`}
               title="Admin Backoffice"
               id="admin-button"
@@ -158,7 +181,7 @@ export default function Header({
             {/* Mobile Hamburger Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-1.5 rounded-none bg-black/40 border border-white/10 text-white/80 hover:text-white md:hidden transition-all"
+              className="p-1.5 rounded-none bg-editorial-darker/50 border border-white/10 text-white/80 hover:text-white md:hidden transition-all"
               id="mobile-menu-toggle"
             >
               {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}

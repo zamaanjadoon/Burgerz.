@@ -108,7 +108,7 @@ export default function MenuSection({
 
         {/* Search, Filter & Quick Favorites Tabs Section */}
         <div className="space-y-6 mb-12">
-          <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-black/40 p-4 border border-white/10">
+          <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-editorial-darker/40 p-4 border border-editorial">
             {/* Direct Search Bar */}
             <div className="relative w-full md:max-w-md">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40" size={15} />
@@ -117,7 +117,7 @@ export default function MenuSection({
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search burgers, fries, wings..."
-                className="w-full bg-black/40 text-white pl-9 pr-4 py-2 hover:border-white/20 border border-white/10 focus:outline-none focus:border-editorial-orange/50 text-[11px] font-mono tracking-wide placeholder:text-white/30"
+                className="w-full bg-editorial-darker/40 text-editorial-cream pl-9 pr-4 py-2 hover:border-editorial-strong border border-editorial focus:outline-none focus:border-editorial-orange/50 text-[11px] font-mono tracking-wide placeholder:text-white/30"
               />
             </div>
 
@@ -131,7 +131,7 @@ export default function MenuSection({
                   Clear Favorites Toggle
                 </button>
               )}
-              <span className="text-[9px] font-mono uppercase tracking-[0.1em] text-white/40 bg-black border border-white/10 px-3.5 py-1.5 select-none">
+              <span className="text-[9px] font-mono uppercase tracking-[0.1em] text-white/40 bg-editorial-darker border border-editorial px-3.5 py-1.5 select-none">
                 Items Found: <strong className="text-white font-bold">{filteredProducts.length}</strong>
               </span>
             </div>
@@ -149,7 +149,7 @@ export default function MenuSection({
                 className={`flex items-center space-x-1.5 px-4 py-2.5 rounded-none text-[10px] font-extrabold uppercase tracking-[0.18em] leading-none cursor-pointer border transition-all duration-300 select-none ${
                   activeCategory === cat.id && !showFavoritesOnly
                     ? 'bg-editorial-orange text-black border-editorial-orange'
-                    : 'bg-black text-white/60 border-white/10 hover:text-white hover:border-white/20'
+                    : 'bg-editorial-darker text-white/60 border-editorial hover:text-white hover:border-editorial-strong'
                 }`}
               >
                 <span className="text-[11px]">{cat.icon}</span>
@@ -166,7 +166,7 @@ export default function MenuSection({
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}
-              className="text-center py-20 bg-neutral-950 border border-dashed border-white/10 rounded-none"
+              className="text-center py-20 bg-editorial-darker border border-dashed border-editorial rounded-none"
               id="no-items-placeholder"
             >
               <h3 className="text-sm uppercase tracking-widest font-bold text-white/40">No matching catalog items</h3>
@@ -205,12 +205,12 @@ export default function MenuSection({
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.98 }}
                     transition={{ duration: 0.3 }}
-                    className="relative flex flex-col justify-between rounded-none bg-neutral-950 border border-white/10 overflow-hidden group hover:border-white/20 transition-all duration-300"
+                    className="relative flex flex-col justify-between rounded-none bg-editorial-darker border border-editorial overflow-hidden group hover:border-editorial-strong transition-all duration-300"
                     id={`menu-item-${p.id}`}
                   >
                     
                     {/* Visual Media Header */}
-                    <div className="relative h-48 w-full bg-black overflow-hidden border-b border-white/10">
+                    <div className="relative h-48 w-full bg-editorial-darker overflow-hidden border-b border-editorial">
                       {/* Popularity or Newness Banner Tag (Rectangular) */}
                       <div className="absolute top-3 left-3 z-10 flex flex-col gap-1 pointer-events-none">
                         {p.isPopular && (
@@ -232,7 +232,7 @@ export default function MenuSection({
                         className={`absolute top-3 right-3 z-10 p-1.5 rounded-none border transition-all ${
                           isFavorite
                             ? 'bg-rose-500 text-white border-rose-400'
-                            : 'bg-black/95 text-white/50 hover:text-rose-500 border-white/15'
+                            : 'bg-editorial-darker/95 text-white/50 hover:text-rose-500 border-editorial-strong'
                         }`}
                         title={isFavorite ? 'Remove Favorite' : 'Add to Favorites'}
                       >
@@ -262,7 +262,7 @@ export default function MenuSection({
                             {p.rating}
                           </span>
                           {p.tags?.map((t, idx) => (
-                            <span key={idx} className="text-[8px] font-mono text-white/40 border border-white/5 px-1.5 py-0.5 bg-white/[0.02]">
+                            <span key={idx} className="text-[8px] font-mono text-white/40 border border-editorial px-1.5 py-0.5 bg-white/[0.02]">
                               {t}
                             </span>
                           ))}
@@ -278,14 +278,14 @@ export default function MenuSection({
                       </div>
 
                       {/* Bottom Price, Selector, Actions Grid */}
-                      <div className="mt-4 pt-4 border-t border-white/5 space-y-3">
+                      <div className="mt-4 pt-4 border-t border-editorial space-y-3">
                         <div className="flex items-center justify-between">
                           <span className="text-sm font-bold text-white font-mono uppercase">
                             Rs. <span className="text-base text-editorial-orange font-black">{p.price}</span>
                           </span>
                           
                           {/* Quantity Selector mechanism (Sharp square layouts) */}
-                          <div className="flex items-center bg-black border border-white/10 p-0.5">
+                          <div className="flex items-center bg-editorial-darker border border-editorial p-0.5">
                             <button
                               onClick={() => decrementQty(p.id)}
                               className="p-1 text-white/40 hover:text-white transition-all rounded-none"
@@ -309,7 +309,7 @@ export default function MenuSection({
                         {/* Add to Cart Click button */}
                         <button
                           onClick={() => handleAddToCart(p)}
-                          className="w-full flex items-center justify-center space-x-2 py-2.5 bg-white border border-white/10 hover:bg-neutral-900 group-hover:border-editorial-orange text-black font-extrabold group-hover:text-white text-[10px] tracking-[0.2em] transition-all rounded-none cursor-pointer uppercase"
+                          className="w-full flex items-center justify-center space-x-2 py-2.5 bg-white border border-editorial hover:bg-editorial-dark group-hover:border-editorial-orange text-black font-extrabold group-hover:text-white text-[10px] tracking-[0.2em] transition-all rounded-none cursor-pointer uppercase"
                           id={`add-to-cart-${p.id}`}
                         >
                           <ShoppingBag size={11} className="fill-current text-black group-hover:text-white" />

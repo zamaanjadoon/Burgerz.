@@ -28,7 +28,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="bg-[#050505] py-20 scroll-mt-20 border-b border-white/10 editorial-grid">
+    <section id="contact" className="bg-editorial-dark py-20 scroll-mt-20 border-b border-editorial editorial-grid">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Title elements header */}
@@ -39,7 +39,7 @@ export default function Contact() {
           <h2 className="text-4xl font-light text-white font-serif italic mt-1 tracking-tight">
             Contact & Store Coordinates
           </h2>
-          <hr className="w-16 border-white/20 mx-auto mt-4" />
+          <hr className="w-16 border-editorial mx-auto mt-4" />
         </div>
 
         {/* Triple Grid layout */}
@@ -47,8 +47,8 @@ export default function Contact() {
           
           {/* Column 1: Store Coordinates (4 spans) */}
           <div className="lg:col-span-4 space-y-6">
-            <div className="p-6 rounded-none bg-neutral-950 border border-white/10 space-y-6">
-              <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-white/50 border-b border-white/5 pb-3">
+            <div className="p-6 rounded-none bg-editorial-darker border border-editorial space-y-6">
+              <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-white/50 border-b border-editorial pb-3">
                 // STORE COORDINATES
               </h3>
 
@@ -97,7 +97,7 @@ export default function Contact() {
               </div>
 
               {/* Contact Personnel Info */}
-              <hr className="border-white/5" />
+              <hr className="border-editorial" />
               <div className="text-[10px] text-white/30 font-mono uppercase tracking-widest leading-none">
                 OWNER: <strong className="text-white font-extrabold">{BRAND_INFO.owner}</strong>
               </div>
@@ -105,8 +105,8 @@ export default function Contact() {
           </div>
 
           {/* Column 2: Inquiries Custom Form (4 spans) */}
-          <div className="lg:col-span-4 p-6 rounded-none bg-neutral-950 border border-white/10">
-            <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-white/50 border-b border-white/5 pb-3 mb-4">
+          <div className="lg:col-span-4 p-6 rounded-none bg-editorial-darker border border-editorial">
+            <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-white/50 border-b border-editorial pb-3 mb-4">
               // DISPATCH INQUIRY FORM
             </h3>
 
@@ -131,7 +131,7 @@ export default function Contact() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="e.g. Hammad Ahmed"
-                    className="w-full bg-black text-white rounded-none border border-white/10 px-3 py-2 text-xs font-semibold focus:outline-none focus:border-editorial-orange/50"
+                    className="w-full bg-editorial-dark text-editorial-cream rounded-none border border-editorial px-3 py-2 text-xs font-semibold focus:outline-none focus:border-editorial-orange/50"
                   />
                 </div>
 
@@ -143,7 +143,7 @@ export default function Contact() {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="e.g. 03409631937"
-                    className="w-full bg-black text-white rounded-none border border-white/10 px-3 py-2 text-xs font-mono focus:outline-none focus:border-editorial-orange/50"
+                    className="w-full bg-editorial-dark text-editorial-cream rounded-none border border-editorial px-3 py-2 text-xs font-mono focus:outline-none focus:border-editorial-orange/50"
                   />
                 </div>
 
@@ -155,7 +155,7 @@ export default function Contact() {
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Custom student celebration adjustments? Or bulk grill options needed for boys hostel events?"
                     rows={4}
-                    className="w-full bg-black text-white rounded-none border border-white/10 p-3 text-xs font-semibold focus:outline-none focus:border-editorial-orange/50 placeholder:text-white/20"
+                    className="w-full bg-editorial-dark text-editorial-cream rounded-none border border-editorial p-3 text-xs font-semibold focus:outline-none focus:border-editorial-orange/50 placeholder:text-white/20"
                   />
                 </div>
 
@@ -170,14 +170,14 @@ export default function Contact() {
           </div>
 
           {/* Column 3: Satellite Embed (4 spans) */}
-          <div className="lg:col-span-4 p-6 rounded-none bg-neutral-950 border border-white/10 space-y-4">
-            <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-white/50 border-b border-white/5 pb-3 flex items-center justify-between">
+          <div className="lg:col-span-4 p-6 rounded-none bg-editorial-darker border border-editorial space-y-4">
+            <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-white/50 border-b border-editorial pb-3 flex items-center justify-between">
               <span>// SATELLITE LOCATOR</span>
               <span className="text-[8px] bg-editorial-orange text-black px-1.5 py-0.2 font-mono font-bold uppercase">SONERI BANK SECTORS</span>
             </h3>
 
             {/* Google map iframe with strict lookbook rectangular borders */}
-            <div className="relative rounded-none overflow-hidden bg-black aspect-video md:aspect-square border border-white/10 flex items-center justify-center">
+            <div className="relative rounded-none overflow-hidden bg-editorial-dark aspect-video md:aspect-square border border-editorial flex items-center justify-center">
               <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3316.635850989045!2d73.18181607593635!3d33.77027557326417!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38dfbf84cd6d71bf%3A0xe54dbccb20fc6ea5!2sSoneri%20Bank!5e0!3m2!1sen!2spk!4v1718365123281!5m2!1sen!2spk" 
                 width="100%" 
