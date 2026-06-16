@@ -74,7 +74,6 @@ export default function Header({
   const navItems = [
     { id: 'hero', label: 'Home' },
     { id: 'menu', label: 'Menu' },
-    { id: 'offers', label: 'Deals' },
     { id: 'delivery', label: 'Delivery Areas' },
     { id: 'reviews', label: 'Reviews' },
     { id: 'contact', label: 'Contact' },

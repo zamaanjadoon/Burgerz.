@@ -13,7 +13,7 @@ export default function PromoTicker() {
           <div className="hidden md:block text-black/20 font-light select-none">|</div>
           <div className="flex items-center space-x-2.5">
             <Percent size={14} className="stroke-[3] text-black" />
-            <span>20% Off on First Order (WELCOME50)</span>
+            <span>Fresh Smashed Beef & Chicken Burgers Grilled Daily</span>
           </div>
           <div className="hidden md:block text-black/20 font-light select-none">|</div>
           <div className="flex items-center space-x-2.5">

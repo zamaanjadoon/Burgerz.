@@ -59,11 +59,11 @@ export default function Footer() {
           <div className="space-y-4">
             <h4 className="text-[10px] font-extrabold text-white uppercase tracking-[0.2em]">NAVIGATION REGISTRY</h4>
             <ul className="space-y-2 text-[10px] font-extrabold uppercase tracking-widest">
-              {['Home', 'Menu', 'Deals', 'Delivery Areas', 'Reviews', 'Contact'].map((item, idx) => (
+              {['Home', 'Menu', 'Delivery Areas', 'Reviews', 'Contact'].map((item, idx) => (
                 <li key={idx}>
                   <button
                     onClick={() => {
-                      const sections = ['hero', 'menu', 'offers', 'delivery', 'reviews', 'contact'];
+                      const sections = ['hero', 'menu', 'delivery', 'reviews', 'contact'];
                       const el = document.getElementById(sections[idx]);
                       if (el) el.scrollIntoView({ behavior: 'smooth' });
                     }}

@@ -8,17 +8,16 @@ import DeliverySection from './components/DeliverySection';
 import Contact from './components/Contact';
 import ShoppingCart from './components/ShoppingCart';
 import OrderTracker from './components/OrderTracker';
+import OrderSuccessModal from './components/OrderSuccessModal';
 import AdminPanel from './components/AdminPanel';
 import Footer from './components/Footer';
-import PromoBanners from './components/PromoBanners';
-import SpecialOffers from './components/SpecialOffers';
 import PromoTicker from './components/PromoTicker';
 import StatsSection from './components/StatsSection';
 import FAQSection from './components/FAQSection';
 
 
 import { Product, CartItem, Order, Review } from './types';
-import { BRAND_INFO, INITIAL_PRODUCTS, INITIAL_REVIEWS, PROMOTION_BANNERS } from './data';
+import { BRAND_INFO, INITIAL_PRODUCTS, INITIAL_REVIEWS } from './data';
 
 import { createOrder } from './api';
 
@@ -67,6 +66,7 @@ export default function App() {
   // --- Interaction control parameters ---
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
+  const [activeOrderSuccessCode, setActiveOrderSuccessCode] = useState<string | null>(null);
   const [isAdminMode, setIsAdminMode] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
   const [preselectedCategory, setPreselectedCategory] = useState<string>('all');
@@ -213,12 +213,8 @@ export default function App() {
       setOrders((prev) => [newOrder, ...prev]);
 
       setCartItems([]); // Wipe checkout items
+      setActiveOrderSuccessCode(newOrder.trackCode); // Show success modal!
       triggerToast(`Order placed successfully! Track ref: ${newOrder.trackCode} 🎉`);
-
-      setTimeout(() => {
-        const trackEl = document.getElementById('tracking');
-        if (trackEl) trackEl.scrollIntoView({ behavior: 'smooth' });
-      }, 1500);
     } catch (e) {
       console.error(e);
       triggerToast('Order dispatch failed. Try again.');
@@ -307,20 +303,6 @@ export default function App() {
               {/* 1.5 Promotional Ticker Banner Strip */}
               <PromoTicker />
 
-              {/* 2. Promotional Bulletin / Vouchers */}
-              <PromoBanners
-                promotions={PROMOTION_BANNERS}
-                onPromoClick={(_code) => {
-                  const menuEl = document.getElementById('menu');
-                  if (menuEl) menuEl.scrollIntoView({ behavior: 'smooth' });
-                }}
-                onBrowseMenu={(category) => {
-                  setPreselectedCategory(category || 'all');
-                  const menuEl = document.getElementById('menu');
-                  if (menuEl) menuEl.scrollIntoView({ behavior: 'smooth' });
-                }}
-              />
-
               {/* 3. Central Interactive Menu and Custom Cards Section */}
               <MenuSection
                 products={products}
@@ -331,9 +313,6 @@ export default function App() {
                 setShowFavoritesOnly={setShowFavoritesOnly}
                 preselectedCategory={preselectedCategory}
               />
-
-              {/* 4. Special Deals */}
-              <SpecialOffers />
 
               {/* 4.5 Why Choose Us (Statistics Section) */}
               <StatsSection />
@@ -368,6 +347,20 @@ export default function App() {
         updateCartQty={updateCartQty}
         removeFromCart={removeFromCart}
         onPlaceOrder={handlePlaceOrder}
+      />
+
+      {/* Global Success Modal overlay */}
+      <OrderSuccessModal
+        isOpen={!!activeOrderSuccessCode}
+        trackCode={activeOrderSuccessCode || ''}
+        onClose={() => setActiveOrderSuccessCode(null)}
+        onTrackStatusClick={() => {
+          setActiveOrderSuccessCode(null);
+          setTimeout(() => {
+            const trackEl = document.getElementById('tracking');
+            if (trackEl) trackEl.scrollIntoView({ behavior: 'smooth' });
+          }, 100);
+        }}
       />
 
       {/* REQUIRED: Sticky Floating WhatsApp Action Button on every page */}

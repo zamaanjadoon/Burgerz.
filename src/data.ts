@@ -234,37 +234,6 @@ export const INITIAL_COUPONS: Coupon[] = [
   },
 ];
 
-export const SPECIAL_OFFERS = [
-  {
-    id: 'o1',
-    title: 'Buy 2 Burgers, Get FREE Fries!',
-    description: 'Order any two delicious burgers from our menu and automatically get complimentary crunchy golden fries included with your meal packet.',
-    terms: 'Valid on both beef and chicken burgers.',
-    icon: '🍟',
-  },
-  {
-    id: 'o2',
-    title: 'Flat 10% Student Discount',
-    description: 'Are you living in Soneri Bank area hostels or studying nearby? Enjoy an exclusive 10% discount on any wrap, shawarma, or zinger order.',
-    terms: 'Show student card at doorstep delivery or enter code STUDENT10.',
-    icon: '🎓',
-  },
-  {
-    id: 'o3',
-    title: 'Hostel Night Owls Special',
-    description: 'Get free deliveries directly to your hostel room stairs after 11:00 PM for orders over Rs. 500. No deliveries charges applied.',
-    terms: 'Valid around Bharakahu hostel circles.',
-    icon: '🌙',
-  },
-  {
-    id: 'o4',
-    title: 'Weekend Family / Friends Combo Deal',
-    description: 'Buy 1 Double Beef Smash Special + 1 Wahshi Zinger + Loaded Fries + 2 Margaritas for only Rs. 1800 (Save Rs. 200).',
-    terms: 'Order online on Friday, Saturday & Sunday.',
-    icon: '🍔',
-  },
-];
-
 export const PROMOTION_BANNERS: Promotion[] = [
   {
     id: 'p1',

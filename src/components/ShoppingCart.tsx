@@ -33,7 +33,6 @@ export default function ShoppingCart({
   const [paymentMethod, setPaymentMethod] = useState<'Cash on Delivery' | 'Easypaisa' | 'JazzCash'>('Cash on Delivery');
   const [orderNotes, setOrderNotes] = useState('');
   const [isPlacing, setIsPlacing] = useState(false);
-  const [orderSuccess, setOrderSuccess] = useState<{ trackCode: string } | null>(null);
 
   // Sync profile details
   React.useEffect(() => {
@@ -56,16 +55,7 @@ export default function ShoppingCart({
     return cartItems.reduce((acc, curr) => acc + curr.product.price * curr.quantity, 0);
   }, [cartItems]);
 
-  const discount = useMemo(() => {
-    if (!activeCoupon) return 0;
-    if (subtotal < activeCoupon.minAmount) return 0;
-
-    if (activeCoupon.discountType === 'fixed') {
-      return activeCoupon.discountValue;
-    } else {
-      return Math.round((subtotal * activeCoupon.discountValue) / 100);
-    }
-  }, [activeCoupon, subtotal]);
+  const discount = 0;
 
   const deliveryCharges = useMemo(() => {
     if (subtotal === 0) return 0;
@@ -170,7 +160,7 @@ export default function ShoppingCart({
       // Direct opening tab safely
       window.open(whatsappUrl, '_blank');
       setIsPlacing(false);
-      setOrderSuccess({ trackCode });
+      onClose(); // Close the cart drawer immediately so user can see success modal
       
       // Clear checkout inputs
       setOrderNotes('');
@@ -234,49 +224,15 @@ export default function ShoppingCart({
 
             {/* Scrollable Form & Items Content */}
             <div className="flex-1 overflow-y-auto p-6 space-y-6">
-              {orderSuccess ? (
-                <div className="text-center py-16 space-y-6" id="order-success-view">
-                  <div className="flex justify-center">
-                    <div className="p-4 bg-green-500/10 border border-green-500/30 rounded-none text-green-400">
-                      <CheckCircle size={48} className="animate-bounce" />
-                    </div>
+              {isPlacing ? (
+                <div className="text-center py-20 space-y-4 font-sans" id="placing-order-view">
+                  <div className="flex justify-center mb-4">
+                    <div className="animate-spin rounded-none h-8 w-8 border-2 border-editorial-orange border-t-transparent"></div>
                   </div>
-                  <div className="space-y-2">
-                    <h3 className="text-sm font-extrabold text-white tracking-[0.2em] uppercase">ORDER PLACED SUCCESSFULLY!</h3>
-                    <p className="text-xs text-white/50 max-w-xs mx-auto leading-relaxed">
-                      We have compiled your cart details and redirected you to WhatsApp to confirm your order with the kitchen. We will deliver hot burgers to your doorstep in Islamabad!
-                    </p>
-                  </div>
-                  
-                  <div className="p-4 bg-editorial-dark border border-white/10 text-center space-y-1 font-mono">
-                    <span className="text-[9px] text-white/30 uppercase tracking-widest">Tracking Reference Code:</span>
-                    <p className="text-sm font-black text-editorial-orange tracking-wider">{orderSuccess.trackCode}</p>
-                  </div>
-
-                  <div className="space-y-2 pt-4">
-                    <button
-                      onClick={() => {
-                        setOrderSuccess(null);
-                        onClose();
-                      }}
-                      className="w-full py-3.5 bg-white text-black font-extrabold rounded-none text-[10px] tracking-[0.2em] transition-all cursor-pointer uppercase border border-transparent hover:bg-editorial-orange"
-                    >
-                      Continue Shopping
-                    </button>
-                    <button
-                      onClick={() => {
-                        setOrderSuccess(null);
-                        onClose();
-                        setTimeout(() => {
-                          const trackEl = document.getElementById('tracking');
-                          if (trackEl) trackEl.scrollIntoView({ behavior: 'smooth' });
-                        }, 200);
-                      }}
-                      className="w-full py-3.5 bg-editorial-darker border border-white/10 text-editorial-gold font-bold rounded-none text-[10px] tracking-[0.2em] transition-all cursor-pointer uppercase hover:text-white"
-                    >
-                      Track Order Status
-                    </button>
-                  </div>
+                  <h3 className="text-xs uppercase tracking-[0.2em] font-extrabold text-white">Transmitting Order...</h3>
+                  <p className="text-xs text-white/30 max-w-xs mx-auto leading-relaxed mt-2 font-semibold">
+                    Preparing details and launching secure WhatsApp window coordinates.
+                  </p>
                 </div>
               ) : cartItems.length === 0 ? (
                 <div className="text-center py-20 space-y-4" id="empty-cart-view">
@@ -348,45 +304,6 @@ export default function ShoppingCart({
                     ))}
                   </div>
 
-                  {/* Promo Coupons Section */}
-                  <div className="p-4 bg-editorial-dark border border-editorial space-y-3 rounded-none">
-                    <label className="block text-[10px] font-extrabold text-white/55 uppercase tracking-[0.2em] flex items-center">
-                      <Ticket size={11} className="text-editorial-orange mr-1.5" /> Promo Voucher Code
-                    </label>
-                    <div className="flex gap-1">
-                      <input
-                        type="text"
-                        value={couponCode}
-                        onChange={(e) => {
-                          setCouponCode(e.target.value);
-                          setCouponError('');
-                        }}
-                        placeholder="HOSTELDEAL, WELCOME50"
-                        className="flex-1 bg-editorial-darker text-white rounded-none border border-editorial px-3 py-1.5 text-xs font-mono uppercase focus:outline-none focus:border-editorial-orange/50 placeholder:text-white/20"
-                      />
-                      <button
-                        type="button"
-                        onClick={handleApplyCoupon}
-                        className="px-4 bg-white text-black hover:bg-editorial-orange hover:text-black text-[10px] tracking-widest uppercase font-extrabold rounded-none transition-all"
-                      >
-                        Apply
-                      </button>
-                    </div>
-                    {couponError && <p className="text-[9px] text-red-400 font-bold tracking-wide font-mono uppercase">{couponError}</p>}
-                    {activeCoupon && (
-                      <div className="flex items-center justify-between text-[10px] font-bold text-green-400 bg-green-500/5 border border-green-500/15 p-2 rounded-none">
-                        <span>🏷️ '{activeCoupon.code}' Applied (-Rs. {discount})</span>
-                        <X
-                          size={11}
-                          className="cursor-pointer hover:text-red-400"
-                          onClick={() => {
-                            setActiveCoupon(null);
-                            setCouponCode('');
-                          }}
-                        />
-                      </div>
-                    )}
-                  </div>
 
                   {/* Shipping Info Form */}
                   <form onSubmit={handleCheckoutSubmit} className="space-y-4" id="checkout-shipping-form">
