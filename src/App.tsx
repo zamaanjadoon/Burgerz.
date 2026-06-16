@@ -1,6 +1,4 @@
-ietmport React, { useState, useEffect } from 'react';
-
-mmhimport React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 
@@ -14,6 +12,9 @@ import AdminPanel from './components/AdminPanel';
 import Footer from './components/Footer';
 import PromoBanners from './components/PromoBanners';
 import SpecialOffers from './components/SpecialOffers';
+import PromoTicker from './components/PromoTicker';
+import StatsSection from './components/StatsSection';
+import FAQSection from './components/FAQSection';
 
 
 import { Product, CartItem, Order, Review } from './types';
@@ -72,6 +73,38 @@ export default function App() {
   
   // Custom Visual Toast alert state
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  // Push Notification Simulation
+  const [pushNotification, setPushNotification] = useState<string | null>(null);
+
+  useEffect(() => {
+    const alerts = [
+      "Chef Irfan is preparing a Wahshi Zinger Burger right now! 🍔",
+      "Special Deal: Use code HOSTELDEAL for Rs. 100 off orders over Rs. 1000! 🏷️",
+      "A dispatcher just departed to G-13 with a fresh, steaming order! 🏍️",
+      "Smashed Beef Original burger is currently trending in Bharakahu! 🔥",
+      "Save 20% on your first order with coupon code WELCOME50! 🎉",
+      "Chef Irfan just finished grilling a double smash beef platter! 🍳",
+      "Delivery update: Dispatcher matched for hostel boys stairs! 🏃‍♂️",
+    ];
+    
+    const triggerRandomAlert = () => {
+      const idx = Math.floor(Math.random() * alerts.length);
+      setPushNotification(alerts[idx]);
+      setTimeout(() => {
+        setPushNotification(null);
+      }, 4000);
+    };
+
+    // Trigger alerts periodically to mock mobile push notifications
+    const firstTimer = setTimeout(triggerRandomAlert, 6000);
+    const interval = setInterval(triggerRandomAlert, 25000);
+
+    return () => {
+      clearTimeout(firstTimer);
+      clearInterval(interval);
+    };
+  }, []);
 
   // --- State synchronizations (Local Storage Writes) ---
   // Keep cart/favorites locally.
@@ -209,7 +242,7 @@ export default function App() {
 
   // --- Direct global prefilled WhatsApp trigger ---
   const handleGlobalWhatsAppClick = () => {
-    const initMessage = encodeURIComponent("Hello FAST Burgerz, I would like to place an order.");
+    const initMessage = encodeURIComponent("Hello Fast Burgers,\nI want to place an order.");
     window.open(`https://wa.me/${BRAND_INFO.whatsappNumber}?text=${initMessage}`, '_blank');
   };
 
@@ -262,7 +295,7 @@ export default function App() {
               transition={{ duration: 0.3 }}
               className="space-y-0"
             >
-              {/* 1. Large Hero presentation with sliders */}
+               {/* 1. Large Hero presentation with sliders */}
               <Hero
                 onOrderOnlineClick={() => {
                   const menuEl = document.getElementById('menu');
@@ -270,6 +303,9 @@ export default function App() {
                 }}
                 onWhatsAppOrderClick={handleGlobalWhatsAppClick}
               />
+
+              {/* 1.5 Promotional Ticker Banner Strip */}
+              <PromoTicker />
 
               {/* 2. Promotional Bulletin / Vouchers */}
               <PromoBanners
@@ -285,7 +321,6 @@ export default function App() {
                 }}
               />
 
-
               {/* 3. Central Interactive Menu and Custom Cards Section */}
               <MenuSection
                 products={products}
@@ -300,15 +335,20 @@ export default function App() {
               {/* 4. Special Deals */}
               <SpecialOffers />
 
+              {/* 4.5 Why Choose Us (Statistics Section) */}
+              <StatsSection />
 
-              {/* 4. Online Order status Visual tracker */}
+              {/* 5. Online Order status Visual tracker */}
               <OrderTracker orders={orders} />
+
+              {/* 5.5 Customer Reviews */}
+              <Reviews reviews={reviews} onAddReview={handleAddReview} />
 
               {/* 6. High-velocity Deliveries estimates info cards */}
               <DeliverySection />
 
-              {/* 7. Reviews Testimonials slide grid */}
-              <Reviews reviews={reviews} onAddReview={handleAddReview} />
+              {/* 6.5 FAQ Accordion section */}
+              <FAQSection />
 
               {/* 8. Google Map directions and Inquiry contact forms */}
               <Contact />
@@ -368,6 +408,36 @@ export default function App() {
               <Sparkles size={16} />
             </div>
             <span className="text-xs font-black tracking-wide text-gray-200 uppercase">{toastMessage}</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Simulated Push Notification Slide-in (Top Right) */}
+      <AnimatePresence>
+        {pushNotification && (
+          <motion.div
+            initial={{ opacity: 0, x: 200, y: 0 }}
+            animate={{ opacity: 1, x: 0, y: 0 }}
+            exit={{ opacity: 0, x: 150 }}
+            transition={{ type: 'spring', damping: 15 }}
+            className="fixed top-24 right-6 z-[250] bg-neutral-900 border border-white/10 p-4 rounded-none shadow-2xl flex items-start space-x-3 max-w-sm select-none"
+            id="simulated-push-notification"
+          >
+            <div className="p-2 bg-editorial-orange text-black rounded-none flex-shrink-0">
+              <span className="text-base font-bold animate-pulse">🔔</span>
+            </div>
+            <div className="flex-1 text-left">
+              <h5 className="text-[10px] font-extrabold uppercase tracking-widest text-editorial-orange">LIVE NOTIFICATION</h5>
+              <p className="text-xs text-white/90 mt-1 font-semibold leading-relaxed">
+                {pushNotification}
+              </p>
+            </div>
+            <button 
+              onClick={() => setPushNotification(null)}
+              className="text-white/30 hover:text-white text-xs cursor-pointer select-none"
+            >
+              ×
+            </button>
           </motion.div>
         )}
       </AnimatePresence>

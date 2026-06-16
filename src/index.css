@@ -7,15 +7,15 @@
   --font-mono: "JetBrains Mono", monospace;
 
   /* Proportional theme (balanced ink + warm accent) */
-  --color-editorial-dark: #0b0c10;     /* primary surface */
-  --color-editorial-darker: #07080c;   /* deeper surface */
-  --color-editorial-cream: #f5f5f7;   /* near-white */
-  --color-editorial-beige: #e7dcc8;   /* secondary warmth */
-  --color-editorial-orange: #ff6a2a;  /* primary accent */
-  --color-editorial-gold: #ffcc3d;    /* secondary accent */
+  --color-editorial-dark: #111111;     /* primary surface */
+  --color-editorial-darker: #0c0c0c;   /* deeper surface */
+  --color-editorial-cream: #ffffff;   /* near-white */
+  --color-editorial-beige: #f5f5f5;   /* secondary warmth */
+  --color-editorial-orange: #ff6b00;  /* primary accent */
+  --color-editorial-gold: #ffb300;    /* secondary accent */
 
-  --border-editorial: rgba(255, 255, 255, 0.12);
-  --border-editorial-strong: rgba(255, 255, 255, 0.22);
+  --border-editorial: rgba(255, 255, 255, 0.08);
+  --border-editorial-strong: rgba(255, 255, 255, 0.18);
 }
 
 /* Subtle motion defaults (lightweight, GPU-friendly) */

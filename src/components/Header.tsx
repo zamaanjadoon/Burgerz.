@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ShoppingBag, Heart, Menu, X, Phone, Shield } from 'lucide-react';
+import { ShoppingBag, Heart, Menu, X, Phone, Shield, User, Save, CheckCircle } from 'lucide-react';
 import { BRAND_INFO } from '../data';
 
 interface HeaderProps {
@@ -28,6 +28,36 @@ export default function Header({
 }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [profileName, setProfileName] = useState('');
+  const [profilePhone, setProfilePhone] = useState('');
+  const [profileAddress, setProfileAddress] = useState('');
+  const [saveSuccess, setSaveSuccess] = useState(false);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('fb_user_profile');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      setProfileName(parsed.name || '');
+      setProfilePhone(parsed.phone || '');
+      setProfileAddress(parsed.address || '');
+    }
+  }, []);
+
+  const handleSaveProfile = (e: React.FormEvent) => {
+    e.preventDefault();
+    const profile = { name: profileName, phone: profilePhone, address: profileAddress };
+    localStorage.setItem('fb_user_profile', JSON.stringify(profile));
+    setSaveSuccess(true);
+    
+    // Notify shopping cart of dynamic profile update
+    window.dispatchEvent(new Event('fb_profile_updated'));
+
+    setTimeout(() => {
+      setSaveSuccess(false);
+      setIsProfileOpen(false);
+    }, 1200);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,11 +73,11 @@ export default function Header({
 
   const navItems = [
     { id: 'hero', label: 'Home' },
-    { id: 'menu', label: 'Our Menu' },
-    { id: 'offers', label: 'Offers' },
-    { id: 'delivery', label: 'Delivery' },
+    { id: 'menu', label: 'Menu' },
+    { id: 'offers', label: 'Deals' },
+    { id: 'delivery', label: 'Delivery Areas' },
     { id: 'reviews', label: 'Reviews' },
-    { id: 'contact', label: 'Contact Us' },
+    { id: 'contact', label: 'Contact' },
   ];
 
   const handleNavClick = (sectionId: string) => {
@@ -116,13 +146,23 @@ export default function Header({
             {/* Phone Quick Link (Editorial Call Button) */}
             <a 
               href={`tel:${BRAND_INFO.contactNumbers[0]}`}
-              className={`hidden lg:flex items-center space-x-2 text-[10px] font-bold uppercase tracking-[0.15em] text-editorial-gold border border-editorial-strong transition-all duration-500 hover:bg-white/5 rounded-none ${
+              className={`hidden lg:flex items-center space-x-2 text-[10px] font-bold uppercase tracking-[0.15em] text-editorial-gold border border-white/10 transition-all duration-500 hover:bg-white/5 rounded-none ${
                 scrolled ? 'px-3 py-1.5' : 'px-4 py-2'
               }`}
             >
               <Phone size={12} className="text-editorial-orange animate-pulse" />
-              <span>Call: 03409631937</span>
+              <span>Call: 0347-5177174</span>
             </a>
+
+            {/* User Account Button */}
+            <button
+              onClick={() => setIsProfileOpen(true)}
+              className="p-2 rounded-none bg-editorial-darker/50 text-white/60 border border-white/10 hover:text-white hover:border-white/25 transition-all duration-300"
+              title="User Account profile"
+              id="header-profile-btn"
+            >
+              <User size={16} />
+            </button>
 
             {/* Favorites Toggle List (Editorial Heart Layout) */}
             <button
@@ -227,8 +267,20 @@ export default function Header({
                   <Phone size={12} className="text-editorial-orange animate-pulse" />
                   <span>Call Dispatcher</span>
                 </div>
-                <span>03409631937</span>
+                <span>0347-5177174</span>
               </a>
+
+              {/* Mobile Profile Trigger */}
+              <button
+                onClick={() => {
+                  setIsProfileOpen(true);
+                  setMobileMenuOpen(false);
+                }}
+                className="flex items-center space-x-2 w-full text-left px-3 py-2.5 text-xs font-bold uppercase tracking-[0.1em] rounded-none border border-white/10 bg-black text-white/60 hover:text-white"
+              >
+                <User size={12} />
+                <span>My Profile Account</span>
+              </button>
 
               {/* Admin Button on Mobile */}
               <button
@@ -248,6 +300,104 @@ export default function Header({
               </button>
             </div>
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Profile Account Edit Modal */}
+      <AnimatePresence>
+        {isProfileOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.6 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsProfileOpen(false)}
+              className="fixed inset-0 z-[150] bg-black/85 backdrop-blur-xs"
+              id="profile-overlay-mask"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: '-45%' }}
+              animate={{ opacity: 1, scale: 1, y: '-50%' }}
+              exit={{ opacity: 0, scale: 0.95, y: '-45%' }}
+              transition={{ duration: 0.25 }}
+              className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[200] w-[92%] max-w-md bg-editorial-dark border border-white/10 p-6 shadow-2xl text-left"
+              id="profile-modal"
+            >
+              <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+                <div className="flex items-center space-x-2">
+                  <User className="text-editorial-orange" size={18} />
+                  <span className="text-sm font-extrabold text-white tracking-[0.2em] uppercase">USER ACCOUNT PROFILE</span>
+                </div>
+                <button
+                  onClick={() => setIsProfileOpen(false)}
+                  className="p-1 rounded-none hover:bg-white/5 border border-white/10 text-white/50 hover:text-white transition-all cursor-pointer"
+                  id="profile-modal-close"
+                >
+                  <X size={14} />
+                </button>
+              </div>
+
+              {saveSuccess ? (
+                <div className="flex flex-col items-center justify-center py-6 text-center space-y-3">
+                  <CheckCircle size={36} className="text-green-400 animate-bounce" />
+                  <h4 className="text-xs uppercase tracking-widest font-extrabold text-green-400">Profile Saved!</h4>
+                  <p className="text-[11px] text-white/40 leading-relaxed font-semibold">
+                    Your details will now auto-fill checkout fields automatically!
+                  </p>
+                </div>
+              ) : (
+                <form onSubmit={handleSaveProfile} className="space-y-4">
+                  <p className="text-[10px] text-white/40 leading-relaxed font-semibold">
+                    Set up your contact and delivery coordinates for fast checkout. Details are stored securely on your local device.
+                  </p>
+                  
+                  <div>
+                    <label className="block text-[9px] font-bold uppercase tracking-wider text-white/55 mb-1">Full Name</label>
+                    <input
+                      type="text"
+                      required
+                      value={profileName}
+                      onChange={(e) => setProfileName(e.target.value)}
+                      placeholder="e.g. Ali Khan"
+                      className="w-full bg-editorial-darker text-white rounded-none border border-white/10 px-3 py-2 text-xs font-semibold focus:outline-none focus:border-editorial-orange/50"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[9px] font-bold uppercase tracking-wider text-white/55 mb-1">Phone Coordinate</label>
+                    <input
+                      type="tel"
+                      required
+                      value={profilePhone}
+                      onChange={(e) => setProfilePhone(e.target.value)}
+                      placeholder="e.g. 03475177174"
+                      className="w-full bg-editorial-darker text-white rounded-none border border-white/10 px-3 py-2 text-xs font-mono focus:outline-none focus:border-editorial-orange/50"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[9px] font-bold uppercase tracking-wider text-white/55 mb-1">Default Delivery Address</label>
+                    <textarea
+                      required
+                      value={profileAddress}
+                      onChange={(e) => setProfileAddress(e.target.value)}
+                      placeholder="e.g. Hostel 4, G-13/2, Islamabad"
+                      rows={3}
+                      className="w-full bg-editorial-darker text-white rounded-none border border-white/10 p-3 text-xs font-semibold focus:outline-none focus:border-editorial-orange/50 placeholder:text-white/20"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full py-3.5 bg-white text-black font-extrabold rounded-none text-[10px] tracking-[0.2em] transition-all cursor-pointer uppercase border border-transparent hover:bg-editorial-orange flex items-center justify-center space-x-2"
+                  >
+                    <Save size={12} />
+                    <span>SAVE PROFILE DETAILS</span>
+                  </button>
+                </form>
+              )}
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </header>

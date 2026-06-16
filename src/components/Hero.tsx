@@ -41,14 +41,14 @@ export default function Hero({ onOrderOnlineClick, onWhatsAppOrderClick }: HeroP
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="text-5xl sm:text-6xl lg:text-7xl font-light leading-[0.95] tracking-tighter text-white italic font-serif"
+                className="text-4xl sm:text-5xl lg:text-6xl font-light leading-[1.05] tracking-tighter text-white font-serif"
                 id="hero-heading"
               >
-                Fresh, Fast & <br/>
-                <span className="text-editorial-orange font-black not-italic block mt-1 tracking-tighter">
-                  DELICIOUS
+                Fresh Burgers <br/>
+                <span className="text-editorial-orange font-black not-italic block mt-1 tracking-tight">
+                  DELIVERED FAST
                 </span>
-                Burgers.
+                Across Islamabad.
               </motion.h1>
 
               <motion.p
@@ -58,7 +58,7 @@ export default function Hero({ onOrderOnlineClick, onWhatsAppOrderClick }: HeroP
                 className="text-sm text-gray-400 max-w-lg mt-6 leading-relaxed font-semibold font-sans"
                 id="hero-description"
               >
-                Premium smashed beef burgers, loaded fires, crispy wings, and cold carbonated sodas—grilled fresh in Bharakahu, Islamabad.
+                Fresh, Hot & Delicious Burgers Delivered To Your Doorstep. Premium smashed beef burgers, loaded fries, crispy wings, and refreshing drinks—grilled to order.
               </motion.p>
             </div>
 
@@ -98,25 +98,25 @@ export default function Hero({ onOrderOnlineClick, onWhatsAppOrderClick }: HeroP
                 className="px-6 py-4 bg-editorial-orange text-black font-black text-xs uppercase tracking-[0.2em] hover:bg-white hover:text-black transition-all rounded-none cursor-pointer"
                 id="hero-btn-online"
               >
-                Order Online Now
+                Order Now
               </button>
 
-              {/* WhatsApp Ordering Mechanism */}
+              {/* View Menu CTA */}
               <button
-                onClick={onWhatsAppOrderClick}
+                onClick={onOrderOnlineClick}
                 className="px-6 py-4 border border-white/20 text-white font-bold text-xs uppercase tracking-[0.2em] hover:bg-white/5 transition-all rounded-none cursor-pointer"
-                id="hero-btn-whatsapp"
+                id="hero-btn-menu"
               >
-                WhatsApp Checkout
+                View Menu
               </button>
 
               {/* Call Dispatcher Hotkey */}
               <button
                 onClick={handleCallNow}
-                className="px-6 py-4 bg-editorial-darker border border-editorial text-editorial-gold font-bold text-xs uppercase tracking-[0.2em] hover:text-white transition-all rounded-none cursor-pointer"
+                className="px-6 py-4 bg-editorial-darker border border-white/15 text-editorial-gold font-bold text-xs uppercase tracking-[0.2em] hover:text-white transition-all rounded-none cursor-pointer"
                 id="hero-btn-call"
               >
-                Call: 03409631937
+                Call: 0347-5177174
               </button>
             </motion.div>
           </div>
@@ -126,18 +126,23 @@ export default function Hero({ onOrderOnlineClick, onWhatsAppOrderClick }: HeroP
             <motion.div
               initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6 }}
-              className="relative w-full max-w-[360px] aspect-[4/5] bg-editorial-darker p-3 border border-editorial rounded-none shadow-2xl"
+              whileHover={{ 
+                scale: 1.02, 
+                y: -6,
+                boxShadow: "0 30px 60px -15px rgba(255, 107, 0, 0.2)"
+              }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              className="relative w-full max-w-[360px] aspect-[4/5] bg-[#0c0c0c] p-3 border border-white/10 rounded-none shadow-2xl cursor-pointer"
               id="hero-image-wrapper"
             >
               {/* Image Container with Editorial Frame */}
-              <div className="relative w-full h-full bg-black overflow-hidden border border-white/10 group">
+              <div className="relative w-full h-full bg-black overflow-hidden border border-white/5 group">
                 <div className="absolute inset-0 pointer-events-none editorial-anim-glow" aria-hidden />
                 <img
                   src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=700&auto=format&fit=crop&q=80"
                   alt="FAST Burgerz Special Smashed"
                   referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 transition-all duration-700"
+                  className="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                   id="hero-burger-img"
                   onError={(e) => {
                     (e.target as HTMLElement).style.display = 'none';
@@ -146,9 +151,28 @@ export default function Hero({ onOrderOnlineClick, onWhatsAppOrderClick }: HeroP
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/10 opacity-30" />
 
                 {/* Lookbook design overlay badge inside image */}
-                <div className="absolute bottom-4 left-4 right-4 bg-black/80 backdrop-blur-sm border border-white/10 p-3 flex justify-between items-center text-[10px] font-mono tracking-[0.1em]">
-                  <span className="text-white/60">INDEX CODE // FB01</span>
-                  <span className="text-editorial-orange font-bold">SMASHED BEEF ORIGINAL</span>
+                <div className="absolute bottom-4 left-4 right-4 bg-black/95 backdrop-blur-md border border-white/10 p-3 flex justify-between items-center text-[10px] font-mono tracking-[0.1em]">
+                  <span className="text-white/40">INDEX CODE // FB01</span>
+                  
+                  {/* Glowing, shifting text animation */}
+                  <motion.span
+                    animate={{ 
+                      color: ["#ff6b00", "#ffb300", "#ff6b00"],
+                      textShadow: [
+                        "0 0 2px rgba(255, 107, 0, 0.1)",
+                        "0 0 10px rgba(255, 107, 0, 0.5)",
+                        "0 0 2px rgba(255, 107, 0, 0.1)"
+                      ]
+                    }}
+                    transition={{ 
+                      duration: 3, 
+                      repeat: Infinity, 
+                      ease: "easeInOut" 
+                    }}
+                    className="font-extrabold tracking-wider"
+                  >
+                    SMASHED BEEF ORIGINAL
+                  </motion.span>
                 </div>
 
                 {/* Sheen highlight */}

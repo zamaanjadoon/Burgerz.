@@ -5,15 +5,15 @@ import { BRAND_INFO } from '../data';
 
 export default function DeliverySection() {
   const coverageAreas = [
+    'Barakah (Bharakahu)',
+    'G-13 Sector',
+    'G-14 Sector',
+    'Golra Sharif',
+    'E-11 Sector',
+    'F-11 Sector',
     'Second Home Boys Hostel (Immediate)',
     'Near Soneri Bank (Immediate)',
     'Bherapul Street Blocks',
-    'Bharakahu Bazar Grid',
-    'Kyani Road Sectors',
-    'Green Valleys',
-    '17 Meel',
-    'Phulgran Road Circles',
-    'Sustained Quarters Direct Bounds',
   ];
 
   return (

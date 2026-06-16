@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Plus, Minus, Trash2, Ticket, Check, ShieldCheck } from 'lucide-react';
+import { X, Plus, Minus, Trash2, Ticket, Check, ShieldCheck, CheckCircle } from 'lucide-react';
 import { CartItem, Coupon, Order } from '../types';
 import { BRAND_INFO, INITIAL_COUPONS } from '../data';
 
@@ -33,6 +33,23 @@ export default function ShoppingCart({
   const [paymentMethod, setPaymentMethod] = useState<'Cash on Delivery' | 'Easypaisa' | 'JazzCash'>('Cash on Delivery');
   const [orderNotes, setOrderNotes] = useState('');
   const [isPlacing, setIsPlacing] = useState(false);
+  const [orderSuccess, setOrderSuccess] = useState<{ trackCode: string } | null>(null);
+
+  // Sync profile details
+  React.useEffect(() => {
+    const loadProfile = () => {
+      const saved = localStorage.getItem('fb_user_profile');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        setCustomerName(prev => prev || parsed.name || '');
+        setCustomerPhone(prev => prev || parsed.phone || '');
+        setDeliveryAddress(prev => prev || parsed.address || '');
+      }
+    };
+    loadProfile();
+    window.addEventListener('fb_profile_updated', loadProfile);
+    return () => window.removeEventListener('fb_profile_updated', loadProfile);
+  }, []);
 
   // Billing Calculations
   const subtotal = useMemo(() => {
@@ -153,16 +170,26 @@ export default function ShoppingCart({
       // Direct opening tab safely
       window.open(whatsappUrl, '_blank');
       setIsPlacing(false);
-      onClose();
+      setOrderSuccess({ trackCode });
       
-      // Clear checking states
-      setCustomerName('');
-      setCustomerPhone('');
-      setDeliveryAddress('');
+      // Clear checkout inputs
       setOrderNotes('');
       setActiveCoupon(null);
       setCouponCode('');
-    }, 1200);
+
+      // Reload saved profile settings if any
+      const saved = localStorage.getItem('fb_user_profile');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        setCustomerName(parsed.name || '');
+        setCustomerPhone(parsed.phone || '');
+        setDeliveryAddress(parsed.address || '');
+      } else {
+        setCustomerName('');
+        setCustomerPhone('');
+        setDeliveryAddress('');
+      }
+    }, 1000);
   };
 
   return (
@@ -207,7 +234,51 @@ export default function ShoppingCart({
 
             {/* Scrollable Form & Items Content */}
             <div className="flex-1 overflow-y-auto p-6 space-y-6">
-              {cartItems.length === 0 ? (
+              {orderSuccess ? (
+                <div className="text-center py-16 space-y-6" id="order-success-view">
+                  <div className="flex justify-center">
+                    <div className="p-4 bg-green-500/10 border border-green-500/30 rounded-none text-green-400">
+                      <CheckCircle size={48} className="animate-bounce" />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <h3 className="text-sm font-extrabold text-white tracking-[0.2em] uppercase">ORDER PLACED SUCCESSFULLY!</h3>
+                    <p className="text-xs text-white/50 max-w-xs mx-auto leading-relaxed">
+                      We have compiled your cart details and redirected you to WhatsApp to confirm your order with the kitchen. We will deliver hot burgers to your doorstep in Islamabad!
+                    </p>
+                  </div>
+                  
+                  <div className="p-4 bg-editorial-dark border border-white/10 text-center space-y-1 font-mono">
+                    <span className="text-[9px] text-white/30 uppercase tracking-widest">Tracking Reference Code:</span>
+                    <p className="text-sm font-black text-editorial-orange tracking-wider">{orderSuccess.trackCode}</p>
+                  </div>
+
+                  <div className="space-y-2 pt-4">
+                    <button
+                      onClick={() => {
+                        setOrderSuccess(null);
+                        onClose();
+                      }}
+                      className="w-full py-3.5 bg-white text-black font-extrabold rounded-none text-[10px] tracking-[0.2em] transition-all cursor-pointer uppercase border border-transparent hover:bg-editorial-orange"
+                    >
+                      Continue Shopping
+                    </button>
+                    <button
+                      onClick={() => {
+                        setOrderSuccess(null);
+                        onClose();
+                        setTimeout(() => {
+                          const trackEl = document.getElementById('tracking');
+                          if (trackEl) trackEl.scrollIntoView({ behavior: 'smooth' });
+                        }, 200);
+                      }}
+                      className="w-full py-3.5 bg-editorial-darker border border-white/10 text-editorial-gold font-bold rounded-none text-[10px] tracking-[0.2em] transition-all cursor-pointer uppercase hover:text-white"
+                    >
+                      Track Order Status
+                    </button>
+                  </div>
+                </div>
+              ) : cartItems.length === 0 ? (
                 <div className="text-center py-20 space-y-4" id="empty-cart-view">
                   <h3 className="text-xs uppercase tracking-[0.2em] font-bold text-white/40">Your basket is empty</h3>
                   <p className="text-xs text-white/30 max-w-xs mx-auto leading-relaxed">

@@ -38,14 +38,19 @@ export default function Footer() {
             
             {/* Social handles (Lookbook square items) */}
             <div className="flex items-center space-x-2 pt-2">
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="p-2 bg-white/5 border border-white/5 rounded-none text-white/60 hover:text-editorial-orange hover:border-editorial-orange/40 transition-colors">
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="p-2 bg-white/5 border border-white/5 rounded-none text-white/60 hover:text-editorial-orange hover:border-editorial-orange/40 transition-colors" title="Facebook">
                 <Facebook size={14} />
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="p-2 bg-white/5 border border-white/5 rounded-none text-white/60 hover:text-editorial-orange hover:border-editorial-orange/40 transition-colors">
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="p-2 bg-white/5 border border-white/5 rounded-none text-white/60 hover:text-editorial-orange hover:border-editorial-orange/40 transition-colors" title="Instagram">
                 <Instagram size={14} />
               </a>
-              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="p-2 bg-white/5 border border-white/5 rounded-none text-white/60 hover:text-editorial-orange hover:border-editorial-orange/40 transition-colors">
-                <Youtube size={14} />
+              <a href="https://wa.me/923475177174" target="_blank" rel="noopener noreferrer" className="p-2 bg-white/5 border border-white/5 rounded-none text-white/60 hover:text-editorial-orange hover:border-editorial-orange/40 transition-colors" title="WhatsApp Chat">
+                <Phone size={14} className="text-green-500" />
+              </a>
+              <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="p-2 bg-white/5 border border-white/5 rounded-none text-white/60 hover:text-editorial-orange hover:border-editorial-orange/40 transition-colors" title="TikTok">
+                <svg className="w-3.5 h-3.5 fill-current text-white/60 hover:text-editorial-orange transition-colors" viewBox="0 0 24 24">
+                  <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.02 1.59 4.23.82.97 1.93 1.68 3.19 2.05v3.86c-1.39-.1-2.73-.67-3.8-1.59-.44-.38-.83-.82-1.15-1.3-.08-.12-.13-.08-.13.06v9.42c.03 2.19-.9 4.3-2.58 5.68-1.72 1.37-4.04 1.84-6.17 1.25-2.22-.6-4.03-2.31-4.75-4.48-.96-2.92.19-6.23 2.78-7.79 1.4-.84 3.04-1.13 4.63-.82V14.1c-1.2-.23-2.47-.02-3.5.63-1.15.72-1.79 2.04-1.66 3.39.14 1.48 1.31 2.76 2.79 2.94 1.49.19 3.06-.69 3.59-2.09.17-.46.22-.95.21-1.44V.02h.02z"/>
+                </svg>
               </a>
             </div>
           </div>
@@ -54,7 +59,7 @@ export default function Footer() {
           <div className="space-y-4">
             <h4 className="text-[10px] font-extrabold text-white uppercase tracking-[0.2em]">NAVIGATION REGISTRY</h4>
             <ul className="space-y-2 text-[10px] font-extrabold uppercase tracking-widest">
-              {['Home', 'Fresh Menu', 'Special Deals', 'Delivery coverage', 'Verified Reviews', 'Contact Coordinates'].map((item, idx) => (
+              {['Home', 'Menu', 'Deals', 'Delivery Areas', 'Reviews', 'Contact'].map((item, idx) => (
                 <li key={idx}>
                   <button
                     onClick={() => {
@@ -91,7 +96,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center space-x-2">
                 <Mail size={14} className="text-editorial-orange flex-shrink-0" />
-                <span className="text-[11px] text-white/50">owner@fastburgerz.com</span>
+                <span className="text-[11px] text-white/50">support@fastburgers.pk</span>
               </li>
             </ul>
           </div>
