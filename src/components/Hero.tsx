@@ -15,13 +15,13 @@ export default function Hero({ onOrderOnlineClick, onWhatsAppOrderClick }: HeroP
 
   return (
     <section id="hero" className="relative text-white overflow-hidden bg-editorial-dark border-b border-white/10 py-16 md:py-28 editorial-grid">
-      
+
       {/* Editorial aesthetic fine grid layout lines */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/30 pointer-events-none" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center">
-          
+
           {/* Hero Left Column: Editorial Display Typography & Fine Labels */}
           <div className="lg:col-span-7 space-y-8 text-left">
             <div>
@@ -44,11 +44,11 @@ export default function Hero({ onOrderOnlineClick, onWhatsAppOrderClick }: HeroP
                 className="text-4xl sm:text-5xl lg:text-6xl font-light leading-[1.05] tracking-tighter text-white font-serif"
                 id="hero-heading"
               >
-                Fresh Burgers <br/>
+                Fresh Burgers <br />
                 <span className="text-editorial-orange font-black not-italic block mt-1 tracking-tight">
                   DELIVERED FAST
                 </span>
-                Across Islamabad.
+                Across barakahu.
               </motion.h1>
 
               <motion.p
@@ -126,8 +126,8 @@ export default function Hero({ onOrderOnlineClick, onWhatsAppOrderClick }: HeroP
             <motion.div
               initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
-              whileHover={{ 
-                scale: 1.02, 
+              whileHover={{
+                scale: 1.02,
                 y: -6,
                 boxShadow: "0 30px 60px -15px rgba(255, 107, 0, 0.2)"
               }}
@@ -153,10 +153,10 @@ export default function Hero({ onOrderOnlineClick, onWhatsAppOrderClick }: HeroP
                 {/* Lookbook design overlay badge inside image */}
                 <div className="absolute bottom-4 left-4 right-4 bg-black/95 backdrop-blur-md border border-white/10 p-3 flex justify-between items-center text-[10px] font-mono tracking-[0.1em]">
                   <span className="text-white/40">INDEX CODE // FB01</span>
-                  
+
                   {/* Glowing, shifting text animation */}
                   <motion.span
-                    animate={{ 
+                    animate={{
                       color: ["#ff6b00", "#ffb300", "#ff6b00"],
                       textShadow: [
                         "0 0 2px rgba(255, 107, 0, 0.1)",
@@ -164,10 +164,10 @@ export default function Hero({ onOrderOnlineClick, onWhatsAppOrderClick }: HeroP
                         "0 0 2px rgba(255, 107, 0, 0.1)"
                       ]
                     }}
-                    transition={{ 
-                      duration: 3, 
-                      repeat: Infinity, 
-                      ease: "easeInOut" 
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut"
                     }}
                     className="font-extrabold tracking-wider"
                   >

@@ -380,7 +380,7 @@ export default function Header({
                       required
                       value={profileAddress}
                       onChange={(e) => setProfileAddress(e.target.value)}
-                      placeholder="e.g. Hostel 4, G-13/2, Islamabad"
+                      placeholder="e.g. Second Home Hostel Room 12, Bherapul, Bharakahu"
                       rows={3}
                       className="w-full bg-editorial-darker text-white rounded-none border border-white/10 p-3 text-xs font-semibold focus:outline-none focus:border-editorial-orange/50 placeholder:text-white/20"
                     />

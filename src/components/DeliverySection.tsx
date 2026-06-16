@@ -5,15 +5,15 @@ import { BRAND_INFO } from '../data';
 
 export default function DeliverySection() {
   const coverageAreas = [
-    'Barakah (Bharakahu)',
-    'G-13 Sector',
-    'G-14 Sector',
-    'Golra Sharif',
-    'E-11 Sector',
-    'F-11 Sector',
+    'All of Bharakahu (Barakahu)',
     'Second Home Boys Hostel (Immediate)',
     'Near Soneri Bank (Immediate)',
     'Bherapul Street Blocks',
+    'Athaal Road Neighborhoods',
+    'Satra Meel Sector',
+    'Phulgran Region',
+    'Dhok Abbasi Lanes',
+    'Main Bazar & Adjacent Areas',
   ];
 
   return (
@@ -93,8 +93,8 @@ export default function DeliverySection() {
           {/* Coverage maps & boundaries list right side */}
           <div className="p-6 rounded-none bg-editorial-darker border border-editorial space-y-6">
             <h3 className="text-xs font-black text-white uppercase tracking-widest pb-3 border-b border-editorial flex items-center justify-between">
-              <span>Coverage Boundaries (Islamabad)</span>
-              <span className="text-[9px] font-mono text-editorial-orange">● BHARAKAHU CENTRAL</span>
+              <span>Coverage Boundaries (Bharakahu)</span>
+              <span className="text-[9px] font-mono text-editorial-orange">● ALL BHARAKAHU SECTOR</span>
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2" id="coverage-grid">

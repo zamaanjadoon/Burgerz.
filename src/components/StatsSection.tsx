@@ -37,14 +37,14 @@ export default function StatsSection() {
   return (
     <section className="bg-editorial-darker py-16 border-b border-white/10 editorial-grid scroll-mt-20" id="stats">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        
+
         {/* Title Content */}
         <div className="text-center max-w-3xl mx-auto mb-12">
           <span className="text-[10px] font-extrabold tracking-[0.25em] text-editorial-orange uppercase block mb-1">
             OUR TRACK RECORD BY NUMBERS
           </span>
           <h2 className="text-3xl font-light text-white font-serif italic tracking-tight">
-            Why Islamabad Chooses Us
+            why barakahu Chooses Us
           </h2>
           <hr className="w-16 border-white/20 mx-auto mt-4" />
         </div>

@@ -5,8 +5,8 @@ import { Plus, Minus, HelpCircle } from 'lucide-react';
 export default function FAQSection() {
   const faqs = [
     {
-      question: 'Which areas do you deliver to in Islamabad?',
-      answer: 'We deliver hot and fresh burgers to Barakah (Bharakahu), G-13, G-14, Golra, E-11, F-11, and adjacent hostel sectors. Orders near our Bherapul Soneri Bank kitchen arrive in as fast as 20 minutes!',
+      question: 'Which areas do you deliver to?',
+      answer: 'We deliver hot and fresh burgers across all areas of Bharakahu (Barakahu), including local sectors, streets, and adjacent hostel rooms. Orders near our Bherapul Soneri Bank kitchen arrive in as fast as 20 minutes!',
     },
     {
       question: 'Why do I need to confirm my order on WhatsApp?',
