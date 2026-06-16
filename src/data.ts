@@ -303,25 +303,5 @@ export const INITIAL_REVIEWS: Review[] = [
     avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80',
     tag: 'Burger Enthusiast',
   },
-  {
-    id: 'r5',
-    name: 'Sana Mir',
-    rating: 5,
-    comment: 'Absolutely love their Loaded Fries! The cheese sauce is so rich, and it is packed with zinger chunks. It arrived steaming hot in Bharakahu Main Bazar. A must-try!',
-    date: '4 Days ago',
-    avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&auto=format&fit=crop&q=80',
-    tag: 'Bharakahu Resident',
-  },
-
-
-  {
-    id: 'r8',
-    name: 'Usman Farooq',
-    rating: 4.8,
-    comment: 'Highly recommended zinger burgers! Super crispy chicken breast fillet and fresh lettuce. The custom hot sauce they send on request is amazing. Fast delivery to Satra Meel.',
-    date: '1 Week ago',
-    avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&auto=format&fit=crop&q=80',
-    tag: 'Verified Diner',
-  },
 
 
