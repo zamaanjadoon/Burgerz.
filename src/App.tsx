@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+ietmport React, { useState, useEffect } from 'react';
+
+mmhimport React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 
@@ -10,9 +12,13 @@ import ShoppingCart from './components/ShoppingCart';
 import OrderTracker from './components/OrderTracker';
 import AdminPanel from './components/AdminPanel';
 import Footer from './components/Footer';
+import PromoBanners from './components/PromoBanners';
+import SpecialOffers from './components/SpecialOffers';
+
 
 import { Product, CartItem, Order, Review } from './types';
-import { BRAND_INFO, INITIAL_PRODUCTS, INITIAL_REVIEWS } from './data';
+import { BRAND_INFO, INITIAL_PRODUCTS, INITIAL_REVIEWS, PROMOTION_BANNERS } from './data';
+
 import { createOrder } from './api';
 
 import { motion, AnimatePresence } from 'motion/react';
@@ -259,14 +265,28 @@ export default function App() {
               {/* 1. Large Hero presentation with sliders */}
               <Hero
                 onOrderOnlineClick={() => {
-                  // promotions removed
                   const menuEl = document.getElementById('menu');
                   if (menuEl) menuEl.scrollIntoView({ behavior: 'smooth' });
                 }}
                 onWhatsAppOrderClick={handleGlobalWhatsAppClick}
               />
 
-              {/* 2. Central Interactive Menu and Custom Cards Section */}
+              {/* 2. Promotional Bulletin / Vouchers */}
+              <PromoBanners
+                promotions={PROMOTION_BANNERS}
+                onPromoClick={(_code) => {
+                  const menuEl = document.getElementById('menu');
+                  if (menuEl) menuEl.scrollIntoView({ behavior: 'smooth' });
+                }}
+                onBrowseMenu={(category) => {
+                  setPreselectedCategory(category || 'all');
+                  const menuEl = document.getElementById('menu');
+                  if (menuEl) menuEl.scrollIntoView({ behavior: 'smooth' });
+                }}
+              />
+
+
+              {/* 3. Central Interactive Menu and Custom Cards Section */}
               <MenuSection
                 products={products}
                 favorites={favorites}
@@ -276,6 +296,10 @@ export default function App() {
                 setShowFavoritesOnly={setShowFavoritesOnly}
                 preselectedCategory={preselectedCategory}
               />
+
+              {/* 4. Special Deals */}
+              <SpecialOffers />
+
 
               {/* 4. Online Order status Visual tracker */}
               <OrderTracker orders={orders} />
@@ -311,7 +335,8 @@ export default function App() {
         {/* Helper tip above button */}
         <div className="bg-neutral-900 border border-green-500/30 text-[10px] text-green-400 font-black px-2.5 py-1 rounded-md shadow-lg pointer-events-none select-none uppercase tracking-wider block sm:flex items-center space-x-1 animate-pulse">
           <span className="h-1.5 w-1.5 rounded-full bg-green-500 mr-1 inline-block" />
-          <span>ORDER ON WHATSAPP: 03409631937</span>
+          <span>ORDER ON WHATSAPP: {BRAND_INFO.contactNumbers[1] || BRAND_INFO.contactNumbers[0]}</span>
+
         </div>
 
         <motion.button
