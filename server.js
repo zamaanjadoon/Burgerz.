@@ -127,7 +127,7 @@ var INITIAL_PRODUCTS = [
     price: 420,
     category: "wraps",
     description: "Crispy structural golden zinger chicken strips wrapped in a warm soft tortilla, tossed with dynamic pepper mayo, crisp green cabbage and fresh lettuce.",
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4B7kjoKbFBkyT0vYNLzlX_K5xLGUqPrHFndqgJosuMQ&s=10",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyU9PaA5jJ7smRhCLWFQFy0o9amfqtGRMYoTWAm_MvVQ&s=10",
     rating: 4.7,
     isPopular: true,
     tags: ["Crispy Chicken", "Wrap"]
@@ -236,7 +236,7 @@ var INITIAL_REVIEWS = [
     rating: 5,
     comment: "The Wahshi Zinger Burger is literally out of this world! Massive chicken portion, crispy exterior, and the spice level is perfectly customizable. Living in Second Home Hostel, we order this almost every lock-in night! Highly recommended!",
     date: "2 Days ago",
-    avatar: "https://media-cdn.tripadvisor.com/media/photo-s/0c/ea/8e/f0/wehshi-zinger.jpg",
+    avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80",
     tag: "Hostel Resident"
   },
   {

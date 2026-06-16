@@ -100,7 +100,7 @@ export default function Footer() {
           <div className="space-y-4">
             <h4 className="text-[10px] font-extrabold text-white uppercase tracking-[0.2em]">NEWSLETTER REGISTRY</h4>
             <p className="text-[11px] text-white/45 leading-relaxed font-semibold">
-              Register your email coordinates to receive student vouchers, late-night combo offers, and exclusive discount codes directly.
+              Get fresh offers in your inbox—no spam, just deals.
             </p>
 
             {subscribed ? (

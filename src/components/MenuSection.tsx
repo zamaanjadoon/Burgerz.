@@ -102,7 +102,7 @@ export default function MenuSection({
           </h2>
           <hr className="w-16 border-white/20 mx-auto mt-4" />
           <p className="text-xs text-white/50 mt-4 leading-relaxed font-semibold">
-            Serving pure smashed beef recipes, handcrafted spices, student Night bundles, golden crisp appetizers, and refreshing chilled beverages to Soneri Bank circles.
+            Fresh smashed beef, bold spices, crispy sides, and cold drinks—built for quick cravings.
           </p>
         </div>
 
@@ -116,7 +116,7 @@ export default function MenuSection({
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Search burgers, plain fries, loaded wings..."
+                placeholder="Search burgers, fries, wings..."
                 className="w-full bg-black/40 text-white pl-9 pr-4 py-2 hover:border-white/20 border border-white/10 focus:outline-none focus:border-editorial-orange/50 text-[11px] font-mono tracking-wide placeholder:text-white/30"
               />
             </div>
@@ -179,6 +179,8 @@ export default function MenuSection({
                   setActiveCategory('all');
                   setShowFavoritesOnly(false);
                 }}
+                title="Reset Menu Filters"
+                aria-label="Reset Menu Filters"
                 className="mt-6 text-[10px] font-bold uppercase tracking-[0.2em] border border-editorial-orange text-editorial-orange px-4 py-2 hover:bg-editorial-orange hover:text-black transition-all"
               >
                 Reset Menu Filters

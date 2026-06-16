@@ -58,7 +58,7 @@ export default function Hero({ onOrderOnlineClick, onWhatsAppOrderClick }: HeroP
                 className="text-sm text-gray-400 max-w-lg mt-6 leading-relaxed font-semibold font-sans"
                 id="hero-description"
               >
-                Second Home Boys Hostel, Near Soneri Bank, Bharakahu, Islamabad. Premium beef smash burger plates, crunchy loaded fires, crispy hot chicken wings, and cool carbonated sodas, grilled to perfection.
+                Premium smashed beef burgers, loaded fires, crispy wings, and cold carbonated sodas—grilled fresh in Bharakahu, Islamabad.
               </motion.p>
             </div>
 
@@ -132,6 +132,7 @@ export default function Hero({ onOrderOnlineClick, onWhatsAppOrderClick }: HeroP
             >
               {/* Image Container with Editorial Frame */}
               <div className="relative w-full h-full bg-black overflow-hidden border border-white/10 group">
+                <div className="absolute inset-0 pointer-events-none editorial-anim-glow" aria-hidden />
                 <img
                   src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=700&auto=format&fit=crop&q=80"
                   alt="FAST Burgerz Special Smashed"
@@ -143,12 +144,15 @@ export default function Hero({ onOrderOnlineClick, onWhatsAppOrderClick }: HeroP
                   }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/10 opacity-30" />
-                
+
                 {/* Lookbook design overlay badge inside image */}
                 <div className="absolute bottom-4 left-4 right-4 bg-black/80 backdrop-blur-sm border border-white/10 p-3 flex justify-between items-center text-[10px] font-mono tracking-[0.1em]">
                   <span className="text-white/60">INDEX CODE // FB01</span>
                   <span className="text-editorial-orange font-bold">SMASHED BEEF ORIGINAL</span>
                 </div>
+
+                {/* Sheen highlight */}
+                <div className="absolute top-0 left-0 h-full w-[40%] bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 editorial-anim-sheen" aria-hidden />
               </div>
 
               {/* Minimal coordinates accent on extreme edges for lookbook layout context */}

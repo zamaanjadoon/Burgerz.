@@ -5,18 +5,50 @@
   --font-sans: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
   --font-serif: "Playfair Display", Georgia, serif;
   --font-mono: "JetBrains Mono", monospace;
-  
-  /* Precision Editorial Autumn Palette */
-  --color-editorial-dark: #0A0A0A;
-  --color-editorial-darker: #050505;
-  --color-editorial-cream: #F5F5F5;
-  --color-editorial-beige: #EADBC8;
-  --color-editorial-orange: #FF6321;
-  --color-editorial-gold: #FFD700;
-  
-  --border-editorial: rgba(255, 255, 255, 0.1);
-  --border-editorial-strong: rgba(255, 255, 255, 0.2);
+
+  /* Proportional theme (balanced ink + warm accent) */
+  --color-editorial-dark: #0b0c10;     /* primary surface */
+  --color-editorial-darker: #07080c;   /* deeper surface */
+  --color-editorial-cream: #f5f5f7;   /* near-white */
+  --color-editorial-beige: #e7dcc8;   /* secondary warmth */
+  --color-editorial-orange: #ff6a2a;  /* primary accent */
+  --color-editorial-gold: #ffcc3d;    /* secondary accent */
+
+  --border-editorial: rgba(255, 255, 255, 0.12);
+  --border-editorial-strong: rgba(255, 255, 255, 0.22);
 }
+
+/* Subtle motion defaults (lightweight, GPU-friendly) */
+@keyframes editorial-glow {
+  0% { opacity: 0.45; transform: translate3d(0, 0, 0) scale(1); }
+  50% { opacity: 0.75; transform: translate3d(0, -2px, 0) scale(1.01); }
+  100% { opacity: 0.45; transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@keyframes editorial-sheen {
+  0% { transform: translateX(-60%) rotate(10deg); opacity: 0; }
+  25% { opacity: 0.35; }
+  55% { opacity: 0.2; }
+  100% { transform: translateX(60%) rotate(10deg); opacity: 0; }
+}
+
+@keyframes editorial-float {
+  0% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -6px, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+/* Utility classes */
+.editorial-anim-glow {
+  animation: editorial-glow 2.8s ease-in-out infinite;
+}
+.editorial-anim-sheen {
+  animation: editorial-sheen 1.35s ease-out 1;
+}
+.editorial-anim-float {
+  animation: editorial-float 4.2s ease-in-out infinite;
+}
+
 
 /* Custom Editorial Elements and Accents */
 .editorial-grid {
