@@ -116,7 +116,7 @@ export default function Hero({ onOrderOnlineClick, onWhatsAppOrderClick }: HeroP
                 className="px-6 py-4 bg-editorial-darker border border-white/15 text-editorial-gold font-bold text-xs uppercase tracking-[0.2em] hover:text-white transition-all rounded-none cursor-pointer"
                 id="hero-btn-call"
               >
-                Call: 0347-5177174
+                Call: 0308-7800089
               </button>
             </motion.div>
           </div>

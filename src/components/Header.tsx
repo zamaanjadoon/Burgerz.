@@ -94,8 +94,8 @@ export default function Header({
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-[100] w-full transition-all duration-500 ease-in-out ${scrolled
-        ? 'bg-editorial-darker/95 backdrop-blur-lg border-b border-editorial-orange/20 shadow-lg shadow-black/90 py-1'
-        : 'bg-editorial-darker/80 backdrop-blur-md border-b border-white/10 py-3'
+      ? 'bg-editorial-darker/95 backdrop-blur-lg border-b border-editorial-orange/20 shadow-lg shadow-black/90 py-1'
+      : 'bg-editorial-darker/80 backdrop-blur-md border-b border-white/10 py-3'
       }`}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className={`flex items-center justify-between transition-all duration-500 ease-in-out ${scrolled ? 'h-11' : 'h-16'}`}>
@@ -127,8 +127,8 @@ export default function Header({
                 id={`nav-${item.id}`}
                 onClick={() => handleNavClick(item.id)}
                 className={`px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.2em] transition-all ${activeSection === item.id && !isAdminMode && !showFavoritesOnly
-                    ? 'text-editorial-orange border-b border-editorial-orange'
-                    : 'text-white/60 hover:text-white'
+                  ? 'text-editorial-orange border-b border-editorial-orange'
+                  : 'text-white/60 hover:text-white'
                   }`}
               >
                 {item.label}
@@ -145,7 +145,7 @@ export default function Header({
                 }`}
             >
               <Phone size={12} className="text-editorial-orange animate-pulse" />
-              <span>Call: 0347-5177174</span>
+              <span>Call: 0308-7800089</span>
             </a>
 
             {/* User Account Button */}
@@ -165,8 +165,8 @@ export default function Header({
                 setIsAdminMode(false);
               }}
               className={`relative p-2 rounded-none transition-all duration-300 border ${showFavoritesOnly
-                  ? 'bg-rose-500/10 text-rose-400 border-rose-500/30'
-                  : 'bg-editorial-darker/50 text-white/60 border-white/10 hover:text-white hover:border-white/25'
+                ? 'bg-rose-500/10 text-rose-400 border-rose-500/30'
+                : 'bg-editorial-darker/50 text-white/60 border-white/10 hover:text-white hover:border-white/25'
                 }`}
               title="Show Favorites"
               id="favorites-button"
@@ -201,8 +201,8 @@ export default function Header({
                 setShowFavoritesOnly(false);
               }}
               className={`p-2 rounded-none transition-all duration-300 border ${isAdminMode
-                  ? 'bg-editorial-gold text-black border-editorial-gold font-bold'
-                  : 'bg-editorial-darker/50 text-white/60 border-white/10 hover:text-editorial-gold hover:border-editorial-gold/40'
+                ? 'bg-editorial-gold text-black border-editorial-gold font-bold'
+                : 'bg-editorial-darker/50 text-white/60 border-white/10 hover:text-editorial-gold hover:border-editorial-gold/40'
                 }`}
               title="Admin Backoffice"
               id="admin-button"
@@ -239,8 +239,8 @@ export default function Header({
                   key={item.id}
                   onClick={() => handleNavClick(item.id)}
                   className={`w-full text-left px-3 py-2 text-xs font-bold uppercase tracking-[0.2em] rounded-none transition-all ${activeSection === item.id && !isAdminMode && !showFavoritesOnly
-                      ? 'text-editorial-orange bg-white/5 border-l-2 border-editorial-orange'
-                      : 'text-white/60 hover:text-white hover:bg-white/5'
+                    ? 'text-editorial-orange bg-white/5 border-l-2 border-editorial-orange'
+                    : 'text-white/60 hover:text-white hover:bg-white/5'
                     }`}
                 >
                   {item.label}
@@ -258,7 +258,7 @@ export default function Header({
                   <Phone size={12} className="text-editorial-orange animate-pulse" />
                   <span>Call Dispatcher</span>
                 </div>
-                <span>0347-5177174</span>
+                <span>0308-7800089</span>
               </a>
 
               {/* Mobile Profile Trigger */}
@@ -281,8 +281,8 @@ export default function Header({
                   setMobileMenuOpen(false);
                 }}
                 className={`flex items-center space-x-2 w-full text-left px-3 py-2.5 text-xs font-bold uppercase tracking-[0.1em] rounded-none border transition-all ${isAdminMode
-                    ? 'bg-editorial-gold text-black border-editorial-gold'
-                    : 'bg-black text-white/60 border-white/10 hover:text-white'
+                  ? 'bg-editorial-gold text-black border-editorial-gold'
+                  : 'bg-black text-white/60 border-white/10 hover:text-white'
                   }`}
               >
                 <Shield size={12} />

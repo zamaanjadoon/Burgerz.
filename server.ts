@@ -85,7 +85,7 @@ function ensureSeededDB() {
 
     // Seed admin account
     // Default admin credentials from prompt
-    const adminPhone = '03409631937';
+    const adminPhone = '03087800089';
     const adminPass = 'admin123';
     const salt = cryptoRandomString(16);
     const hash = sha256Hex(salt + adminPass);
@@ -131,7 +131,7 @@ function ensureSeededDB() {
 
 
   // Seed admin if missing
-  const adminPhone = '03409631937';
+  const adminPhone = '03087800089';
   const hasAdmin = (db.customers ?? []).some((c) => c.role === 'admin' && c.phone === adminPhone);
   if (!hasAdmin) {
     const adminPass = 'admin123';

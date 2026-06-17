@@ -124,7 +124,8 @@ export default function OrderTracker({ orders }: OrderTrackerProps) {
                     {/* Step wizard tracks with flat rectangular indicators instead of pills */}
                     {searchedOrder.status === 'Cancelled' ? (
                       <div className="p-4 border border-rose-500/15 bg-rose-500/5 text-center text-xs text-rose-400 font-extrabold uppercase tracking-widest">
-                        🚫 ORDER REJECTED/CANCELLED. CALL 03409631937, 03087800089.
+                        🚫 ORDER REJECTED/CANCELLED. CALL 03087800089.
+
                       </div>
                     ) : (
                       <div className="space-y-4">
