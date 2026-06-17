@@ -82,7 +82,7 @@ export default function App() {
   useEffect(() => {
     const alerts = [
       "Chef Irfan is preparing a Wahshi Zinger Burger right now! 🍔",
-      "Special Deal: Use code HOSTELDEAL for Rs. 100 off orders over Rs. 1000! 🏷️",
+      "Special Deal: Use code HOSTELDEAL for Rs. 100 off orders over Rs. 1500! 🏷️",
       "A dispatcher just departed to Bherapul Street with a fresh, steaming order! 🏍️",
       "Smashed Beef Original burger is currently trending in Bharakahu! 🔥",
       "Save 20% on your first order with coupon code WELCOME50! 🎉",

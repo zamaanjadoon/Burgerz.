@@ -75,9 +75,9 @@ export default function Header({
     { id: 'hero', label: 'Home' },
     { id: 'menu', label: 'Full Menu' },
     { id: 'orders', label: 'My Orders' },
-    { id: 'download', label: 'Download Menu' },
     { id: 'contact', label: 'Contact Us' },
   ];
+
 
   const handleNavClick = (sectionId: string) => {
     setActiveSection(sectionId);
