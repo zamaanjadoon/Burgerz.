@@ -135,11 +135,11 @@ export default function ShoppingCart({
     }
     message += `===============================\n`;
     message += `*ORDER ITEMS:*\n`;
-    
+
     cartItems.forEach((item, index) => {
       message += `${index + 1}. _${item.product.name}_ (x${item.quantity}) - Rs. ${item.product.price * item.quantity}\n`;
     });
-    
+
     message += `===============================\n`;
     message += `*Subtotal:* Rs. ${subtotal}\n`;
     if (discount > 0) {
@@ -161,7 +161,7 @@ export default function ShoppingCart({
       window.open(whatsappUrl, '_blank');
       setIsPlacing(false);
       onClose(); // Close the cart drawer immediately so user can see success modal
-      
+
       // Clear checkout inputs
       setOrderNotes('');
       setActiveCoupon(null);
@@ -354,11 +354,10 @@ export default function ShoppingCart({
                               key={method}
                               type="button"
                               onClick={() => setPaymentMethod(method as any)}
-                              className={`py-2 rounded-none text-[8px] font-bold text-center tracking-widest uppercase border transition-all ${
-                                paymentMethod === method
+                              className={`py-2 rounded-none text-[8px] font-bold text-center tracking-widest uppercase border transition-all ${paymentMethod === method
                                   ? 'bg-editorial-orange text-black border-editorial-orange font-extrabold'
                                   : 'bg-editorial-darker text-white/50 border-editorial hover:text-white'
-                              }`}
+                                }`}
                             >
                               {method === 'Cash on Delivery' ? 'Cash/COD' : method}
                             </button>
@@ -409,11 +408,10 @@ export default function ShoppingCart({
                     <button
                       type="submit"
                       disabled={subtotal < BRAND_INFO.minDeliveryOrder || isPlacing}
-                      className={`w-full py-3.5 rounded-none text-[10px] font-extrabold uppercase tracking-[0.22em] flex items-center justify-center transition-all ${
-                        subtotal < BRAND_INFO.minDeliveryOrder
+                      className={`w-full py-3.5 rounded-none text-[10px] font-extrabold uppercase tracking-[0.22em] flex items-center justify-center transition-all ${subtotal < BRAND_INFO.minDeliveryOrder
                           ? 'bg-editorial-darker border border-editorial text-white/20 cursor-not-allowed'
                           : 'bg-white border border-transparent text-black hover:bg-editorial-orange hover:text-black cursor-pointer'
-                      }`}
+                        }`}
                       id="submit-order-checkout"
                     >
                       <span>{isPlacing ? 'TRANSMITTING REQS TO WHATSAPP...' : 'SEND ORDER payload via WHATSAPP 💬'}</span>
