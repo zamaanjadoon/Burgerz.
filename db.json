@@ -8,6 +8,15 @@
       "passwordHash": "6fcb47f79420dd5ee8ef5fe7691eb073b43806e4c7e471dbaedd8ee4dc36be36",
       "passwordSalt": "029b19cd25bf8ccf",
       "createdAt": "2026-06-14T19:47:24.663Z"
+    },
+    {
+      "id": "admin-1",
+      "role": "admin",
+      "name": "FAST Burgerz Admin",
+      "phone": "03087800089",
+      "passwordHash": "5a0b2a428295f02ce6db92a3ccd97cfb12b95176bb42bbce26e243730b745700",
+      "passwordSalt": "51a6adb0b1814dad",
+      "createdAt": "2026-06-17T22:16:58.015Z"
     }
   ],
   "products": [

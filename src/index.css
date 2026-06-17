@@ -57,6 +57,60 @@
   background-size: 24px 24px;
 }
 
+/* Full-page animated multi-color background */
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  /* Multi-color gradient that shifts over time */
+  background: linear-gradient(
+    120deg,
+    #ff3d00,
+    #ffd400,
+    #2cff7a,
+    #00d0ff,
+    #6a00ff,
+    #ff3d00
+  );
+  background-size: 300% 300%;
+  animation: fastburgerz-bg 14s ease-in-out infinite;
+}
+
+/* Dark overlay to keep content readable */
+#root {
+  position: relative;
+  isolation: isolate;
+}
+
+#root::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.70) 100%
+  );
+  pointer-events: none;
+}
+
+@keyframes fastburgerz-bg {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 /* Smooth layout scrollbars resembling a high-fashion lookbook */
 ::-webkit-scrollbar {
   width: 5px;
@@ -69,3 +123,4 @@
   background: #FF6321;
   border-radius: 0px;
 }
+
