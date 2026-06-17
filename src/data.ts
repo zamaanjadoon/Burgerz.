@@ -4,7 +4,7 @@ export const BRAND_INFO = {
   name: 'FAST Burgerz',
   owner: 'M. D. M. Irfan',
   address: 'Second Home Boys Hostel, Near Soneri Bank, Bherapul, Bharakahu, Islamabad, Pakistan',
-  whatsappNumber: '03087800089',
+whatsappNumber: '0308-7800089',
 
   contactNumbers: ['03087800089', '03409631937'],
   deliveryEstimate: '20–40 Minutes',

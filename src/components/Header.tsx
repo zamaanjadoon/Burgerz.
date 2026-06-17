@@ -73,10 +73,10 @@ export default function Header({
 
   const navItems = [
     { id: 'hero', label: 'Home' },
-    { id: 'menu', label: 'Menu' },
-    { id: 'delivery', label: 'Delivery Areas' },
-    { id: 'reviews', label: 'Reviews' },
-    { id: 'contact', label: 'Contact' },
+    { id: 'menu', label: 'Full Menu' },
+    { id: 'orders', label: 'My Orders' },
+    { id: 'download', label: 'Download Menu' },
+    { id: 'contact', label: 'Contact Us' },
   ];
 
   const handleNavClick = (sectionId: string) => {
@@ -85,10 +85,20 @@ export default function Header({
     setIsAdminMode(false);
     setMobileMenuOpen(false);
 
-    // Smooth scroll with precise offset for lookbook header
-    const el = document.getElementById(sectionId);
+    // Map custom drawer actions to anchors / behaviors
+    const anchorId =
+      sectionId === 'orders' ? 'tracking' :
+      sectionId === 'download' ? 'menu' : // fallback (no dedicated download anchor)
+      sectionId;
+
+    const el = document.getElementById(anchorId);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    if (sectionId === 'download') {
+      // No file is guaranteed in repo; best-effort open in new tab.
+      window.open('/menu.pdf', '_blank');
     }
   };
 
@@ -123,13 +133,14 @@ export default function Header({
           <nav className="hidden md:flex items-center space-x-2">
             {navItems.map((item) => (
               <button
-                key={item.id}
-                id={`nav-${item.id}`}
-                onClick={() => handleNavClick(item.id)}
-                className={`px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.2em] transition-all ${activeSection === item.id && !isAdminMode && !showFavoritesOnly
-                  ? 'text-editorial-orange border-b border-editorial-orange'
-                  : 'text-white/60 hover:text-white'
-                  }`}
+                  key={item.id}
+                  id={`nav-${item.id}`}
+                  onClick={() => handleNavClick(item.id)}
+                  title={item.label}
+                  className={`px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.2em] transition-all ${activeSection === item.id && !isAdminMode && !showFavoritesOnly
+                    ? 'text-editorial-orange border-b border-editorial-orange'
+                    : 'text-white/60 hover:text-white'
+                    }`}
               >
                 {item.label}
               </button>
@@ -238,6 +249,7 @@ export default function Header({
                 <button
                   key={item.id}
                   onClick={() => handleNavClick(item.id)}
+                  title={item.label}
                   className={`w-full text-left px-3 py-2 text-xs font-bold uppercase tracking-[0.2em] rounded-none transition-all ${activeSection === item.id && !isAdminMode && !showFavoritesOnly
                     ? 'text-editorial-orange bg-white/5 border-l-2 border-editorial-orange'
                     : 'text-white/60 hover:text-white hover:bg-white/5'

@@ -6,9 +6,10 @@ import { BRAND_INFO } from '../data';
 interface HeroProps {
   onOrderOnlineClick: () => void;
   onWhatsAppOrderClick: () => void;
+  onLoginClick: () => void;
 }
 
-export default function Hero({ onOrderOnlineClick, onWhatsAppOrderClick }: HeroProps) {
+export default function Hero({ onOrderOnlineClick, onWhatsAppOrderClick, onLoginClick }: HeroProps) {
   const handleCallNow = () => {
     window.location.href = `tel:${BRAND_INFO.contactNumbers[0]}`;
   };
@@ -101,6 +102,15 @@ export default function Hero({ onOrderOnlineClick, onWhatsAppOrderClick }: HeroP
                 Order Now
               </button>
 
+              <button
+                onClick={onLoginClick}
+                className="px-6 py-4 bg-white/10 border border-white/20 text-white font-bold text-xs uppercase tracking-[0.2em] hover:bg-white/5 hover:border-editorial-orange/50 transition-all rounded-none cursor-pointer"
+                id="hero-btn-login"
+              >
+                Login / Sign Up
+              </button>
+
+
               {/* View Menu CTA */}
               <button
                 onClick={onOrderOnlineClick}
@@ -116,7 +126,7 @@ export default function Hero({ onOrderOnlineClick, onWhatsAppOrderClick }: HeroP
                 className="px-6 py-4 bg-editorial-darker border border-white/15 text-editorial-gold font-bold text-xs uppercase tracking-[0.2em] hover:text-white transition-all rounded-none cursor-pointer"
                 id="hero-btn-call"
               >
-                Call: 0308-7800089
+Call: 0308-7800089
               </button>
             </motion.div>
           </div>

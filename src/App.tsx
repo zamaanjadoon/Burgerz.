@@ -23,6 +23,7 @@ import { createOrder } from './api';
 
 import { motion, AnimatePresence } from 'motion/react';
 import { Sparkles, CheckCircle2, ShoppingBag } from 'lucide-react';
+import AuthModal from './components/AuthModal';
 
 export default function App() {
   // --- Persistent unified storage states ---
@@ -76,6 +77,7 @@ export default function App() {
 
   // Push Notification Simulation
   const [pushNotification, setPushNotification] = useState<string | null>(null);
+  const [authOpen, setAuthOpen] = useState(false);
 
   useEffect(() => {
     const alerts = [
@@ -263,6 +265,7 @@ export default function App() {
 
       {/* Primary Layout Switch between Admin backoffice or standard client homepage */}
       <main className="relative pt-[88px]">
+        <AuthModal isOpen={authOpen} onClose={() => setAuthOpen(false)} />
         <AnimatePresence mode="wait">
           {isAdminMode ? (
             <motion.div
@@ -298,6 +301,7 @@ export default function App() {
                   if (menuEl) menuEl.scrollIntoView({ behavior: 'smooth' });
                 }}
                 onWhatsAppOrderClick={handleGlobalWhatsAppClick}
+                onLoginClick={() => setAuthOpen(true)}
               />
 
               {/* 1.5 Promotional Ticker Banner Strip (removed delivery/offers info) */}
@@ -368,7 +372,7 @@ export default function App() {
         {/* Helper tip above button */}
         <div className="bg-neutral-900 border border-green-500/30 text-[10px] text-green-400 font-black px-2.5 py-1 rounded-md shadow-lg pointer-events-none select-none uppercase tracking-wider block sm:flex items-center space-x-1 animate-pulse">
           <span className="h-1.5 w-1.5 rounded-full bg-green-500 mr-1 inline-block" />
-          <span>ORDER ON WHATSAPP: {BRAND_INFO.contactNumbers[1] || BRAND_INFO.contactNumbers[0]}</span>
+ORDER ON WHATSAPP: {BRAND_INFO.contactNumbers[1] ? BRAND_INFO.contactNumbers[1].includes('-') ? BRAND_INFO.contactNumbers[1] : BRAND_INFO.contactNumbers[1].replace(/^(\d{4})(\d{6,})$/, '$1-$2') : BRAND_INFO.contactNumbers[0] }
 
         </div>
 

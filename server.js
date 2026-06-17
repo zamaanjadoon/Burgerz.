@@ -265,21 +265,7 @@ var INITIAL_REVIEWS = [
     date: "1 Day ago",
     avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80",
     tag: "Burger Enthusiast"
-  },
-
-
-
-  {
-    id: "r8",
-    name: "Usman Farooq",
-    rating: 4.8,
-    comment: "Highly recommended zinger burgers! Super crispy chicken breast fillet and fresh lettuce. The custom hot sauce they send on request is amazing. Fast delivery to Satra Meel.",
-    date: "1 Week ago",
-    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&auto=format&fit=crop&q=80",
-    tag: "Verified Diner"
-  },
-
-
+  }
 ];
 
 // server.ts
@@ -310,7 +296,7 @@ function ensureSeededDB() {
       orders: [],
       meta: { seededFrom: "src/data.ts", version: 1, seededAt: (/* @__PURE__ */ new Date()).toISOString() }
     };
-    const adminPhone2 = "03409631937";
+    const adminPhone2 = "03087800089";
     const adminPass = "admin123";
     const salt = cryptoRandomString(16);
     const hash = sha256Hex(salt + adminPass);
@@ -348,7 +334,7 @@ function ensureSeededDB() {
     db.orders = [];
     changed = true;
   }
-  const adminPhone = "03409631937";
+  const adminPhone = "03087800089";
   const hasAdmin = (db.customers ?? []).some((c) => c.role === "admin" && c.phone === adminPhone);
   if (!hasAdmin) {
     const adminPass = "admin123";

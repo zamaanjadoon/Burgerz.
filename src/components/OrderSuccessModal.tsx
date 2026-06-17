@@ -70,7 +70,7 @@ export default function OrderSuccessModal({
 
               {/* Message */}
               <p className="text-xs text-white/50 leading-relaxed font-semibold mb-6">
-                We have prepared your order payload and redirected you to WhatsApp to confirm details with the kitchen. We will deliver hot, fresh, flame-grilled burgers directly to your doorstep.
+                Your order has been successfully submitted, and the cart is now empty.
               </p>
 
               {/* Tracking Code Container */}
