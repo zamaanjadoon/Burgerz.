@@ -300,7 +300,7 @@ export default function App() {
                 onWhatsAppOrderClick={handleGlobalWhatsAppClick}
               />
 
-              {/* 1.5 Promotional Ticker Banner Strip */}
+              {/* 1.5 Promotional Ticker Banner Strip (removed delivery/offers info) */}
               <PromoTicker />
 
               {/* 3. Central Interactive Menu and Custom Cards Section */}

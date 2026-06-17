@@ -8,9 +8,10 @@ export const BRAND_INFO = {
 
   contactNumbers: ['03087800089', '03409631937'],
   deliveryEstimate: '20–40 Minutes',
-  deliveryCharges: 80,
-  minDeliveryOrder: 300,
-  freeDeliveryThreshold: 1500,
+  // Delivery pricing/charges removed from UI.
+  deliveryCharges: 0,
+  minDeliveryOrder: 0,
+  freeDeliveryThreshold: 0,
   businessHours: '4:00 PM - 4:00 AM',
 };
 

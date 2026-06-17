@@ -8,7 +8,7 @@ export default function PromoTicker() {
         <div className="flex flex-col md:flex-row justify-around items-center gap-4 text-center">
           <div className="flex items-center space-x-2.5">
             <Flame size={14} className="fill-current text-black animate-pulse" />
-            <span>Free Delivery on Orders Above Rs. 1500</span>
+            <span>Fresh burgers delivered fast</span>
           </div>
           <div className="hidden md:block text-black/20 font-light select-none">|</div>
           <div className="flex items-center space-x-2.5">

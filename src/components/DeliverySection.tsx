@@ -76,16 +76,13 @@ export default function DeliverySection() {
               <ul className="text-xs text-white/70 space-y-2 list-none font-semibold">
                 <li className="flex items-center">
                   <CheckCircle2 size={12} className="text-editorial-gold mr-2.5 flex-shrink-0" />
-                  <span>Free doorstep transport on cart values above Rs. {BRAND_INFO.freeDeliveryThreshold}!</span>
+                  <span>Delivery coverage includes Bharakahu area sectors.</span>
                 </li>
                 <li className="flex items-center">
                   <CheckCircle2 size={12} className="text-editorial-gold mr-2.5 flex-shrink-0" />
-                  <span>Standard base tariff of Rs. {BRAND_INFO.deliveryCharges} for smaller requests.</span>
+                  <span>Orders are dispatched fast within 20–40 minutes.</span>
                 </li>
-                <li className="flex items-center">
-                  <CheckCircle2 size={12} className="text-editorial-gold mr-2.5 flex-shrink-0" />
-                  <span>Minimum placement boundary value requires Rs. {BRAND_INFO.minDeliveryOrder}.</span>
-                </li>
+
               </ul>
             </div>
           </div>

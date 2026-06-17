@@ -114,13 +114,7 @@ export default function PromoBanners({ promotions, onPromoClick, onBrowseMenu }:
 
                   <button
                     onClick={() => {
-                      if (promo.id === 'p3') {
-                        onBrowseMenu('burgers');
-                      } else if (promo.id === 'p4') {
-                        onBrowseMenu('wraps');
-                      } else {
-                        onBrowseMenu();
-                      }
+                      onBrowseMenu();
                     }}
                     className="flex items-center space-x-1.5 text-[10px] uppercase font-black tracking-[0.2em] text-white hover:text-editorial-orange transition-all ml-auto group/btn"
                   >
