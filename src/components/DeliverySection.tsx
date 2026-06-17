@@ -115,10 +115,10 @@ export default function DeliverySection() {
               
               <div className="flex flex-wrap items-center gap-2">
                 <div className="bg-green-600/5 border border-green-500/15 p-2.5 text-center font-mono text-[9px] font-black tracking-wider text-green-400">
-                  Easypaisa: 03409631937
+                  Easypaisa: 0309-5040097
                 </div>
                 <div className="bg-red-600/5 border border-red-500/15 p-2.5 text-center font-mono text-[9px] font-black tracking-wider text-red-500">
-                  JazzCash: 0309-5040097
+
                 </div>
               </div>
             </div>
