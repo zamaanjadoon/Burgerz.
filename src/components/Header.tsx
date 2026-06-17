@@ -49,7 +49,7 @@ export default function Header({
     const profile = { name: profileName, phone: profilePhone, address: profileAddress };
     localStorage.setItem('fb_user_profile', JSON.stringify(profile));
     setSaveSuccess(true);
-    
+
     // Notify shopping cart of dynamic profile update
     window.dispatchEvent(new Event('fb_profile_updated'));
 
@@ -84,7 +84,7 @@ export default function Header({
     setShowFavoritesOnly(false);
     setIsAdminMode(false);
     setMobileMenuOpen(false);
-    
+
     // Smooth scroll with precise offset for lookbook header
     const el = document.getElementById(sectionId);
     if (el) {
@@ -93,22 +93,20 @@ export default function Header({
   };
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-[100] w-full transition-all duration-500 ease-in-out ${
-      scrolled 
-        ? 'bg-editorial-darker/95 backdrop-blur-lg border-b border-editorial-orange/20 shadow-lg shadow-black/90 py-1' 
+    <header className={`fixed top-0 left-0 right-0 z-[100] w-full transition-all duration-500 ease-in-out ${scrolled
+        ? 'bg-editorial-darker/95 backdrop-blur-lg border-b border-editorial-orange/20 shadow-lg shadow-black/90 py-1'
         : 'bg-editorial-darker/80 backdrop-blur-md border-b border-white/10 py-3'
-    }`}>
+      }`}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className={`flex items-center justify-between transition-all duration-500 ease-in-out ${scrolled ? 'h-11' : 'h-16'}`}>
-          
+
           {/* Brand Logo Section: Editorial Monospaced + Serif pairing */}
-          <div 
-            onClick={() => handleNavClick('hero')} 
+          <div
+            onClick={() => handleNavClick('hero')}
             className="flex cursor-pointer items-center space-x-3 group"
           >
-            <div className={`bg-editorial-orange flex items-center justify-center rounded-none font-serif italic text-black font-black transition-all duration-500 group-hover:rotate-6 ${
-              scrolled ? 'h-7 w-7 text-xs' : 'h-9 w-9 text-base'
-            }`}>
+            <div className={`bg-editorial-orange flex items-center justify-center rounded-none font-serif italic text-black font-black transition-all duration-500 group-hover:rotate-6 ${scrolled ? 'h-7 w-7 text-xs' : 'h-9 w-9 text-base'
+              }`}>
               F
             </div>
             <div>
@@ -116,9 +114,8 @@ export default function Header({
                 <span className={`font-black text-editorial-orange transition-all duration-500 ${scrolled ? 'text-lg' : 'text-xl'}`}>FAST</span>
                 <span className={`font-light text-white tracking-[0.1em] ml-1 transition-all duration-500 ${scrolled ? 'text-lg' : 'text-xl'}`}>BURGERZ</span>
               </div>
-              <p className={`font-mono tracking-[0.2em] text-white/40 uppercase transition-all duration-500 overflow-hidden ${
-                scrolled ? 'text-[0px] h-0 opacity-0' : 'text-[9px] h-3 opacity-100'
-              }`}>Bharakahu, Islamabad</p>
+              <p className={`font-mono tracking-[0.2em] text-white/40 uppercase transition-all duration-500 overflow-hidden ${scrolled ? 'text-[0px] h-0 opacity-0' : 'text-[9px] h-3 opacity-100'
+                }`}>Bharakahu, Islamabad</p>
             </div>
           </div>
 
@@ -129,11 +126,10 @@ export default function Header({
                 key={item.id}
                 id={`nav-${item.id}`}
                 onClick={() => handleNavClick(item.id)}
-                className={`px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.2em] transition-all ${
-                  activeSection === item.id && !isAdminMode && !showFavoritesOnly
+                className={`px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.2em] transition-all ${activeSection === item.id && !isAdminMode && !showFavoritesOnly
                     ? 'text-editorial-orange border-b border-editorial-orange'
                     : 'text-white/60 hover:text-white'
-                }`}
+                  }`}
               >
                 {item.label}
               </button>
@@ -143,11 +139,10 @@ export default function Header({
           {/* Action Utilities (Sharp square buttons) */}
           <div className="flex items-center space-x-2">
             {/* Phone Quick Link (Editorial Call Button) */}
-            <a 
+            <a
               href={`tel:${BRAND_INFO.contactNumbers[0]}`}
-              className={`hidden lg:flex items-center space-x-2 text-[10px] font-bold uppercase tracking-[0.15em] text-editorial-gold border border-white/10 transition-all duration-500 hover:bg-white/5 rounded-none ${
-                scrolled ? 'px-3 py-1.5' : 'px-4 py-2'
-              }`}
+              className={`hidden lg:flex items-center space-x-2 text-[10px] font-bold uppercase tracking-[0.15em] text-editorial-gold border border-white/10 transition-all duration-500 hover:bg-white/5 rounded-none ${scrolled ? 'px-3 py-1.5' : 'px-4 py-2'
+                }`}
             >
               <Phone size={12} className="text-editorial-orange animate-pulse" />
               <span>Call: 0347-5177174</span>
@@ -169,11 +164,10 @@ export default function Header({
                 setShowFavoritesOnly(!showFavoritesOnly);
                 setIsAdminMode(false);
               }}
-              className={`relative p-2 rounded-none transition-all duration-300 border ${
-                showFavoritesOnly
+              className={`relative p-2 rounded-none transition-all duration-300 border ${showFavoritesOnly
                   ? 'bg-rose-500/10 text-rose-400 border-rose-500/30'
                   : 'bg-editorial-darker/50 text-white/60 border-white/10 hover:text-white hover:border-white/25'
-              }`}
+                }`}
               title="Show Favorites"
               id="favorites-button"
             >
@@ -206,11 +200,10 @@ export default function Header({
                 setIsAdminMode(!isAdminMode);
                 setShowFavoritesOnly(false);
               }}
-              className={`p-2 rounded-none transition-all duration-300 border ${
-                isAdminMode
+              className={`p-2 rounded-none transition-all duration-300 border ${isAdminMode
                   ? 'bg-editorial-gold text-black border-editorial-gold font-bold'
                   : 'bg-editorial-darker/50 text-white/60 border-white/10 hover:text-editorial-gold hover:border-editorial-gold/40'
-              }`}
+                }`}
               title="Admin Backoffice"
               id="admin-button"
             >
@@ -245,11 +238,10 @@ export default function Header({
                 <button
                   key={item.id}
                   onClick={() => handleNavClick(item.id)}
-                  className={`w-full text-left px-3 py-2 text-xs font-bold uppercase tracking-[0.2em] rounded-none transition-all ${
-                    activeSection === item.id && !isAdminMode && !showFavoritesOnly
+                  className={`w-full text-left px-3 py-2 text-xs font-bold uppercase tracking-[0.2em] rounded-none transition-all ${activeSection === item.id && !isAdminMode && !showFavoritesOnly
                       ? 'text-editorial-orange bg-white/5 border-l-2 border-editorial-orange'
                       : 'text-white/60 hover:text-white hover:bg-white/5'
-                  }`}
+                    }`}
                 >
                   {item.label}
                 </button>
@@ -258,7 +250,7 @@ export default function Header({
               <hr className="border-white/5 my-2" />
 
               {/* Mobile Phone Quick Action */}
-              <a 
+              <a
                 href={`tel:${BRAND_INFO.contactNumbers[0]}`}
                 className="flex items-center justify-between w-full px-3 py-2.5 bg-white/5 text-editorial-gold rounded-none border border-white/10 text-xs font-extrabold uppercase tracking-[0.1em]"
               >
@@ -288,11 +280,10 @@ export default function Header({
                   setShowFavoritesOnly(false);
                   setMobileMenuOpen(false);
                 }}
-                className={`flex items-center space-x-2 w-full text-left px-3 py-2.5 text-xs font-bold uppercase tracking-[0.1em] rounded-none border transition-all ${
-                  isAdminMode
+                className={`flex items-center space-x-2 w-full text-left px-3 py-2.5 text-xs font-bold uppercase tracking-[0.1em] rounded-none border transition-all ${isAdminMode
                     ? 'bg-editorial-gold text-black border-editorial-gold'
                     : 'bg-black text-white/60 border-white/10 hover:text-white'
-                }`}
+                  }`}
               >
                 <Shield size={12} />
                 <span>{isAdminMode ? 'Exit Admin Mode' : 'Open Admin Panel'}</span>
@@ -349,7 +340,7 @@ export default function Header({
                   <p className="text-[10px] text-white/40 leading-relaxed font-semibold">
                     Set up your contact and delivery coordinates for fast checkout. Details are stored securely on your local device.
                   </p>
-                  
+
                   <div>
                     <label className="block text-[9px] font-bold uppercase tracking-wider text-white/55 mb-1">Full Name</label>
                     <input
@@ -369,7 +360,7 @@ export default function Header({
                       required
                       value={profilePhone}
                       onChange={(e) => setProfilePhone(e.target.value)}
-                      placeholder="e.g. 03475177174"
+                      placeholder="e.g. 03087800089"
                       className="w-full bg-editorial-darker text-white rounded-none border border-white/10 px-3 py-2 text-xs font-mono focus:outline-none focus:border-editorial-orange/50"
                     />
                   </div>

@@ -53,7 +53,7 @@ export default function OrderTracker({ orders }: OrderTrackerProps) {
   return (
     <section id="tracking" className="bg-editorial-dark py-16 border-b border-white/10 scroll-mt-20 editorial-grid">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        
+
         {/* Banner header elements */}
         <div className="text-center max-w-2xl mx-auto mb-12">
           <span className="text-[10px] font-extrabold tracking-[0.25em] text-editorial-orange uppercase block mb-1">
@@ -101,7 +101,7 @@ export default function OrderTracker({ orders }: OrderTrackerProps) {
                   </div>
                 ) : (
                   <div className="space-y-6" id="tracker-success-details">
-                    
+
                     {/* Tiny header fields (Lookbook metadata rows) */}
                     <div className="flex flex-wrap items-center justify-between gap-2 bg-editorial-dark p-3 rounded-none border border-editorial text-[9px] font-mono tracking-widest uppercase">
                       <div>
@@ -114,9 +114,8 @@ export default function OrderTracker({ orders }: OrderTrackerProps) {
                       </div>
                       <div className="text-right">
                         <span className="text-white/45">STAGE STATUS //</span>
-                        <span className={`block text-[11px] font-extrabold uppercase mt-0.5 ${
-                          searchedOrder.status === 'Cancelled' ? 'text-red-500' : 'text-editorial-orange'
-                        }`}>
+                        <span className={`block text-[11px] font-extrabold uppercase mt-0.5 ${searchedOrder.status === 'Cancelled' ? 'text-red-500' : 'text-editorial-orange'
+                          }`}>
                           {searchedOrder.status}
                         </span>
                       </div>
@@ -125,7 +124,7 @@ export default function OrderTracker({ orders }: OrderTrackerProps) {
                     {/* Step wizard tracks with flat rectangular indicators instead of pills */}
                     {searchedOrder.status === 'Cancelled' ? (
                       <div className="p-4 border border-rose-500/15 bg-rose-500/5 text-center text-xs text-rose-400 font-extrabold uppercase tracking-widest">
-                        🚫 ORDER REJECTED/CANCELLED. CALL 03409631937.
+                        🚫 ORDER REJECTED/CANCELLED. CALL 03409631937, 03087800089.
                       </div>
                     ) : (
                       <div className="space-y-4">
@@ -152,16 +151,14 @@ export default function OrderTracker({ orders }: OrderTrackerProps) {
 
                             return (
                               <div key={node.val} className="relative z-10 flex flex-col items-center flex-1">
-                                <div className={`w-8 h-8 rounded-none border flex items-center justify-center text-[10px] font-bold transition-all duration-350 select-none ${
-                                  isDone
+                                <div className={`w-8 h-8 rounded-none border flex items-center justify-center text-[10px] font-bold transition-all duration-350 select-none ${isDone
                                     ? 'bg-editorial-orange border-editorial-orange text-black font-extrabold scale-105'
                                     : 'bg-editorial-dark border border-editorial text-white/30'
-                                }`}>
+                                  }`}>
                                   {isDone && node.val < currentStep ? '✓' : node.icon}
                                 </div>
-                                <span className={`text-[8px] font-extrabold uppercase tracking-widest mt-2 ${
-                                  isCurrent ? 'text-editorial-gold font-extrabold scale-102 font-mono' : 'text-white/20'
-                                }`}>
+                                <span className={`text-[8px] font-extrabold uppercase tracking-widest mt-2 ${isCurrent ? 'text-editorial-gold font-extrabold scale-102 font-mono' : 'text-white/20'
+                                  }`}>
                                   {node.label}
                                 </span>
                               </div>
