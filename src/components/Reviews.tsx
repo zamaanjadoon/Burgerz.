@@ -49,7 +49,7 @@ export default function Reviews({ reviews, onAddReview }: ReviewsProps) {
               GUEST LOG & VERIFICATIONS
             </span>
             <h2 className="text-3xl font-light text-white font-serif italic mt-1 tracking-tight font-serif">
-              What Our Burger Lovers Say
+              
             </h2>
           </div>
           <button
