@@ -159,8 +159,13 @@ export default function ShoppingCart({
     setTimeout(() => {
       // Direct opening tab safely
       window.open(whatsappUrl, '_blank');
+
+      // Clear basket after order submission
+      cartItems.forEach((item) => removeFromCart(item.product.id));
+
       setIsPlacing(false);
       onClose(); // Close the cart drawer immediately so user can see success modal
+
 
       // Clear checkout inputs
       setOrderNotes('');

@@ -246,7 +246,7 @@ export default function App() {
   const cartTotalItemsCount = cartItems.reduce((acc, curr) => acc + curr.quantity, 0);
 
   return (
-    <div className="min-h-screen bg-editorial-dark text-editorial-cream font-sans selection:bg-editorial-orange selection:text-black antialiased overflow-x-hidden pb-28 sm:pb-32">
+    <div className="min-h-screen bg-gradient-to-b from-[#0b0b12] via-[#0e0e1a] to-[#050507] text-editorial-cream font-sans selection:bg-editorial-orange selection:text-black antialiased overflow-x-hidden pb-28 sm:pb-32">
       
       {/* Fixed Global Navbar Header */}
       <Header
