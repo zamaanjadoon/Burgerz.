@@ -37,8 +37,9 @@ import AiAssistant from './components/AiAssistant';
 
 export default function App() {
   const [theme, setTheme] = useState<'obsidian' | 'emerald' | 'nordic'>(() => {
-    return (localStorage.getItem('fb_theme') as any) || 'obsidian';
+    return (localStorage.getItem('fb_theme') as any) || 'nordic';
   });
+
 
   useEffect(() => {
     localStorage.setItem('fb_theme', theme);
