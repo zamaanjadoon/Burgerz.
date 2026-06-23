@@ -6,16 +6,92 @@
   --font-serif: "Playfair Display", Georgia, serif;
   --font-mono: "JetBrains Mono", monospace;
 
-  /* Proportional theme (balanced ink + warm accent) */
-  --color-editorial-dark: #111111;     /* primary surface */
-  --color-editorial-darker: #0c0c0c;   /* deeper surface */
-  --color-editorial-cream: #ffffff;   /* near-white */
-  --color-editorial-beige: #f5f5f5;   /* secondary warmth */
-  --color-editorial-orange: #ff6b00;  /* primary accent */
-  --color-editorial-gold: #ffb300;    /* secondary accent */
+  /* Dynamically mapped theme colors */
+  --color-editorial-dark: var(--bg-dark);     /* primary surface */
+  --color-editorial-darker: var(--bg-darker);   /* deeper surface */
+  --color-editorial-cream: var(--text-cream);   /* primary text */
+  --color-editorial-beige: var(--bg-beige);   /* secondary surface */
+  --color-editorial-orange: var(--color-accent);  /* primary accent */
+  --color-editorial-gold: var(--color-accent-secondary);    /* secondary accent */
 
-  --border-editorial: rgba(255, 255, 255, 0.08);
-  --border-editorial-strong: rgba(255, 255, 255, 0.18);
+  --border-editorial: var(--border-color);
+  --border-editorial-strong: var(--border-color-strong);
+
+  --color-theme-bg-start: var(--bg-dark);
+  --color-theme-bg-mid: var(--bg-darker);
+  --color-theme-bg-end: var(--bg-dark);
+}
+
+/* Theme variables definitions */
+:root {
+  --bg-dark: #0b0b12;
+  --bg-darker: #06060a;
+  --text-cream: #ffffff;
+  --bg-beige: #1a1a2e;
+  --color-accent: #f97316;
+  --color-accent-secondary: #f59e0b;
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-color-strong: rgba(255, 255, 255, 0.18);
+  --radius-base: 14px;
+  --radius-button: 9999px;
+  --radius-input: 8px;
+}
+
+.theme-obsidian {
+  --bg-dark: #09090b;
+  --bg-darker: #18181b;
+  --text-cream: #fafafa;
+  --bg-beige: #27272a;
+  --color-accent: #f97316;
+  --color-accent-secondary: #f59e0b;
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-color-strong: rgba(255, 255, 255, 0.16);
+  --radius-base: 14px;
+  --radius-button: 9999px;
+  --radius-input: 8px;
+}
+
+.theme-emerald {
+  --bg-dark: #022c22;
+  --bg-darker: #064e3b;
+  --text-cream: #f0fdf4;
+  --bg-beige: #115e59;
+  --color-accent: #fbbf24;
+  --color-accent-secondary: #34d399;
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-color-strong: rgba(255, 255, 255, 0.16);
+  --radius-base: 12px;
+  --radius-button: 10px;
+  --radius-input: 8px;
+}
+
+.theme-nordic {
+  --bg-dark: #fcfbfa;
+  --bg-darker: #f5f4f0;
+  --text-cream: #1c1917;
+  --bg-beige: #e7e5e4;
+  --color-accent: #ea580c;
+  --color-accent-secondary: #d97706;
+  --border-color: rgba(0, 0, 0, 0.08);
+  --border-color-strong: rgba(0, 0, 0, 0.15);
+  --radius-base: 18px;
+  --radius-button: 9999px;
+  --radius-input: 12px;
+}
+
+/* Global rounded overlays for professional look */
+.rounded-none {
+  border-radius: var(--radius-base, 12px) !important;
+}
+button.rounded-none,
+a.rounded-none,
+.btn.rounded-none {
+  border-radius: var(--radius-button, 9999px) !important;
+}
+input.rounded-none,
+textarea.rounded-none,
+select.rounded-none {
+  border-radius: var(--radius-input, 8px) !important;
 }
 
 /* Subtle motion defaults (lightweight, GPU-friendly) */
@@ -49,7 +125,6 @@
   animation: editorial-float 4.2s ease-in-out infinite;
 }
 
-
 /* Custom Editorial Elements and Accents */
 .editorial-grid {
   background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
@@ -57,20 +132,22 @@
   background-size: 24px 24px;
 }
 
-
+.theme-nordic .editorial-grid {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+}
 
 /* Smooth layout scrollbars resembling a high-fashion lookbook */
-/* (background changes intentionally reverted) */
-
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #0A0A0A;
+  background: var(--bg-darker);
 }
 ::-webkit-scrollbar-thumb {
-  background: #FF6321;
-  border-radius: 0px;
+  background: var(--color-accent);
+  border-radius: 9999px;
 }
+
 

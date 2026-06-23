@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, User, Mail, Phone } from 'lucide-react';
+import { X, User, Lock, Phone } from 'lucide-react';
+import { login, register } from '../api';
 
 type AuthMode = 'login' | 'signup';
 
@@ -11,7 +12,8 @@ interface AuthModalProps {
 
 export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
   const [mode, setMode] = useState<AuthMode>('login');
-  const [identifier, setIdentifier] = useState(''); // phone or email
+  const [phone, setPhone] = useState('');
+  const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
@@ -19,23 +21,25 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
   const title = useMemo(() => (mode === 'login' ? 'Login' : 'Sign Up'), [mode]);
 
   const validate = () => {
-    const v = identifier.trim();
-    if (!v) return 'Please enter phone number or email.';
+    const p = phone.trim();
+    if (!p) return 'Please enter your phone number.';
+    if (!/^\d{10,12}$/.test(p)) return 'Please enter a valid phone number (digits only, e.g. 03087800089).';
 
-    // Very lightweight validation: allow digits/+ and dashes for phone, else treat as email.
-    const looksEmail = v.includes('@');
-    if (looksEmail) {
-      const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-      if (!ok) return 'Please enter a valid email.';
-    } else {
-      const ok = /^[0-9+\-\s()]{7,}$/.test(v);
-      if (!ok) return 'Please enter a valid phone number.';
+    if (mode === 'signup' && !name.trim()) {
+      return 'Please enter your full name.';
+    }
+
+    if (!password) {
+      return 'Please enter your password.';
+    }
+    if (password.length < 6) {
+      return 'Password must be at least 6 characters.';
     }
 
     return null;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
@@ -45,37 +49,59 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
       return;
     }
 
-    // Save as a lightweight local "customer profile".
-    // This app currently uses localStorage to prefill checkout fields.
-    const payload = {
-      loginMode: mode,
-      identifier: identifier.trim(),
-      name: name.trim(),
-      savedAt: Date.now(),
-    };
-
     try {
-      localStorage.setItem('fb_customer_auth', JSON.stringify(payload));
-      if (payload.name) {
-        localStorage.setItem(
-          'fb_user_profile',
-          JSON.stringify({
-            name: payload.name,
-            // Phone/address are optionally handled by the separate Profile modal.
-            phone: '',
-            address: '',
-          })
-        );
+      if (mode === 'signup') {
+        // Register first
+        await register(name.trim(), phone.trim(), password);
+        // Automatical login after register
+        const res = await login(phone.trim(), password);
+        saveAuthData(res);
+      } else {
+        // Login directly
+        const res = await login(phone.trim(), password);
+        saveAuthData(res);
       }
-    } catch {
-      // ignore quota/localStorage errors
-    }
 
-    setSuccess(true);
-    setTimeout(() => {
-      setSuccess(false);
-      onClose();
-    }, 900);
+      setSuccess(true);
+      setTimeout(() => {
+        setSuccess(false);
+        setPassword('');
+        onClose();
+      }, 900);
+    } catch (err: any) {
+      console.error(err);
+      setError(err?.message || 'Authentication failed. Please check credentials.');
+    }
+  };
+
+  const saveAuthData = (res: {
+    token: string;
+    user: { id: string; role: 'customer' | 'admin'; name: string; phone: string };
+  }) => {
+    localStorage.setItem('fb_token', res.token);
+    localStorage.setItem(
+      'fb_user_profile',
+      JSON.stringify({
+        name: res.user.name,
+        phone: res.user.phone,
+        role: res.user.role,
+        address: localStorage.getItem('fb_user_profile') 
+          ? JSON.parse(localStorage.getItem('fb_user_profile') || '{}').address || ''
+          : '',
+      })
+    );
+    localStorage.setItem(
+      'fb_customer_auth',
+      JSON.stringify({
+        loginMode: mode,
+        identifier: res.user.phone,
+        name: res.user.name,
+        role: res.user.role,
+        savedAt: Date.now(),
+      })
+    );
+    // Broadcast the auth change event globally
+    window.dispatchEvent(new Event('fb_auth_changed'));
   };
 
   return (
@@ -101,7 +127,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
               <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
                 <div className="flex items-center gap-2">
                   <div className="p-2 bg-editorial-orange/10 text-editorial-orange border border-editorial-orange/20 rounded-none">
-                    {mode === 'login' ? <User size={18} /> : <User size={18} />}
+                    <User size={18} />
                   </div>
                   <div>
                     <div className="text-[10px] font-extrabold uppercase tracking-[0.25em] text-editorial-orange">
@@ -125,9 +151,9 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                   <div className="mx-auto w-12 h-12 rounded-none bg-green-500/10 border border-green-500/30 flex items-center justify-center">
                     ✅
                   </div>
-                  <div className="text-xs uppercase tracking-widest font-extrabold text-green-400">Saved!</div>
+                  <div className="text-xs uppercase tracking-widest font-extrabold text-green-400">Authenticated!</div>
                   <div className="text-[11px] text-white/40 font-semibold leading-relaxed">
-                    You can now checkout faster. (Local profile saved on this device.)
+                    Welcome back! You are now securely logged in.
                   </div>
                 </div>
               ) : (
@@ -135,7 +161,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                   <div className="flex gap-2">
                     <button
                       type="button"
-                      onClick={() => setMode('login')}
+                      onClick={() => { setMode('login'); setError(null); }}
                       className={`flex-1 py-2 text-[10px] font-extrabold uppercase tracking-[0.2em] rounded-none border transition-all ${
                         mode === 'login'
                           ? 'bg-editorial-orange text-black border-editorial-orange'
@@ -146,7 +172,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                     </button>
                     <button
                       type="button"
-                      onClick={() => setMode('signup')}
+                      onClick={() => { setMode('signup'); setError(null); }}
                       className={`flex-1 py-2 text-[10px] font-extrabold uppercase tracking-[0.2em] rounded-none border transition-all ${
                         mode === 'signup'
                           ? 'bg-editorial-orange text-black border-editorial-orange'
@@ -157,37 +183,60 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                     </button>
                   </div>
 
+                  {mode === 'signup' && (
+                    <div className="space-y-2">
+                      <label className="block text-[9px] font-bold uppercase tracking-wider text-white/55 mb-1">
+                        Full Name
+                      </label>
+                      <div className="flex items-center bg-editorial-dark/40 border border-white/10">
+                        <span className="px-3 text-white/40">
+                          <User size={14} />
+                        </span>
+                        <input
+                          type="text"
+                          required
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          placeholder="e.g. Ali Khan"
+                          className="w-full bg-transparent text-white rounded-none px-0 py-2 text-xs font-semibold focus:outline-none"
+                        />
+                      </div>
+                    </div>
+                  )}
+
                   <div className="space-y-2">
                     <label className="block text-[9px] font-bold uppercase tracking-wider text-white/55 mb-1">
-                      {mode === 'signup' ? 'Name (optional)' : 'Name (optional)'}
+                      Phone Number
                     </label>
                     <div className="flex items-center bg-editorial-dark/40 border border-white/10">
                       <span className="px-3 text-white/40">
-                        <User size={14} />
+                        <Phone size={14} />
                       </span>
                       <input
                         type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder="e.g. Ali Khan"
-                        className="w-full bg-transparent text-white rounded-none px-0 py-2 text-xs font-semibold focus:outline-none"
+                        required
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        placeholder="e.g. 03087800089"
+                        className="w-full bg-transparent text-white rounded-none px-0 py-2 text-xs font-mono font-semibold focus:outline-none"
                       />
                     </div>
                   </div>
 
                   <div className="space-y-2">
                     <label className="block text-[9px] font-bold uppercase tracking-wider text-white/55 mb-1">
-                      Phone number or Email
+                      Password
                     </label>
                     <div className="flex items-center bg-editorial-dark/40 border border-white/10">
                       <span className="px-3 text-white/40">
-                        <Mail size={14} />
+                        <Lock size={14} />
                       </span>
                       <input
-                        type="text"
-                        value={identifier}
-                        onChange={(e) => setIdentifier(e.target.value)}
-                        placeholder="e.g. 0308-xxxxxxx or name@email.com"
+                        type="password"
+                        required
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="••••••••"
                         className="w-full bg-transparent text-white rounded-none px-0 py-2 text-xs font-semibold focus:outline-none"
                       />
                     </div>
@@ -207,7 +256,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                   </button>
 
                   <div className="text-[11px] text-white/40 leading-relaxed font-semibold">
-                    By continuing, you agree to store login details locally on this device.
+                    Account coordinates are securely authenticated via our server registry.
                   </div>
                 </form>
               )}
@@ -218,4 +267,5 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
     </AnimatePresence>
   );
 }
+
 

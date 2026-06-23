@@ -5,6 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import jwt from 'jsonwebtoken';
 import { fileURLToPath } from 'url';
+import { GoogleGenAI } from '@google/genai';
 
 // esbuild bundling defaults to CJS unless we tell it otherwise.
 // Provide robust __dirname/__filename without relying on import.meta in production bundle.
@@ -483,13 +484,85 @@ app.get('/api/orders/lookup/:track', (req, res) => {
 
   const cleaned = track.trim().toUpperCase();
   const matches = (db.orders ?? []).filter((o) => o.trackCode?.toUpperCase() === cleaned || o.id?.toUpperCase() === cleaned);
-  if (user.role === 'admin') return res.json(matches[0] ?? null);
+  if (user?.role === 'admin') return res.json(matches[0] ?? null);
 
-  const mine = matches.find((m) => m.customerId === user.sub);
+  const mine = matches.find((m) => m.customerId === user?.sub);
   res.json(mine ?? null);
 });
 
+// --- Dynamic Gemini AI Burger Assistant Chatbot ---
+app.post('/api/ai/chat', async (req, res) => {
+  const { messages } = req.body as { messages: { role: 'user' | 'model'; parts: { text: string }[] }[] };
+
+  if (!messages || !Array.isArray(messages)) {
+    return res.status(400).json({ error: 'messages array is required' });
+  }
+
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey || apiKey === 'MY_GEMINI_API_KEY') {
+    // Elegant offline mode if Gemini API key is missing
+    const lastUserMsg = messages[messages.length - 1]?.parts[0]?.text || '';
+    let reply = "Hello! I am your FAST Burgerz Assistant. (Note: Gemini API key is currently offline on this server, so I'm answering using my cached local directory).\n\n";
+    if (lastUserMsg.toLowerCase().includes('zinger')) {
+      reply += "Our famous crispy Zinger Burger is Rs. 400, and the massive double Wahshi Zinger Burger is Rs. 650! Both are hand-breaded and super crunchy. Would you like me to add one to your basket?";
+    } else if (lastUserMsg.toLowerCase().includes('beef') || lastUserMsg.toLowerCase().includes('burger')) {
+      reply += "We specialize in smashed beef burgers! Try our Jalapeno Beef Burger (Rs. 470) or the Double Special Beef Smash (Rs. 650) loaded with caramelized onions and grilled mushrooms.";
+    } else if (lastUserMsg.toLowerCase().includes('fries') || lastUserMsg.toLowerCase().includes('loaded')) {
+      reply += "We offer Plain Fries (Rs. 120), Garlic Mayo Fries (Rs. 150), and the giant bowl of Loaded Fries with hot cheese sauce and chicken chunks for Rs. 550! Perfect side for the burgers.";
+    } else {
+      reply += "You can order fresh burgers, loaded fries, crispy wings, wraps, and margaritas! Just select items from the menu and add them to your basket. Let me know if you have any questions about ingredients, pricing, or spiciness!";
+    }
+    return res.json({ text: reply });
+  }
+
+  try {
+    const ai = new GoogleGenAI({ apiKey });
+    
+    // Read the current products to give the AI context about the menu!
+    const db = readDB();
+    const menuContext = db.products.map(p => 
+      `- ${p.name} (${p.category}): Rs. ${p.price}. Description: ${p.description}. Tags: ${p.tags?.join(', ') || ''}`
+    ).join('\n');
+
+    const systemInstruction = `You are the friendly, professional, and efficient AI Burger Assistant for "FAST Burgerz", a premium restaurant in Bherapul, Bharakahu, Islamabad.
+Owner: M. D. M. Irfan.
+Address: Second Home Boys Hostel, Near Soneri Bank, Bherapul, Bharakahu, Islamabad, Pakistan.
+Phone numbers: 0308-7800089, 0340-9631937.
+Delivery: 20-40 minutes across Bharakahu area.
+
+Here is our current live menu:
+${menuContext}
+
+Your goal is to:
+1. Help customers choose items from the menu. Recommend items based on their preferences (e.g. spicy, chicken, double beef, cheesy).
+2. Answer questions about ingredients, prices, opening hours (4:00 PM to 4:00 AM), address, owner, and delivery.
+3. Be helpful, concise, and professional. Encourage them to add items to their basket or order on WhatsApp.
+4. Do not make up items that are not on the menu. If they ask for something we don't have (like pizza or pasta), politely explain we only serve burgers, wraps, fries, wings, sandwiches, and margaritas.`;
+
+    // Map messages format to Gemini API format
+    const contents = messages.map(m => ({
+      role: m.role === 'model' ? 'model' : 'user',
+      parts: m.parts.map(p => ({ text: p.text }))
+    }));
+
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents,
+      config: {
+        systemInstruction,
+      }
+    });
+
+    const replyText = response.text || "I'm sorry, I couldn't process that request.";
+    return res.json({ text: replyText });
+  } catch (err: any) {
+    console.error('Gemini API error:', err);
+    return res.status(500).json({ error: err?.message || 'Gemini processing failed.' });
+  }
+});
+
 // --- Dev integration with Vite (single port) ---
+
 async function start() {
   if (NODE_ENV !== 'production') {
     const vite = await import('vite');

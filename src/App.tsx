@@ -15,17 +15,37 @@ import PromoTicker from './components/PromoTicker';
 import StatsSection from './components/StatsSection';
 import FAQSection from './components/FAQSection';
 
-
 import { Product, CartItem, Order, Review } from './types';
 import { BRAND_INFO, INITIAL_PRODUCTS, INITIAL_REVIEWS } from './data';
 
-import { createOrder } from './api';
+import {
+  createOrder,
+  fetchProducts,
+  fetchReviews,
+  fetchOrders,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+  updateOrder,
+  deleteOrder
+} from './api';
 
 import { motion, AnimatePresence } from 'motion/react';
 import { Sparkles, CheckCircle2, ShoppingBag } from 'lucide-react';
 import AuthModal from './components/AuthModal';
+import AiAssistant from './components/AiAssistant';
 
 export default function App() {
+  const [theme, setTheme] = useState<'obsidian' | 'emerald' | 'nordic'>(() => {
+    return (localStorage.getItem('fb_theme') as any) || 'obsidian';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('fb_theme', theme);
+  }, [theme]);
+
+  const [token, setToken] = useState(() => localStorage.getItem('fb_token'));
+
   // --- Persistent unified storage states ---
   const [products, setProducts] = useState<Product[]>(() => {
     const saved = localStorage.getItem('fb_products');
@@ -118,20 +138,143 @@ export default function App() {
     localStorage.setItem('fb_cart', JSON.stringify(cartItems));
   }, [cartItems]);
 
-  // Keep products/reviews locally as fallback only.
-  // If backend is live, we overwrite these shortly after mount.
+  // Dynamic server syncing hooks
   useEffect(() => {
-    if (!liveReady) localStorage.setItem('fb_products', JSON.stringify(products));
-  }, [products, liveReady]);
+    const syncToken = () => {
+      setToken(localStorage.getItem('fb_token'));
+    };
+    window.addEventListener('fb_auth_changed', syncToken);
+
+    const openAuth = () => {
+      setAuthOpen(true);
+    };
+    window.addEventListener('fb_open_auth', openAuth);
+
+    return () => {
+      window.removeEventListener('fb_auth_changed', syncToken);
+      window.removeEventListener('fb_open_auth', openAuth);
+    };
+  }, []);
 
   useEffect(() => {
-    if (!liveReady) localStorage.setItem('fb_reviews', JSON.stringify(reviews));
-  }, [reviews, liveReady]);
+    const loadDynamicData = async () => {
+      try {
+        const liveProducts = await fetchProducts();
+        if (liveProducts && liveProducts.length > 0) {
+          setProducts(liveProducts);
+          localStorage.setItem('fb_products', JSON.stringify(liveProducts));
+        }
+      } catch (err) {
+        console.error('Failed to sync products from server:', err);
+      }
 
-  // Orders: backend-only (per your choice). Keep local copy only as temporary UI buffer.
-  useEffect(() => {
-    if (!ordersLoadedFromBackend) localStorage.setItem('fb_orders', JSON.stringify(orders));
-  }, [orders, ordersLoadedFromBackend]);
+      try {
+        const liveReviews = await fetchReviews();
+        if (liveReviews && liveReviews.length > 0) {
+          setReviews(liveReviews);
+          localStorage.setItem('fb_reviews', JSON.stringify(liveReviews));
+        }
+      } catch (err) {
+        console.error('Failed to sync reviews from server:', err);
+      }
+
+      if (token) {
+        try {
+          const liveOrders = await fetchOrders(token);
+          setOrders(liveOrders);
+          setOrdersLoadedFromBackend(true);
+          localStorage.setItem('fb_orders', JSON.stringify(liveOrders));
+        } catch (err) {
+          console.error('Failed to sync orders from server:', err);
+        }
+      } else {
+        setOrders([]);
+      }
+      setLiveReady(true);
+      setInitialSyncDone(true);
+    };
+    loadDynamicData();
+  }, [token]);
+
+  // --- Proxy State Setters to sync Admin updates directly with Server ---
+  const customSetProducts = async (value: React.SetStateAction<Product[]>) => {
+    let nextProducts: Product[];
+    if (typeof value === 'function') {
+      nextProducts = value(products);
+    } else {
+      nextProducts = value;
+    }
+
+    setProducts(nextProducts);
+    localStorage.setItem('fb_products', JSON.stringify(nextProducts));
+
+    const prevIds = products.map(p => p.id);
+    const nextIds = nextProducts.map(p => p.id);
+
+    const added = nextProducts.filter(p => !prevIds.includes(p.id));
+    for (const p of added) {
+      try {
+        await createProduct(p);
+      } catch (err) {
+        console.error('API createProduct failed:', err);
+      }
+    }
+
+    const deletedIds = prevIds.filter(id => !nextIds.includes(id));
+    for (const id of deletedIds) {
+      try {
+        await deleteProduct(id);
+      } catch (err) {
+        console.error('API deleteProduct failed:', err);
+      }
+    }
+
+    for (const p of nextProducts) {
+      const prev = products.find(x => x.id === p.id);
+      if (prev && JSON.stringify(prev) !== JSON.stringify(p)) {
+        try {
+          await updateProduct(p.id, p);
+        } catch (err) {
+          console.error('API updateProduct failed:', err);
+        }
+      }
+    }
+  };
+
+  const customSetOrders = async (value: React.SetStateAction<Order[]>) => {
+    let nextOrders: Order[];
+    if (typeof value === 'function') {
+      nextOrders = value(orders);
+    } else {
+      nextOrders = value;
+    }
+
+    setOrders(nextOrders);
+    localStorage.setItem('fb_orders', JSON.stringify(nextOrders));
+
+    const prevIds = orders.map(o => o.id);
+    const nextIds = nextOrders.map(o => o.id);
+
+    const deletedIds = prevIds.filter(id => !nextIds.includes(id));
+    for (const id of deletedIds) {
+      try {
+        await deleteOrder(id);
+      } catch (err) {
+        console.error('API deleteOrder failed:', err);
+      }
+    }
+
+    for (const o of nextOrders) {
+      const prev = orders.find(x => x.id === o.id);
+      if (prev && JSON.stringify(prev) !== JSON.stringify(o)) {
+        try {
+          await updateOrder(o.id, o);
+        } catch (err) {
+          console.error('API updateOrder failed:', err);
+        }
+      }
+    }
+  };
 
   // --- Toast Trigger helper ---
   const triggerToast = (msg: string) => {
@@ -248,7 +391,7 @@ export default function App() {
   const cartTotalItemsCount = cartItems.reduce((acc, curr) => acc + curr.quantity, 0);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0b0b12] via-[#0e0e1a] to-[#050507] text-editorial-cream font-sans selection:bg-editorial-orange selection:text-black antialiased overflow-x-hidden pb-28 sm:pb-32">
+    <div className={`min-h-screen bg-gradient-to-b from-theme-bg-start via-theme-bg-mid to-theme-bg-end text-editorial-cream font-sans selection:bg-editorial-orange selection:text-black antialiased overflow-x-hidden pb-28 sm:pb-32 theme-${theme}`}>
       
       {/* Fixed Global Navbar Header */}
       <Header
@@ -261,6 +404,8 @@ export default function App() {
         setIsAdminMode={setIsAdminMode}
         activeSection={activeSection}
         setActiveSection={setActiveSection}
+        theme={theme}
+        setTheme={setTheme}
       />
 
       {/* Primary Layout Switch between Admin backoffice or standard client homepage */}
@@ -277,9 +422,9 @@ export default function App() {
             >
               <AdminPanel
                 products={products}
-                setProducts={setProducts}
+                setProducts={customSetProducts}
                 orders={orders}
-                setOrders={setOrders}
+                setOrders={customSetOrders}
                 promotions={[]}
                 setPromotions={() => {}}
                 onClose={() => setIsAdminMode(false)}
@@ -439,6 +584,10 @@ ORDER ON WHATSAPP: {BRAND_INFO.contactNumbers[1] ? BRAND_INFO.contactNumbers[1].
         )}
       </AnimatePresence>
 
+      {/* Floating AI Chat Assistant */}
+      <AiAssistant />
+
     </div>
   );
 }
+

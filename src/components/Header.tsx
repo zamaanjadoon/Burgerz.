@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ShoppingBag, Heart, Menu, X, Phone, Shield, User, Save, CheckCircle } from 'lucide-react';
+import { ShoppingBag, Heart, Menu, X, Phone, Shield, User, Save, CheckCircle, Palette, Sun, Moon, Leaf } from 'lucide-react';
 import { BRAND_INFO } from '../data';
 
 interface HeaderProps {
@@ -13,6 +13,8 @@ interface HeaderProps {
   setIsAdminMode: (admin: boolean) => void;
   activeSection: string;
   setActiveSection: (sec: string) => void;
+  theme: 'obsidian' | 'emerald' | 'nordic';
+  setTheme: (t: 'obsidian' | 'emerald' | 'nordic') => void;
 }
 
 export default function Header({
@@ -25,6 +27,8 @@ export default function Header({
   setIsAdminMode,
   activeSection,
   setActiveSection,
+  theme,
+  setTheme,
 }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -33,16 +37,56 @@ export default function Header({
   const [profilePhone, setProfilePhone] = useState('');
   const [profileAddress, setProfileAddress] = useState('');
   const [saveSuccess, setSaveSuccess] = useState(false);
+  const [themeDropdownOpen, setThemeDropdownOpen] = useState(false);
 
-  useEffect(() => {
+  const [userProfile, setUserProfile] = useState<{ name: string; phone: string; role: 'customer' | 'admin' } | null>(null);
+
+  const syncAuth = () => {
     const saved = localStorage.getItem('fb_user_profile');
     if (saved) {
-      const parsed = JSON.parse(saved);
+      setUserProfile(JSON.parse(saved));
+    } else {
+      setUserProfile(null);
+    }
+  };
+
+  useEffect(() => {
+    syncAuth();
+    window.addEventListener('fb_auth_changed', syncAuth);
+    return () => window.removeEventListener('fb_auth_changed', syncAuth);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('fb_token');
+    localStorage.removeItem('fb_user_profile');
+    localStorage.removeItem('fb_customer_auth');
+    window.dispatchEvent(new Event('fb_auth_changed'));
+    setIsAdminMode(false);
+  };
+
+  const handleAdminClick = () => {
+    if (userProfile?.role === 'admin') {
+      setIsAdminMode(!isAdminMode);
+      setShowFavoritesOnly(false);
+    } else {
+      alert("Admin Access: Please log in using the administrator phone number and password.");
+      window.dispatchEvent(new Event('fb_open_auth'));
+    }
+  };
+
+  useEffect(() => {
+    const savedProfile = localStorage.getItem('fb_user_profile');
+    if (savedProfile) {
+      const parsed = JSON.parse(savedProfile);
       setProfileName(parsed.name || '');
       setProfilePhone(parsed.phone || '');
+    }
+    const savedAddr = localStorage.getItem('fb_user_profile');
+    if (savedAddr) {
+      const parsed = JSON.parse(savedAddr);
       setProfileAddress(parsed.address || '');
     }
-  }, []);
+  }, [userProfile]);
 
   const handleSaveProfile = (e: React.FormEvent) => {
     e.preventDefault();
@@ -159,7 +203,14 @@ export default function Header({
               <span>Call: 0308-7800089</span>
             </a>
 
-            {/* User Account Button */}
+            {/* User Greeting if logged in */}
+            {userProfile && (
+              <span className="hidden lg:inline text-[9px] font-extrabold uppercase tracking-[0.18em] text-editorial-cream/50 pr-1 select-none">
+                Hi, {userProfile.name.split(' ')[0]}
+              </span>
+            )}
+
+            {/* User Account Profile Info Button */}
             <button
               onClick={() => setIsProfileOpen(true)}
               className="p-2 rounded-none bg-editorial-darker/50 text-white/60 border border-white/10 hover:text-white hover:border-white/25 transition-all duration-300"
@@ -168,6 +219,64 @@ export default function Header({
             >
               <User size={16} />
             </button>
+
+            {/* Theme Selector Dropdown */}
+            <div className="relative flex items-center justify-center">
+              <button
+                onClick={() => setThemeDropdownOpen(!themeDropdownOpen)}
+                className="p-2 rounded-none bg-editorial-darker/50 text-white/60 border border-white/10 hover:text-white hover:border-white/25 transition-all duration-300 flex items-center justify-center"
+                title="Change Theme"
+                id="theme-dropdown-btn"
+              >
+                <Palette size={16} className="text-editorial-orange animate-pulse" />
+              </button>
+              
+              <AnimatePresence>
+                {themeDropdownOpen && (
+                  <>
+                    <div 
+                      className="fixed inset-0 z-40 bg-transparent" 
+                      onClick={() => setThemeDropdownOpen(false)} 
+                    />
+                    <motion.div
+                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute right-0 top-10 mt-1 w-44 z-50 bg-editorial-dark border border-editorial shadow-2xl rounded-none py-1.5"
+                    >
+                      <div className="px-3 py-1.5 border-b border-editorial text-[8px] font-extrabold uppercase tracking-widest text-editorial-cream/40">
+                        Select App Theme
+                      </div>
+                      {[
+                        { id: 'obsidian', label: 'Obsidian Pro', desc: 'Modern Dark', icon: <Moon size={11} className="text-orange-500" /> },
+                        { id: 'emerald', label: 'Emerald Forest', desc: 'Luxury Gourmet', icon: <Leaf size={11} className="text-emerald-400" /> },
+                        { id: 'nordic', label: 'Nordic Alabaster', desc: 'Minimalist Light', icon: <Sun size={11} className="text-amber-500" /> }
+                      ].map((t) => (
+                        <button
+                          key={t.id}
+                          onClick={() => {
+                            setTheme(t.id as any);
+                            setThemeDropdownOpen(false);
+                          }}
+                          className={`w-full text-left px-3 py-1.5 flex items-center space-x-2 hover:bg-editorial-cream/5 transition-colors cursor-pointer border-none bg-transparent ${
+                            theme === t.id ? 'font-extrabold text-editorial-orange' : 'text-editorial-cream/70'
+                          }`}
+                        >
+                          <div className="p-1 bg-editorial-darker/60 rounded-md flex-shrink-0 flex items-center justify-center">
+                            {t.icon}
+                          </div>
+                          <div className="flex flex-col text-left">
+                            <span className="text-[11px] font-bold leading-tight">{t.label}</span>
+                            <span className="text-[8px] text-editorial-cream/35 leading-tight">{t.desc}</span>
+                          </div>
+                        </button>
+                      ))}
+                    </motion.div>
+                  </>
+                )}
+              </AnimatePresence>
+            </div>
 
             {/* Favorites Toggle List (Editorial Heart Layout) */}
             <button
@@ -207,10 +316,7 @@ export default function Header({
 
             {/* Admin Backoffice Option */}
             <button
-              onClick={() => {
-                setIsAdminMode(!isAdminMode);
-                setShowFavoritesOnly(false);
-              }}
+              onClick={handleAdminClick}
               className={`p-2 rounded-none transition-all duration-300 border ${isAdminMode
                 ? 'bg-editorial-gold text-black border-editorial-gold font-bold'
                 : 'bg-editorial-darker/50 text-white/60 border-white/10 hover:text-editorial-gold hover:border-editorial-gold/40'
@@ -220,6 +326,19 @@ export default function Header({
             >
               <Shield size={16} />
             </button>
+
+            {/* Logout button (if logged in) */}
+            {userProfile && (
+              <button
+                onClick={handleLogout}
+                className="hidden lg:block p-2 rounded-none bg-rose-500/10 text-rose-400 border border-rose-500/30 hover:bg-rose-500 hover:text-white transition-all duration-300 text-[9px] font-black uppercase tracking-wider px-2.5 py-1.5 cursor-pointer"
+                title="Logout Account"
+                id="logout-btn"
+              >
+                Logout
+              </button>
+            )}
+
 
             {/* Mobile Hamburger Button */}
             <button
@@ -288,8 +407,7 @@ export default function Header({
               {/* Admin Button on Mobile */}
               <button
                 onClick={() => {
-                  setIsAdminMode(!isAdminMode);
-                  setShowFavoritesOnly(false);
+                  handleAdminClick();
                   setMobileMenuOpen(false);
                 }}
                 className={`flex items-center space-x-2 w-full text-left px-3 py-2.5 text-xs font-bold uppercase tracking-[0.1em] rounded-none border transition-all ${isAdminMode
@@ -300,6 +418,20 @@ export default function Header({
                 <Shield size={12} />
                 <span>{isAdminMode ? 'Exit Admin Mode' : 'Open Admin Panel'}</span>
               </button>
+
+              {/* Logout Button on Mobile */}
+              {userProfile && (
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setMobileMenuOpen(false);
+                  }}
+                  className="flex items-center space-x-2 w-full text-left px-3 py-2.5 text-xs font-bold uppercase tracking-[0.1em] rounded-none border border-rose-500/25 bg-rose-500/10 text-rose-400 hover:bg-rose-500 hover:text-white transition-all cursor-pointer"
+                >
+                  <span>Logout Account ({userProfile.name})</span>
+                </button>
+              )}
+
             </div>
           </motion.div>
         )}
