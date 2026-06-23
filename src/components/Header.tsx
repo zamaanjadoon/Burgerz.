@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ShoppingBag, Heart, Menu, X, Phone, Shield, User, Save, CheckCircle, Palette, Sun, Moon, Leaf } from 'lucide-react';
+import { ShoppingBag, Heart, Menu, X, Phone, Shield, User, Save, CheckCircle, Palette, Sun, Moon, Leaf, Flame, Waves } from 'lucide-react';
 import { BRAND_INFO } from '../data';
 
 interface HeaderProps {
@@ -13,9 +13,10 @@ interface HeaderProps {
   setIsAdminMode: (admin: boolean) => void;
   activeSection: string;
   setActiveSection: (sec: string) => void;
-  theme: 'obsidian' | 'emerald' | 'nordic';
-  setTheme: (t: 'obsidian' | 'emerald' | 'nordic') => void;
+  theme: 'obsidian' | 'emerald' | 'nordic' | 'crimson' | 'ocean';
+  setTheme: (t: 'obsidian' | 'emerald' | 'nordic' | 'crimson' | 'ocean') => void;
 }
+
 
 export default function Header({
   cartCount,
@@ -251,6 +252,8 @@ export default function Header({
                       {[
                         { id: 'obsidian', label: 'Obsidian Pro', desc: 'Modern Dark', icon: <Moon size={11} className="text-orange-500" /> },
                         { id: 'emerald', label: 'Emerald Forest', desc: 'Luxury Gourmet', icon: <Leaf size={11} className="text-emerald-400" /> },
+                        { id: 'crimson', label: 'Crimson Flame', desc: 'Spicy Crimson', icon: <Flame size={11} className="text-rose-500" /> },
+                        { id: 'ocean', label: 'Ocean Wave', desc: 'Sleek Seaport', icon: <Waves size={11} className="text-cyan-400" /> },
                         { id: 'nordic', label: 'Nordic Alabaster', desc: 'Minimalist Light', icon: <Sun size={11} className="text-amber-500" /> }
                       ].map((t) => (
                         <button

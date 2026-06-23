@@ -79,6 +79,34 @@
   --radius-input: 12px;
 }
 
+.theme-crimson {
+  --bg-dark: #0f0507;
+  --bg-darker: #1c0b0e;
+  --text-cream: #fff1f2;
+  --bg-beige: #2e1216;
+  --color-accent: #f43f5e;
+  --color-accent-secondary: #f97316;
+  --border-color: rgba(244, 63, 94, 0.08);
+  --border-color-strong: rgba(244, 63, 94, 0.16);
+  --radius-base: 14px;
+  --radius-button: 9999px;
+  --radius-input: 8px;
+}
+
+.theme-ocean {
+  --bg-dark: #0b1329;
+  --bg-darker: #1c2541;
+  --text-cream: #f0f9ff;
+  --bg-beige: #3a506b;
+  --color-accent: #0ea5e9;
+  --color-accent-secondary: #2dd4bf;
+  --border-color: rgba(14, 165, 233, 0.08);
+  --border-color-strong: rgba(14, 165, 233, 0.16);
+  --radius-base: 16px;
+  --radius-button: 12px;
+  --radius-input: 10px;
+}
+
 
 /* Global rounded overlays for professional look */
 .rounded-none {
@@ -133,9 +161,12 @@ select.rounded-none {
   background-size: 24px 24px;
 }
 
-.theme-nordic .editorial-grid {
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+.theme-obsidian .editorial-grid,
+.theme-emerald .editorial-grid,
+.theme-crimson .editorial-grid,
+.theme-ocean .editorial-grid {
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
 }
 
 /* Smooth layout scrollbars resembling a high-fashion lookbook */

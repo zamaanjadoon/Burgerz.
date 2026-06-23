@@ -36,9 +36,10 @@ import AuthModal from './components/AuthModal';
 import AiAssistant from './components/AiAssistant';
 
 export default function App() {
-  const [theme, setTheme] = useState<'obsidian' | 'emerald' | 'nordic'>(() => {
+  const [theme, setTheme] = useState<'obsidian' | 'emerald' | 'nordic' | 'crimson' | 'ocean'>(() => {
     return (localStorage.getItem('fb_theme') as any) || 'obsidian';
   });
+
 
 
 
