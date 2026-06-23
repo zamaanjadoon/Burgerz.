@@ -24,14 +24,14 @@
 
 /* Theme variables definitions */
 :root {
-  --bg-dark: #f5f5f7;
-  --bg-darker: #ffffff;
-  --text-cream: #1c1917;
-  --bg-beige: #e4e4e7;
-  --color-accent: #ea580c;
-  --color-accent-secondary: #d97706;
-  --border-color: rgba(0, 0, 0, 0.08);
-  --border-color-strong: rgba(0, 0, 0, 0.15);
+  --bg-dark: #0b0b12;
+  --bg-darker: #06060a;
+  --text-cream: #ffffff;
+  --bg-beige: #1a1a2e;
+  --color-accent: #f97316;
+  --color-accent-secondary: #f59e0b;
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-color-strong: rgba(255, 255, 255, 0.18);
   --radius-base: 14px;
   --radius-button: 9999px;
   --radius-input: 8px;
@@ -66,10 +66,10 @@
 }
 
 .theme-nordic {
-  --bg-dark: #f5f5f7;
-  --bg-darker: #ffffff;
+  --bg-dark: #fcfbfa;
+  --bg-darker: #f5f4f0;
   --text-cream: #1c1917;
-  --bg-beige: #e4e4e7;
+  --bg-beige: #e7e5e4;
   --color-accent: #ea580c;
   --color-accent-secondary: #d97706;
   --border-color: rgba(0, 0, 0, 0.08);
@@ -128,15 +128,14 @@ select.rounded-none {
 
 /* Custom Editorial Elements and Accents */
 .editorial-grid {
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
-.theme-obsidian .editorial-grid,
-.theme-emerald .editorial-grid {
-  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+.theme-nordic .editorial-grid {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
 }
 
 /* Smooth layout scrollbars resembling a high-fashion lookbook */
