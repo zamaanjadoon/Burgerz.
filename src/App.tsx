@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
+import CategoriesSection from './components/CategoriesSection';
+import CategoryPage from './components/CategoryPage';
 
 import MenuSection from './components/MenuSection';
 import Reviews from './components/Reviews';
@@ -94,6 +96,44 @@ export default function App() {
   const [isAdminMode, setIsAdminMode] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
   const [preselectedCategory, setPreselectedCategory] = useState<string>('all');
+  const [route, setRoute] = useState(() => window.location.hash || '#/');
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      setRoute(window.location.hash || '#/');
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  useEffect(() => {
+    const r = route || '#/';
+    if (r === '#/' || r === '') {
+      setActiveSection('hero');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (r === '#/menu') {
+      setActiveSection('menu');
+      setTimeout(() => {
+        const el = document.getElementById('menu');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    } else if (r === '#/orders') {
+      setActiveSection('orders');
+      setTimeout(() => {
+        const el = document.getElementById('tracking');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    } else if (r === '#/contact') {
+      setActiveSection('contact');
+      setTimeout(() => {
+        const el = document.getElementById('contact');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    } else if (r.startsWith('#/category/')) {
+      setActiveSection('categories');
+      window.scrollTo({ top: 0 });
+    }
+  }, [route]);
   
   // Custom Visual Toast alert state
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -433,6 +473,28 @@ export default function App() {
                 onClose={() => setIsAdminMode(false)}
               />
             </motion.div>
+          ) : route.startsWith('#/category/') ? (
+            <motion.div
+              key="category-page"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <CategoryPage
+                categoryId={route.replace('#/category/', '')}
+                products={products}
+                favorites={favorites}
+                toggleFavorite={toggleFavorite}
+                addToCart={addToCart}
+                onNavigateHome={() => {
+                  window.location.hash = '#/';
+                }}
+                onNavigateCategory={(catId) => {
+                  window.location.hash = `#/category/${catId}`;
+                }}
+              />
+            </motion.div>
           ) : (
             <motion.div
               key="client-homepage"
@@ -450,6 +512,13 @@ export default function App() {
                 }}
                 onWhatsAppOrderClick={handleGlobalWhatsAppClick}
                 onLoginClick={() => setAuthOpen(true)}
+              />
+
+              {/* 1.25 Categories hub selector section */}
+              <CategoriesSection
+                onCategoryClick={(catId) => {
+                  window.location.hash = `#/category/${catId}`;
+                }}
               />
 
               {/* 1.5 Promotional Ticker Banner Strip (removed delivery/offers info) */}

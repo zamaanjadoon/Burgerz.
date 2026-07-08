@@ -39,6 +39,7 @@ export default function Header({
   const [profileAddress, setProfileAddress] = useState('');
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [themeDropdownOpen, setThemeDropdownOpen] = useState(false);
+  const [categoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
 
   const [userProfile, setUserProfile] = useState<{ name: string; phone: string; role: 'customer' | 'admin' } | null>(null);
 
@@ -118,6 +119,7 @@ export default function Header({
 
   const navItems = [
     { id: 'hero', label: 'Home' },
+    { id: 'categories', label: 'Categories', isDropdown: true },
     { id: 'menu', label: 'Full Menu' },
     { id: 'orders', label: 'My Orders' },
     { id: 'contact', label: 'Contact Us' },
@@ -130,21 +132,13 @@ export default function Header({
     setIsAdminMode(false);
     setMobileMenuOpen(false);
 
-    // Map custom drawer actions to anchors / behaviors
-    const anchorId =
-      sectionId === 'orders' ? 'tracking' :
-      sectionId === 'download' ? 'menu' : // fallback (no dedicated download anchor)
-      sectionId;
-
-    const el = document.getElementById(anchorId);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (sectionId === 'hero') {
+      window.location.hash = '#/';
+      return;
     }
 
-    if (sectionId === 'download') {
-      // No file is guaranteed in repo; best-effort open in new tab.
-      window.open('/menu.pdf', '_blank');
-    }
+    // Update hash for general routing
+    window.location.hash = `#/${sectionId}`;
   };
 
   return (
@@ -176,20 +170,79 @@ export default function Header({
 
           {/* Desktop Navigation: Geometric tracked Lookbook text */}
           <nav className="hidden md:flex items-center space-x-2">
-            {navItems.map((item) => (
-              <button
-                  key={item.id}
-                  id={`nav-${item.id}`}
-                  onClick={() => handleNavClick(item.id)}
-                  title={item.label}
-                  className={`px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.2em] transition-all ${activeSection === item.id && !isAdminMode && !showFavoritesOnly
-                    ? 'text-editorial-orange border-b border-editorial-orange'
-                    : 'text-white/60 hover:text-white'
+            {navItems.map((item) => {
+              if (item.isDropdown) {
+                return (
+                  <div key={item.id} className="relative flex items-center justify-center">
+                    <button
+                      id={`nav-${item.id}`}
+                      onClick={() => setCategoryDropdownOpen(!categoryDropdownOpen)}
+                      className={`px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.2em] transition-all flex items-center space-x-1 ${
+                        window.location.hash.includes('#/category/')
+                          ? 'text-editorial-orange border-b border-editorial-orange'
+                          : 'text-white/60 hover:text-white'
+                      }`}
+                    >
+                      <span>{item.label}</span>
+                      <span className="text-[8px] opacity-60">▼</span>
+                    </button>
+                    <AnimatePresence>
+                      {categoryDropdownOpen && (
+                        <>
+                          <div
+                            className="fixed inset-0 z-40 bg-transparent"
+                            onClick={() => setCategoryDropdownOpen(false)}
+                          />
+                          <motion.div
+                            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                            transition={{ duration: 0.15 }}
+                            className="absolute left-0 top-10 mt-1 w-48 z-50 bg-editorial-dark border border-editorial shadow-2xl rounded-none py-1.5"
+                          >
+                            {[
+                              { id: 'burgers', label: 'Burgers 🍔' },
+                              { id: 'fries', label: 'Crispy Fries 🍟' },
+                              { id: 'wraps', label: 'Wraps & Shawarma 🌯' },
+                              { id: 'wings', label: 'Crispy Wings 🍗' },
+                              { id: 'sandwiches', label: 'Sandwiches 🥪' },
+                              { id: 'drinks', label: 'Cold Drinks 🍹' }
+                            ].map((cat) => (
+                              <button
+                                key={cat.id}
+                                onClick={() => {
+                                  window.location.hash = `#/category/${cat.id}`;
+                                  setCategoryDropdownOpen(false);
+                                }}
+                                className="w-full text-left px-4 py-2 hover:bg-editorial-cream/5 text-editorial-cream/80 hover:text-white text-[10px] font-bold uppercase tracking-wider border-none bg-transparent cursor-pointer"
+                              >
+                                {cat.label}
+                              </button>
+                            ))}
+                          </motion.div>
+                        </>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              }
+
+              return (
+                <button
+                    key={item.id}
+                    id={`nav-${item.id}`}
+                    onClick={() => handleNavClick(item.id)}
+                    title={item.label}
+                    className={`px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.2em] transition-all ${
+                      activeSection === item.id && !isAdminMode && !showFavoritesOnly && !window.location.hash.includes('#/category/')
+                        ? 'text-editorial-orange border-b border-editorial-orange'
+                        : 'text-white/60 hover:text-white'
                     }`}
-              >
-                {item.label}
-              </button>
-            ))}
+                >
+                  {item.label}
+                </button>
+              );
+            })}
           </nav>
 
           {/* Action Utilities (Sharp square buttons) */}
@@ -367,19 +420,50 @@ export default function Header({
             id="mobile-drawer"
           >
             <div className="space-y-1 px-4 py-3">
-              {navItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => handleNavClick(item.id)}
-                  title={item.label}
-                  className={`w-full text-left px-3 py-2 text-xs font-bold uppercase tracking-[0.2em] rounded-none transition-all ${activeSection === item.id && !isAdminMode && !showFavoritesOnly
-                    ? 'text-editorial-orange bg-white/5 border-l-2 border-editorial-orange'
-                    : 'text-white/60 hover:text-white hover:bg-white/5'
+              {navItems.map((item) => {
+                if (item.isDropdown) {
+                  return (
+                    <div key={item.id} className="space-y-1 pl-2">
+                      <div className="px-3 py-1 text-[9px] font-extrabold uppercase tracking-widest text-white/40">
+                        {item.label}
+                      </div>
+                      {[
+                        { id: 'burgers', label: 'Burgers 🍔' },
+                        { id: 'fries', label: 'Crispy Fries 🍟' },
+                        { id: 'wraps', label: 'Wraps & Shawarma 🌯' },
+                        { id: 'wings', label: 'Crispy Wings 🍗' },
+                        { id: 'sandwiches', label: 'Sandwiches 🥪' },
+                        { id: 'drinks', label: 'Cold Drinks 🍹' }
+                      ].map((cat) => (
+                        <button
+                          key={cat.id}
+                          onClick={() => {
+                            window.location.hash = `#/category/${cat.id}`;
+                            setMobileMenuOpen(false);
+                          }}
+                          className="w-full text-left px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-white/60 hover:text-white hover:bg-white/5 border-none bg-transparent cursor-pointer"
+                        >
+                          {cat.label}
+                        </button>
+                      ))}
+                    </div>
+                  );
+                }
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => handleNavClick(item.id)}
+                    title={item.label}
+                    className={`w-full text-left px-3 py-2 text-xs font-bold uppercase tracking-[0.2em] rounded-none transition-all ${
+                      activeSection === item.id && !isAdminMode && !showFavoritesOnly && !window.location.hash.includes('#/category/')
+                        ? 'text-editorial-orange bg-white/5 border-l-2 border-editorial-orange'
+                        : 'text-white/60 hover:text-white hover:bg-white/5'
                     }`}
-                >
-                  {item.label}
-                </button>
-              ))}
+                  >
+                    {item.label}
+                  </button>
+                );
+              })}
 
               <hr className="border-white/5 my-2" />
 
